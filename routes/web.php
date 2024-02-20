@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +45,9 @@ Route::middleware('auth')->group(function () {
     // User Routes
     Route::resource('users', UserController::class);
 });
+
+
+//Quiz Route
+Route::resource('/quizzes', QuizController::class)->middleware('auth');
 
 require __DIR__ . '/auth.php';

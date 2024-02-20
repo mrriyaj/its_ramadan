@@ -28,6 +28,12 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route("quizzes.index")}
+                                    active={route().current("quizzes.index")}
+                                >
+                                    Quizzes
+</NevLink>
                                 <NavLink href={route('users.index')} active={route().current('users.index')}>
                                     Users
                                 </NavLink>
@@ -135,6 +141,12 @@ export default function Authenticated({ user, header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("quizzes.index")}
+                            active={route().current("quizzes.index")}
+                        >
+                            Quizzes
+</ResponsiveNavLink>
                         <ResponsiveNavLink href={route('users.index')} active={route().current('users.index')}>
                             Dashboard
                         </ResponsiveNavLink>
