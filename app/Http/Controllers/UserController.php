@@ -13,9 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $authUserId = auth()->id();
 
-        $users = User::where('id', '!=', $authUserId)->get();
+        $users = User::all();
 
         return Inertia::render('Admin/Users/Index', [
             'users' => $users,
