@@ -148,7 +148,7 @@ export default function Authenticated({ user, header, children }) {
                             Quizzes
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('users.index')} active={route().current('users.index')}>
-                            Dashboard
+                            Users
                         </ResponsiveNavLink>
                     </div>
 
