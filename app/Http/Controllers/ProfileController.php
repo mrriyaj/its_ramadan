@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,6 +31,16 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+
+        $user = User::find(1);
+
+        // Check if all other columns are filled
+        if (!is_null($user->first_name) && !is_null($user->last_name) && !is_null($user->gender) && !is_null($user->dob) && !is_null($user->address_line_1) && !is_null($user->address_line_2) && !is_null($user->city) && !is_null($user->district) && !is_null($user->country) && !is_null($user->postal_code) && !is_null($user->education_level) && !is_null($user->institute_name) && !is_null($user->phone) && !is_null($user->whatsapp)) {
+            // Update the 'onboarding' column to 1
+            $user->onboarding = 1;
+            $user->save();
+            // return Redirect::route('dashboard');
+        }
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

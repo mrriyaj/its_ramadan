@@ -2,10 +2,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 
-export default function UpdateProfileInformation({
+export default function OnboardForm({
     mustVerifyEmail,
     status,
     className = "",
@@ -31,11 +31,11 @@ export default function UpdateProfileInformation({
             email: user.email,
         });
 
-    const submit = (e) => {
-        e.preventDefault();
-
-        patch(route("profile.update"));
-    };
+        const submit = (e) => {
+            e.preventDefault();
+    
+            patch(route("profile.update"));
+        };
 
     return (
         <section className={className}>
@@ -45,7 +45,7 @@ export default function UpdateProfileInformation({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Update your account's profile information and email address.
+                    Please enter your account's all profile information
                 </p>
             </header>
 
@@ -74,6 +74,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.last_name}
                         onChange={(e) => setData("last_name", e.target.value)}
+                        required
                         autoComplete="last_name"
                     />
 
@@ -88,6 +89,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.gender}
                         onChange={(e) => setData("gender", e.target.value)}
+                        required
                         autoComplete="gender"
                     />
 
@@ -103,6 +105,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.dob}
                         onChange={(e) => setData("dob", e.target.value)}
+                        required
                         autoComplete="dob"
                     />
 
@@ -122,6 +125,7 @@ export default function UpdateProfileInformation({
                         onChange={(e) =>
                             setData("address_line_1", e.target.value)
                         }
+                        required
                         autoComplete="address_line_1"
                     />
 
@@ -161,6 +165,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.city}
                         onChange={(e) => setData("city", e.target.value)}
+                        required
                         autoComplete="city"
                     />
 
@@ -175,6 +180,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.district}
                         onChange={(e) => setData("district", e.target.value)}
+                        required
                         autoComplete="district"
                     />
 
@@ -189,6 +195,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.country}
                         onChange={(e) => setData("country", e.target.value)}
+                        required
                         autoComplete="country"
                     />
 
@@ -203,6 +210,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.postal_code}
                         onChange={(e) => setData("postal_code", e.target.value)}
+                        required
                         autoComplete="postal_code"
                     />
 
@@ -222,6 +230,7 @@ export default function UpdateProfileInformation({
                         onChange={(e) =>
                             setData("education_level", e.target.value)
                         }
+                        required
                         autoComplete="education_level"
                     />
 
@@ -244,6 +253,7 @@ export default function UpdateProfileInformation({
                         onChange={(e) =>
                             setData("institute_name", e.target.value)
                         }
+                        required
                         autoComplete="institute_name"
                     />
 
@@ -261,6 +271,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.phone}
                         onChange={(e) => setData("phone", e.target.value)}
+                        required
                         autoComplete="phone"
                     />
 
@@ -275,6 +286,7 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.whatsapp}
                         onChange={(e) => setData("whatsapp", e.target.value)}
+                        required
                         autoComplete="whatsapp"
                     />
 
@@ -291,37 +303,16 @@ export default function UpdateProfileInformation({
                         value={data.email}
                         onChange={(e) => setData("email", e.target.value)}
                         required
+                        disabled
                         autoComplete="username"
                     />
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                            Your email address is unverified.
-                            <Link
-                                href={route("verification.send")}
-                                method="post"
-                                as="button"
-                                className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                            >
-                                Click here to re-send the verification email.
-                            </Link>
-                        </p>
-
-                        {status === "verification-link-sent" && (
-                            <div className="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                                A new verification link has been sent to your
-                                email address.
-                            </div>
-                        )}
-                    </div>
-                )}
-
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Finish</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}
