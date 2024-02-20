@@ -29,8 +29,8 @@ Route::get('/', function () {
     ]);
 });
 
+//google auth
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
-
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 
 
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard');
-        
+
         // User Routes
         Route::resource('users', UserController::class);
 

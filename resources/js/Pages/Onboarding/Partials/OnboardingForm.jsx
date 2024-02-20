@@ -31,11 +31,11 @@ export default function OnboardForm({
             email: user.email,
         });
 
-        const submit = (e) => {
-            e.preventDefault();
-    
-            patch(route("profile.update"));
-        };
+    const submit = (e) => {
+        e.preventDefault();
+
+        patch(route("profile.update"));
+    };
 
     return (
         <section className={className}>
@@ -45,14 +45,14 @@ export default function OnboardForm({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Please enter your account's all profile information
+                    Please enter your details
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
+            <form onSubmit={submit}>
+                <div className="grid grid-cols-2 gap-4">
                 <div>
                     <InputLabel htmlFor="first_name" value="First Name" />
-
                     <TextInput
                         id="first_name"
                         className="mt-1 block w-full"
@@ -62,13 +62,11 @@ export default function OnboardForm({
                         isFocused
                         autoComplete="first_name"
                     />
-
                     <InputError className="mt-2" message={errors.first_name} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="last_name" value="Last Name" />
-
                     <TextInput
                         id="last_name"
                         className="mt-1 block w-full"
@@ -77,13 +75,11 @@ export default function OnboardForm({
                         required
                         autoComplete="last_name"
                     />
-
                     <InputError className="mt-2" message={errors.last_name} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="gender" value="Gender" />
-
                     <TextInput
                         id="gender"
                         className="mt-1 block w-full"
@@ -92,13 +88,11 @@ export default function OnboardForm({
                         required
                         autoComplete="gender"
                     />
-
                     <InputError className="mt-2" message={errors.gender} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="dob" value="Date of Birth" />
-
                     <TextInput
                         id="dob"
                         type="date"
@@ -108,7 +102,6 @@ export default function OnboardForm({
                         required
                         autoComplete="dob"
                     />
-
                     <InputError className="mt-2" message={errors.dob} />
                 </div>
 
@@ -117,7 +110,6 @@ export default function OnboardForm({
                         htmlFor="address_line_1"
                         value="Address Line 1"
                     />
-
                     <TextInput
                         id="address_line_1"
                         className="mt-1 block w-full"
@@ -128,7 +120,6 @@ export default function OnboardForm({
                         required
                         autoComplete="address_line_1"
                     />
-
                     <InputError
                         className="mt-2"
                         message={errors.address_line_1}
@@ -140,7 +131,6 @@ export default function OnboardForm({
                         htmlFor="address_line_2"
                         value="Address Line 2"
                     />
-
                     <TextInput
                         id="address_line_2"
                         className="mt-1 block w-full"
@@ -150,7 +140,6 @@ export default function OnboardForm({
                         }
                         autoComplete="address_line_2"
                     />
-
                     <InputError
                         className="mt-2"
                         message={errors.address_line_2}
@@ -159,7 +148,6 @@ export default function OnboardForm({
 
                 <div>
                     <InputLabel htmlFor="city" value="City" />
-
                     <TextInput
                         id="city"
                         className="mt-1 block w-full"
@@ -168,13 +156,11 @@ export default function OnboardForm({
                         required
                         autoComplete="city"
                     />
-
                     <InputError className="mt-2" message={errors.city} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="district" value="District" />
-
                     <TextInput
                         id="district"
                         className="mt-1 block w-full"
@@ -183,13 +169,11 @@ export default function OnboardForm({
                         required
                         autoComplete="district"
                     />
-
                     <InputError className="mt-2" message={errors.district} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="country" value="Country" />
-
                     <TextInput
                         id="country"
                         className="mt-1 block w-full"
@@ -198,13 +182,11 @@ export default function OnboardForm({
                         required
                         autoComplete="country"
                     />
-
                     <InputError className="mt-2" message={errors.country} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="postal_code" value="Postal Code" />
-
                     <TextInput
                         id="postal_code"
                         className="mt-1 block w-full"
@@ -213,7 +195,6 @@ export default function OnboardForm({
                         required
                         autoComplete="postal_code"
                     />
-
                     <InputError className="mt-2" message={errors.postal_code} />
                 </div>
 
@@ -222,7 +203,6 @@ export default function OnboardForm({
                         htmlFor="education_level"
                         value="Education Level"
                     />
-
                     <TextInput
                         id="education_level"
                         className="mt-1 block w-full"
@@ -233,7 +213,6 @@ export default function OnboardForm({
                         required
                         autoComplete="education_level"
                     />
-
                     <InputError
                         className="mt-2"
                         message={errors.education_level}
@@ -245,7 +224,6 @@ export default function OnboardForm({
                         htmlFor="institute_name"
                         value="Institute Name"
                     />
-
                     <TextInput
                         id="institute_name"
                         className="mt-1 block w-full"
@@ -256,7 +234,6 @@ export default function OnboardForm({
                         required
                         autoComplete="institute_name"
                     />
-
                     <InputError
                         className="mt-2"
                         message={errors.institute_name}
@@ -265,7 +242,6 @@ export default function OnboardForm({
 
                 <div>
                     <InputLabel htmlFor="phone" value="Phone Number" />
-
                     <TextInput
                         id="phone"
                         className="mt-1 block w-full"
@@ -274,13 +250,11 @@ export default function OnboardForm({
                         required
                         autoComplete="phone"
                     />
-
                     <InputError className="mt-2" message={errors.phone} />
                 </div>
 
                 <div>
                     <InputLabel htmlFor="whatsapp" value="Whatsapp Number" />
-
                     <TextInput
                         id="whatsapp"
                         className="mt-1 block w-full"
@@ -289,31 +263,12 @@ export default function OnboardForm({
                         required
                         autoComplete="whatsapp"
                     />
-
                     <InputError className="mt-2" message={errors.whatsapp} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData("email", e.target.value)}
-                        required
-                        disabled
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
                 </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
                     <PrimaryButton disabled={processing}>Finish</PrimaryButton>
-
                     <Transition
                         show={recentlySuccessful}
                         enter="transition ease-in-out"
@@ -325,6 +280,7 @@ export default function OnboardForm({
                             Saved.
                         </p>
                     </Transition>
+                    </div>
                 </div>
             </form>
         </section>
