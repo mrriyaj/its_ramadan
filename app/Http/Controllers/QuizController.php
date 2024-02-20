@@ -11,7 +11,10 @@ class QuizController extends Controller
 {
     public function index()
     {
-    
+        $quizzes = Quiz::all();
+        return Inertia::render('Admin/Quizzes/Index',[
+            'quizzes' => $quizzes
+        ]);
     }
 
     public function create()
@@ -42,16 +45,17 @@ class QuizController extends Controller
 
     public function edit(Quiz $quiz)
     {
-        
+
     }
 
     public function update(Request $request, Quiz $quiz)
     {
-     
+        
     }
 
     public function destroy(Quiz $quiz)
     {
-        
+        $quiz->delete();
+        return response()->json(['message', 'Quiz has been deleted']);
     }
 }
