@@ -44,10 +44,12 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
     Route::resource('users', UserController::class);
+
+    //Quiz Route
+    Route::resource('/quizzes', QuizController::class);
 });
 
 
-//Quiz Route
-Route::resource('/quizzes', QuizController::class)->middleware('auth');
+
 
 require __DIR__ . '/auth.php';

@@ -33,7 +33,7 @@ export default function Authenticated({ user, header, children }) {
                                     active={route().current("quizzes.index")}
                                 >
                                     Quizzes
-</NevLink>
+                                </NavLink>
                                 <NavLink href={route('users.index')} active={route().current('users.index')}>
                                     Users
                                 </NavLink>
@@ -146,7 +146,7 @@ export default function Authenticated({ user, header, children }) {
                             active={route().current("quizzes.index")}
                         >
                             Quizzes
-</ResponsiveNavLink>
+                        </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('users.index')} active={route().current('users.index')}>
                             Dashboard
                         </ResponsiveNavLink>
