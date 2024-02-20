@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
@@ -44,6 +45,9 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
     Route::resource('users', UserController::class);
+
+    // Organization Routes
+    Route::resource('organizations', OrganizationController::class);
 
     //Quiz Route
     Route::resource('/quizzes', QuizController::class);
