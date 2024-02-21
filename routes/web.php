@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
 
         //Quiz Route
-        Route::resource('/quizzes', QuizController::class);
+        Route::resource('quizzes', QuizController::class);
 
         // Organization Routes
         Route::resource('organizations', OrganizationController::class);
