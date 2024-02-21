@@ -83,13 +83,21 @@ export default function UpdateProfileInformation({
                 <div>
                     <InputLabel htmlFor="gender" value="Gender" />
 
-                    <TextInput
+                    <select
                         id="gender"
-                        className="mt-1 block w-full"
+                        name="approval_type"
                         value={data.gender}
-                        onChange={(e) => setData("gender", e.target.value)}
+                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm "
                         autoComplete="gender"
-                    />
+                        required
+                        onChange={(e) => setData("gender", e.target.value)}
+                    >
+                        <option value="" disabled>
+                            Select Gender
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
 
                     <InputError className="mt-2" message={errors.gender} />
                 </div>

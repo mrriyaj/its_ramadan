@@ -36,14 +36,14 @@ Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 
 
 Route::middleware('auth')->group(function () {
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/onboarding', [OnboardingController::class, 'update'])->name('onboarding.update');
     Route::get('/onboarding', function () {
         return Inertia::render('Onboarding/Onboarding');
     })->name('onboarding');
 
     Route::group(['middleware' => 'onboarding'], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
