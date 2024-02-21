@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
@@ -28,28 +30,35 @@ Route::get('/', function () {
     ]);
 });
 
+//google auth
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
-
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/onboarding', function () {
+        return Inertia::render('Onboarding/Onboarding');
+    })->name('onboarding');
 
-    // User Routes
-    Route::resource('users', UserController::class);
+    Route::group(['middleware' => 'onboarding'], function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/dashboard', function () {
+            return Inertia::render('Dashboard');
+        })->middleware(['auth', 'verified'])->name('dashboard');
 
-    //Quiz Route
-    Route::resource('/quizzes', QuizController::class);
+        // User Routes
+        Route::resource('users', UserController::class);
+
+        //Quiz Route
+        Route::resource('quizzes', QuizController::class);
+
+        // Organization Routes
+        Route::resource('organizations', OrganizationController::class);
+    });
 });
-
-
 
 
 require __DIR__ . '/auth.php';

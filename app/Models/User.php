@@ -17,6 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+
+
+
+
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -42,6 +47,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     ];
 
+    // public function getOnboardingAttribute()
+    // {
+    //     return (bool) $this->onboarding;
+    // }
+
+    // public function setOnboardingAttribute($value)
+    // {
+    //     $this->attributes['onboarding'] = (int) $value;
+    // }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -61,4 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    
+
 }

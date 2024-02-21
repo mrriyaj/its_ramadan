@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $users = User::all();
-
-        return Inertia::render('Admin/Users/Index', [
-            'users' => $users,
-        ]);
+        //
     }
 
     /**
@@ -26,7 +20,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Organizations/Create');
     }
 
     /**
@@ -40,11 +34,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $id)
     {
-        return Inertia::render('Admin/Users/Show', [
-            'user' => $user
-        ]);
+        //
     }
 
     /**
@@ -66,8 +58,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        $user->delete();;
+        //
     }
 }
