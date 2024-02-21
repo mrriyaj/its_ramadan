@@ -31,6 +31,8 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:255'],
             'whatsapp' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            // 'profile' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'profile' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

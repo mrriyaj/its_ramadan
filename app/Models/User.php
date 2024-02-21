@@ -44,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider_token',
         'profile_photo_path',
         'email_verified_at',
+        'profile'
 
     ];
 
@@ -77,6 +78,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    
+
 
 }
