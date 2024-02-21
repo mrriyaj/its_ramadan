@@ -32,14 +32,17 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        $user = User::find(1);
+        $user = User::find($request->user()->id);
 
         // Check if all other columns are filled
-        if (!is_null($user->first_name) && !is_null($user->last_name) && !is_null($user->gender) && !is_null($user->dob) && !is_null($user->address_line_1) && !is_null($user->address_line_2) && !is_null($user->city) && !is_null($user->district) && !is_null($user->country) && !is_null($user->postal_code) && !is_null($user->education_level) && !is_null($user->institute_name) && !is_null($user->phone) && !is_null($user->whatsapp)) {
+        if (!is_null($user->first_name) && !is_null($user->last_name) && !is_null($user->gender) && !is_null($user->dob) && !is_null($user->address_line_1) && !is_null($user->city) && !is_null($user->district) && !is_null($user->country) && !is_null($user->postal_code) && !is_null($user->education_level) && !is_null($user->institute_name) && !is_null($user->phone) && !is_null($user->whatsapp)) {
             // Update the 'onboarding' column to 1
-            $user->onboarding = 1;
-            $user->save();
-            // return Redirect::route('dashboard');
+            $request->user()->onboarding = '1';
+            $request->user()->save();
+
+        } else {
+            // $request->user()->onboarding = '0';
+            // // return Redirect()->back()->with('error', 'Please fill all the fields');
         }
 
         if ($request->user()->isDirty('email')) {

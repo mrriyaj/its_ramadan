@@ -34,7 +34,7 @@ export default function OnboardForm({
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route("profile.update"));
+        patch(route("onboarding.update"));
     };
 
     return (
