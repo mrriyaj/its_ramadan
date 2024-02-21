@@ -75,7 +75,13 @@ export default function Index({auth,quizzes:initialQuizzes}){
                                                 {quiz.approval_type}
                                             </td>
                                             <td className="px-6 py-4 flex">
-                                                <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                 href={route(
+                                                    "quizzes.show",{
+                                                        quiz:quiz.id
+                                                    }
+                                                )}
+                                                >
                                                 Show
                                                 </Link>
                                                 <Link className="pr-3 font-medium text-yellow-600 dark:text-yellow-500 hover:underline"

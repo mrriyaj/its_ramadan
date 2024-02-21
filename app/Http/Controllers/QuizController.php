@@ -40,7 +40,9 @@ class QuizController extends Controller
 
     public function show(Quiz $quiz)
     {
-      
+        return Inertia::render('Admin/Quizzes/Show',[
+            'quiz'=>$quiz
+        ]);
     }
 
     public function edit(Quiz $quiz)
