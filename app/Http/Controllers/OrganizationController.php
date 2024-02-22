@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Organization;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class OrganizationController extends Controller
@@ -28,7 +30,50 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'logo' => 'nullable|image',
+            'cover' => 'nullable|image',
+            'description' => 'required|max:1024',
+            'address_line_1' => 'required|max:255',
+            'address_line_2' => 'nullable|max:255',
+            'district' => 'required|max:255',
+            'country' => 'required|max:255',
+            'postal_code' => 'required|max:255',
+            'email' => 'required|email|unique:organizations,email',
+            'number' => 'nullable|max:255',
+            'whatsapp' => 'nullable|max:255',
+            'whatsapp_group' => 'nullable|max:255',
+            'facebook' => 'nullable|max:255',
+            'instagram' => 'nullable|max:255',
+            'twitter' => 'nullable|max:255',
+            'website' => 'nullable|max:255',
+            'youtube' => 'nullable|max:255',
+        ]);
+
+        $organization = new Organization();
+
+            if ($request->hasFile('logo')) {
+                $logo = $request->file('logo');
+                $filename = $request->name . '-logo.' . $logo->getClientOriginalExtension();
+                $request->file->move(public_path('images'), $filename);
+                $imagePath = $logo->storeAs('public/images', $filename);
+                $organization->logo = $imagePath;
+            }
+
+            if ($request->hasFile('cover')) {
+                $cover = $request->file('cover');
+                $coverName = $organization->name . '-cover.' . $cover->getClientOriginalExtension();
+                $cover->storeAs('public/images', $coverName);
+                $organization->update([
+                    'cover' => 'images/' . $coverName,
+                ]);
+            }
+
+        Organization::create($validated);
+
+        return Redirect::route('organizations.index')->with('success', 'Organization has been created');
     }
 
     /**

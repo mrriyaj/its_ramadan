@@ -47,7 +47,31 @@ export default function Create({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className="grid grid-cols-2 gap-4">
+                            <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
+                            <div>
+                                <InputLabel
+                                    htmlFor="logo"
+                                    value="Logo"
+                                />
+
+                                <input
+                                    type="file"
+                                    id="logo"
+                                    name="logo"
+                                    className="mt-1 block w-full"
+                                    autoComplete="logo"
+                                    onChange={(e) =>
+                                        setData("logo", e.target.files[0])
+                                    }
+                                    required
+                                />
+
+                                <InputError
+                                    message={errors.logo}
+                                    className="mt-2"
+                                />
+                            </div>
+
                                 <div>
                                     <InputLabel
                                         htmlFor="name"
