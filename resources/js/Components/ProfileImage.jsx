@@ -31,7 +31,6 @@ const ProfileImage = ({ auth, props }) => {
                 alt="Profile Image"
                 className="w-24 h-24 rounded-full object-cover mt-5"
             />
-
             <form
                 name="createForm"
                 onSubmit={handleSubmit}
@@ -51,16 +50,7 @@ const ProfileImage = ({ auth, props }) => {
                     </div>
                 </div>
                 <div className="mt-4">
-                    {/* <button
-                    type="submit"
-                    className="px-6 py-2 font-bold text-white bg-green-500 rounded"
-                >
-                    Update Profile Image
-                </button> */}
-                    <PrimaryButton
-                        // disabled={processing}
-                        disabled={buttonDisabled}
-                    >
+                    <PrimaryButton disabled={buttonDisabled}>
                         Update Profile Image
                     </PrimaryButton>
                 </div>

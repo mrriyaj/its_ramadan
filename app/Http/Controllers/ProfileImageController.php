@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProfileImageController extends Controller
@@ -21,11 +22,11 @@ class ProfileImageController extends Controller
             'profile' => ['required'],
         ])->validate();
 
-        $fileName = time() . '.' . $request->file('profile')->extension();
-        $request->file('profile')->move(public_path('uploads'), $fileName);
-
+        $fileName = $request->user()->first_name . '-profile-' . time() . '.' . $request->file('profile')->extension();
+        $request->file('profile')->storeAs('profile_images', $fileName, 'public');
         $request->user()->profile = $fileName;
         $request->user()->save();
+
 
         return redirect()->route('profile.edit');
     }
