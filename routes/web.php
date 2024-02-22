@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileImageController;
@@ -22,7 +23,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -41,7 +42,6 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Onboarding/Onboarding');
     })->name('onboarding');
 
-
     Route::group(['middleware' => 'onboarding'], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,9 +58,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
 
         //Quiz Route
-        Route::resource('/quizzes', QuizController::class);
+        Route::resource('quizzes', QuizController::class);
 
-
+        // Organization Routes
+        Route::resource('organizations', OrganizationController::class);
     });
 });
 
