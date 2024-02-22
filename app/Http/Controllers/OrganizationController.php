@@ -14,7 +14,11 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+        $organizations = Organization::all();
+
+        return Inertia::render('Admin/Organizations/Index', [
+            'organizations' => $organizations
+        ]);
     }
 
     /**
