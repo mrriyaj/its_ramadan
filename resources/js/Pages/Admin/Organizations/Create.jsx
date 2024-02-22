@@ -70,7 +70,31 @@ export default function Create({ auth }) {
                                     message={errors.logo}
                                     className="mt-2"
                                 />
-                            </div>
+                                </div>
+
+                                <div>
+                                <InputLabel
+                                    htmlFor="logo"
+                                    value="Logo"
+                                />
+
+                                <input
+                                    type="file"
+                                    id="logo"
+                                    name="logo"
+                                    className="mt-1 block w-full"
+                                    autoComplete="logo"
+                                    onChange={(e) =>
+                                        setData("logo", e.target.files[0])
+                                    }
+                                    required
+                                />
+
+                                <InputError
+                                    message={errors.logo}
+                                    className="mt-2"
+                                />
+                        </div>
 
                                 <div>
                                     <InputLabel

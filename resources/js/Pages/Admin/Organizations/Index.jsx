@@ -3,14 +3,14 @@ import { Head, Link } from "@inertiajs/react";
 import axios from "axios";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
-export default function Index({ auth, organizations: initialUsers }) {
-    const [organizations, setOrganizations] = useState(initialUsers);
+export default function Index({ auth, organizations: initialOrganizations }) {
+    const [organizations, setOrganizations] = useState(initialOrganizations);
 
-    // const deleteUser = (userId) => {
-    //     axios.delete(route("users.destroy", { user: userId })).then(() => {
-    //         setUsers(users.filter((user) => user.id !== userId));
-    //     });
-    // };
+    const deleteOrganization = (organizationId) => {
+        axios.delete(route("organizations.destroy", { organization: organizationId })).then(() => {
+            setOrganizations(organizations.filter((organization) => organization.id !== organizationId));
+        });
+    };
 
     return (
         <Authenticated
@@ -31,22 +31,13 @@ export default function Index({ auth, organizations: initialUsers }) {
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">
-                                        First Name
+                                        Profile
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        Last Name
+                                        Name
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Email
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Gender
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Phone
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Role
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Action
@@ -56,36 +47,27 @@ export default function Index({ auth, organizations: initialUsers }) {
                             <tbody>
                                 {organizations.map((organization) => (
                                     <tr
-                                        key={organization.name}
+                                        key={organization.id}
                                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                     >
                                         <th
                                             scope="row"
                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                         >
-                                            {organization.first_name}
+                                            <img src={organization.logo} alt="Image" className="w-12 h-12 rounded-full object-cover"/>
                                         </th>
                                         <td className="px-6 py-4">
-                                            {organization.last_name}
+                                            {organization.name}
                                         </td>
                                         <td className="px-6 py-4">
                                             {organization.email}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {organization.gender}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {organization.phone}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {organization.role}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {/* <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                            <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                 href={route(
-                                                    "users.show",
+                                                    "organizations.show",
                                                     {
-                                                        user: user.id,
+                                                        organization: organization.id,
                                                     }
                                                 )}
                                             >
@@ -94,11 +76,11 @@ export default function Index({ auth, organizations: initialUsers }) {
                                             <button
                                                 className="font-medium text-red-600 dark:text-red-500 hover:underline"
                                                 onClick={() =>
-                                                    deleteUser(organization.id)
+                                                    deleteOrganization(organization.id)
                                                 }
                                             >
                                                 Delete
-                                            </button> */}
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

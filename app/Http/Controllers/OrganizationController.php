@@ -61,15 +61,15 @@ class OrganizationController extends Controller
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $filename = $request->name . '-logo.' . $logo->getClientOriginalExtension();
-            $logo->storeAs('public/images', $filename);
-            $organization->logo = 'images/' . $filename;
+            $logo->storeAs('public/images/org/logo/', $filename);
+            $organization->logo = $filename;
         }
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $coverName = $request->name . '-cover.' . $cover->getClientOriginalExtension();
-            $cover->storeAs('public/images', $coverName);
-            $organization->cover = 'images/' . $coverName;
+            $cover->storeAs('public/images/org/cover/', $coverName);
+            $organization->cover = $coverName;
         }
 
         $organization->save();
