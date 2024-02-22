@@ -31,7 +31,6 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
-
         $user = User::find($request->user()->id);
 
         // Check if all other columns are filled
@@ -40,9 +39,6 @@ class ProfileController extends Controller
             $request->user()->onboarding = '1';
             $request->user()->save();
 
-        } else {
-            // $request->user()->onboarding = '0';
-            // // return Redirect()->back()->with('error', 'Please fill all the fields');
         }
 
         if ($request->user()->isDirty('email')) {
