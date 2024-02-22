@@ -60,14 +60,14 @@ class OrganizationController extends Controller
 
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $filename = $request->name . '-logo.' . $logo->getClientOriginalExtension();
+            $filename = $request->name . '-logo-' . time() . '.' . $logo->getClientOriginalExtension();
             $logo->storeAs('public/images/org/logo/', $filename);
             $organization->logo = $filename;
         }
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
-            $coverName = $request->name . '-cover.' . $cover->getClientOriginalExtension();
+            $coverName = $request->name . '-cover-' . time() . '.' . $cover->getClientOriginalExtension();
             $cover->storeAs('public/images/org/cover/', $coverName);
             $organization->cover = $coverName;
         }
@@ -83,7 +83,11 @@ class OrganizationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+
+        return Inertia::render('Admin/Organizations/Show', [
+            'organization' => $organization
+        ]);
     }
 
     /**

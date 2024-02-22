@@ -41,7 +41,7 @@ export default function Create({ auth }) {
                 </h2>
             }
         >
-            <Head title="Create Quiz" />
+            <Head title="Create Organization" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -74,24 +74,24 @@ export default function Create({ auth }) {
 
                                 <div>
                                 <InputLabel
-                                    htmlFor="logo"
-                                    value="Logo"
+                                    htmlFor="cover"
+                                    value="Cover"
                                 />
 
                                 <input
                                     type="file"
-                                    id="logo"
-                                    name="logo"
+                                    id="cover"
+                                    name="cover"
                                     className="mt-1 block w-full"
-                                    autoComplete="logo"
+                                    autoComplete="cover"
                                     onChange={(e) =>
-                                        setData("logo", e.target.files[0])
+                                        setData("cover", e.target.files[0])
                                     }
                                     required
                                 />
 
                                 <InputError
-                                    message={errors.logo}
+                                    message={errors.cover}
                                     className="mt-2"
                                 />
                         </div>
