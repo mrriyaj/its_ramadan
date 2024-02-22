@@ -30,7 +30,6 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|max:255',
             'logo' => 'nullable|image',
@@ -53,25 +52,24 @@ class OrganizationController extends Controller
         ]);
 
         $organization = new Organization();
+        $organization->fill($validated);
 
-            if ($request->hasFile('logo')) {
-                $logo = $request->file('logo');
-                $filename = $request->name . '-logo.' . $logo->getClientOriginalExtension();
-                $request->file->move(public_path('images'), $filename);
-                $imagePath = $logo->storeAs('public/images', $filename);
-                $organization->logo = $imagePath;
-            }
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $filename = $request->name . '-logo.' . $logo->getClientOriginalExtension();
+            $logo->storeAs('public/images', $filename);
+            $organization->logo = 'images/' . $filename;
+        }
 
-            if ($request->hasFile('cover')) {
-                $cover = $request->file('cover');
-                $coverName = $organization->name . '-cover.' . $cover->getClientOriginalExtension();
-                $cover->storeAs('public/images', $coverName);
-                $organization->update([
-                    'cover' => 'images/' . $coverName,
-                ]);
-            }
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $coverName = $request->name . '-cover.' . $cover->getClientOriginalExtension();
+            $cover->storeAs('public/images', $coverName);
+            $organization->cover = 'images/' . $coverName;
+        }
 
-        Organization::create($validated);
+        $organization->save();
+
 
         return Redirect::route('organizations.index')->with('success', 'Organization has been created');
     }
