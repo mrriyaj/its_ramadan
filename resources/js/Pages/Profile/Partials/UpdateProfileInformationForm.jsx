@@ -13,25 +13,31 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            first_name: user.first_name,
-            last_name: user.last_name,
-            gender: user.gender,
-            dob: user.dob,
-            address_line_1: user.address_line_1,
-            address_line_2: user.address_line_2,
-            city: user.city,
-            district: user.district,
-            country: user.country,
-            postal_code: user.postal_code,
-            education_level: user.education_level,
-            institute_name: user.institute_name,
-            phone: user.phone,
-            whatsapp: user.whatsapp,
-            email: user.email,
-            profile: user.profile,
-        });
+    const {
+        data,
+        setData,
+        patch,
+        post,
+        errors,
+        processing,
+        recentlySuccessful,
+    } = useForm({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        gender: user.gender,
+        dob: user.dob,
+        address_line_1: user.address_line_1,
+        address_line_2: user.address_line_2,
+        city: user.city,
+        district: user.district,
+        country: user.country,
+        postal_code: user.postal_code,
+        education_level: user.education_level,
+        institute_name: user.institute_name,
+        phone: user.phone,
+        whatsapp: user.whatsapp,
+        email: user.email,
+    });
 
     const submit = (e) => {
         e.preventDefault();
@@ -51,23 +57,13 @@ export default function UpdateProfileInformation({
                 </p>
             </header>
 
+            <ProfileImage />
+
             <form
                 onSubmit={submit}
                 className="mt-6 space-y-6"
-                enctype="multipart/form-data"
+                encType="multipart/form-data"
             >
-                <div>
-                    <InputLabel htmlFor="profile" value="Profile Image" />
-
-                    <ProfileImage
-                        id="profile"
-                        profile={user.profile}
-                        className={
-                            "border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                        }
-                        onChange={(e) => setData("profile", e.target.file[0])}
-                    />
-                </div>
                 <div>
                     <InputLabel htmlFor="first_name" value="First Name" />
 
