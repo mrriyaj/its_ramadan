@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class OrganizationController extends Controller
 {
@@ -95,7 +96,11 @@ class OrganizationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+
+        return Inertia::render('Admin/Organizations/Edit', [
+            'organization' => $organization
+        ]);
     }
 
     /**
@@ -103,7 +108,56 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'logo' => 'nullable|image',
+            'cover' => 'nullable|image',
+            'description' => 'required|max:1024',
+            'address_line_1' => 'required|max:255',
+            'address_line_2' => 'nullable|max:255',
+            'district' => 'required|max:255',
+            'country' => 'required|max:255',
+            'postal_code' => 'required|max:255',
+            'number' => 'nullable|max:255',
+            'whatsapp' => 'nullable|max:255',
+            'whatsapp_group' => 'nullable|max:255',
+            'facebook' => 'nullable|max:255',
+            'instagram' => 'nullable|max:255',
+            'twitter' => 'nullable|max:255',
+            'website' => 'nullable|max:255',
+            'youtube' => 'nullable|max:255',
+        ]);
+
+        $organization = Organization::findOrFail($id);
+        $organization->fill($validated);
+
+        if ($request->hasFile('logo')) {
+            // Delete the previous logo file if it exists
+            if ($organization->logo) {
+                Storage::delete('public/images/org/logo/' . $organization->logo);
+            }
+
+            $logo = $request->file('logo');
+            $filename = $request->name . '-logo-' . time() . '.' . $logo->getClientOriginalExtension();
+            $logo->storeAs('public/images/org/logo/', $filename);
+            $organization->logo = $filename;
+        }
+
+        if ($request->hasFile('cover')) {
+            // Delete the previous cover file if it exists
+            if ($organization->cover) {
+                Storage::delete('public/images/org/cover/' . $organization->cover);
+            }
+
+            $cover = $request->file('cover');
+            $coverName = $request->name . '-cover-' . time() . '.' . $cover->getClientOriginalExtension();
+            $cover->storeAs('public/images/org/cover/', $coverName);
+            $organization->cover = $coverName;
+        }
+
+        $organization->save();
+
+        return Redirect::route('organizations.index')->with('success', 'Organization has been updated')->withErrors(['success' => 'Organization has been updated']);
     }
 
     /**
@@ -111,6 +165,20 @@ class OrganizationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+
+        // Delete the logo file if it exists
+        if ($organization->logo) {
+            Storage::delete('public/images/org/logo/' . $organization->logo);
+        }
+
+        // Delete the cover file if it exists
+        if ($organization->cover) {
+            Storage::delete('public/images/org/cover/' . $organization->cover);
+        }
+
+        $organization->delete();
+
+        return Redirect::route('organizations.index')->with('success', 'Organization has been deleted');
     }
 }

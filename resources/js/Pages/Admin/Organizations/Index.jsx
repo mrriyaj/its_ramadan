@@ -26,6 +26,13 @@ export default function Index({ auth, organizations: initialOrganizations }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+                    <div className='flex justify-end'>
+                        <Link className="pr-3 my-2 font-medium text-white-600 dark:text-white hover:underline"
+                            href={route("organizations.create")} >
+                            Create Quiz
+                        </Link>
+                    </div>
+
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -72,6 +79,16 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                                 )}
                                             >
                                                 Show
+                                            </Link>
+                                            <Link className="pr-3 font-medium text-green-600 dark:text-green-500 hover:underline"
+                                                href={route(
+                                                    "organizations.edit",
+                                                    {
+                                                        organization: organization.id,
+                                                    }
+                                                )}
+                                            >
+                                                Edit
                                             </Link>
                                             <button
                                                 className="font-medium text-red-600 dark:text-red-500 hover:underline"
