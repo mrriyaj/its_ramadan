@@ -305,7 +305,6 @@ export default function OnboardForm({
                 </div>
 
                 <div className="flex items-center justify-end gap-4 mt-4">
-                    <DangerButton disabled={processing}>Clear</DangerButton>
                     <PrimaryButton disabled={processing}>
                         Complete
                     </PrimaryButton>
