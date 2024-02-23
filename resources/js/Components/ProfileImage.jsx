@@ -1,6 +1,7 @@
 import { Head, useForm, usePage, Link } from "@inertiajs/react";
 import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
+
 const ProfileImage = ({ auth, props }) => {
     const user = usePage().props.auth.user;
 
@@ -26,11 +27,19 @@ const ProfileImage = ({ auth, props }) => {
 
     return (
         <>
-            <img
-                src={user.profile}
-                alt="Profile Image"
-                className="w-24 h-24 rounded-full object-cover mt-5"
-            />
+            {user.profile ? (
+                <img
+                    src={user.profile}
+                    alt="Profile Image"
+                    className="w-24 h-24 rounded-full object-cover mt-5"
+                />
+            ) : (
+                <img
+                    src="/image/profile.png"
+                    alt="Default Profile Image"
+                    className="w-24 h-24 rounded-full object-cover mt-5"
+                />
+            )}
             <form
                 name="createForm"
                 onSubmit={handleSubmit}
