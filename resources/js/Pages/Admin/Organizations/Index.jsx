@@ -29,7 +29,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                     <div className='flex justify-end'>
                         <Link className="pr-3 my-2 font-medium text-white-600 dark:text-white hover:underline"
                             href={route("organizations.create")} >
-                            Create Quiz
+                            Create Organization
                         </Link>
                     </div>
 

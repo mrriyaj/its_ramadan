@@ -1,7 +1,5 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -29,6 +27,14 @@ export default function Show({ organization, auth }) {
                             <div>
                                 <InputLabel>Cover</InputLabel>
                                 <img src={organization.cover} alt="Cover" className="w-24 h-24 rounded-full object-cover mt-5" />
+                            </div>
+                            <div>
+                                <InputLabel>Organization Name</InputLabel>
+                                <TextInput className="mt-1 block w-full" value={organization.name} disabled />
+                            </div>
+                            <div>
+                                <InputLabel>Description</InputLabel>
+                                <TextInput className="mt-1 block w-full" value={organization.description} disabled />
                             </div>
                             <div>
                                 <InputLabel>Address Line 1</InputLabel>
