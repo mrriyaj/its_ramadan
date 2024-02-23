@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileImageController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+        // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
+        Route::post('/profile', [ProfileImageController::class, 'store'])->name('file.upload.store');
+
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard');

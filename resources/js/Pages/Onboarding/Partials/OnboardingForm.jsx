@@ -4,6 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import DangerButton from "@/Components/DangerButton";
 
 export default function OnboardForm({
     mustVerifyEmail,
@@ -301,24 +302,23 @@ export default function OnboardForm({
                             message={errors.whatsapp}
                         />
                     </div>
+                </div>
 
-                    <div className="flex items-center gap-4">
-                        <PrimaryButton disabled={processing}>
-                            Complete
-                        </PrimaryButton>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                Saved.
-                            </p>
-                        </Transition>
-                    </div>
+                <div className="flex items-center justify-end gap-4 mt-4">
+                    <PrimaryButton disabled={processing}>
+                        Complete
+                    </PrimaryButton>
+                    <Transition
+                        show={recentlySuccessful}
+                        enter="transition ease-in-out"
+                        enterFrom="opacity-0"
+                        leave="transition ease-in-out"
+                        leaveTo="opacity-0"
+                    >
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                            Saved.
+                        </p>
+                    </Transition>
                 </div>
             </form>
         </section>

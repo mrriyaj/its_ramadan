@@ -4,6 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import ProfileImage from "@/Components/ProfileImage";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -12,24 +13,31 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            first_name: user.first_name,
-            last_name: user.last_name,
-            gender: user.gender,
-            dob: user.dob,
-            address_line_1: user.address_line_1,
-            address_line_2: user.address_line_2,
-            city: user.city,
-            district: user.district,
-            country: user.country,
-            postal_code: user.postal_code,
-            education_level: user.education_level,
-            institute_name: user.institute_name,
-            phone: user.phone,
-            whatsapp: user.whatsapp,
-            email: user.email,
-        });
+    const {
+        data,
+        setData,
+        patch,
+        post,
+        errors,
+        processing,
+        recentlySuccessful,
+    } = useForm({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        gender: user.gender,
+        dob: user.dob,
+        address_line_1: user.address_line_1,
+        address_line_2: user.address_line_2,
+        city: user.city,
+        district: user.district,
+        country: user.country,
+        postal_code: user.postal_code,
+        education_level: user.education_level,
+        institute_name: user.institute_name,
+        phone: user.phone,
+        whatsapp: user.whatsapp,
+        email: user.email,
+    });
 
     const submit = (e) => {
         e.preventDefault();
@@ -49,7 +57,14 @@ export default function UpdateProfileInformation({
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
+            <ProfileImage />
+
+            <form
+                onSubmit={submit}
+                className="mt-6 space-y-6"
+                encType="multipart/form-data"
+            >
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-4">
                 <div>
                     <InputLabel htmlFor="first_name" value="First Name" />
 
@@ -65,7 +80,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.first_name} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="last_name" value="Last Name" />
 
@@ -79,7 +93,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.last_name} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="gender" value="Gender" />
 
@@ -101,7 +114,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.gender} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="dob" value="Date of Birth" />
 
@@ -116,7 +128,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.dob} />
                 </div>
-
                 <div>
                     <InputLabel
                         htmlFor="address_line_1"
@@ -138,7 +149,6 @@ export default function UpdateProfileInformation({
                         message={errors.address_line_1}
                     />
                 </div>
-
                 <div>
                     <InputLabel
                         htmlFor="address_line_2"
@@ -160,7 +170,6 @@ export default function UpdateProfileInformation({
                         message={errors.address_line_2}
                     />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="city" value="City" />
 
@@ -174,7 +183,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.city} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="district" value="District" />
 
@@ -188,7 +196,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.district} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="country" value="Country" />
 
@@ -202,7 +209,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.country} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="postal_code" value="Postal Code" />
 
@@ -216,7 +222,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.postal_code} />
                 </div>
-
                 <div>
                     <InputLabel
                         htmlFor="education_level"
@@ -238,7 +243,6 @@ export default function UpdateProfileInformation({
                         message={errors.education_level}
                     />
                 </div>
-
                 <div>
                     <InputLabel
                         htmlFor="institute_name"
@@ -260,7 +264,6 @@ export default function UpdateProfileInformation({
                         message={errors.institute_name}
                     />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="phone" value="Phone Number" />
 
@@ -274,7 +277,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.phone} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="whatsapp" value="Whatsapp Number" />
 
@@ -288,7 +290,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.whatsapp} />
                 </div>
-
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -304,7 +305,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
-
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
@@ -326,8 +326,8 @@ export default function UpdateProfileInformation({
                             </div>
                         )}
                     </div>
-                )}
-
+                    )}
+                    </div>
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
