@@ -4,32 +4,32 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
 
-export default function Create({ auth }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        logo: "",
-        cover: "",
-        description: "",
-        address_line_1: "",
-        address_line_2: "",
-        district: "",
-        country: "",
-        postal_code: "",
-        email: "",
-        number: "",
-        whatsapp: "",
-        whatsapp_group: "",
-        facebook: "",
-        instagram: "",
-        twitter: "",
-        website: "",
-        youtube: "",
+export default function Edit({ organization, auth }) {
+
+    const { data, setData, patch, processing, errors, reset } = useForm({
+        name: organization.name,
+        description: organization.description,
+        address_line_1: organization.address_line_1,
+        address_line_2: organization.address_line_2,
+        district: organization.district,
+        country: organization.country,
+        postal_code: organization.postal_code,
+        number: organization.number,
+        whatsapp: organization.whatsapp,
+        whatsapp_group: organization.whatsapp_group,
+        facebook: organization.facebook,
+        instagram: organization.instagram,
+        twitter: organization.twitter,
+        website: organization.website,
+        youtube: organization.youtube,
     });
+
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("organizations.store"), { onSuccess: () => reset() });
+        patch(route("organizations.update", organization));
     };
 
     return (
@@ -37,7 +37,7 @@ export default function Create({ auth }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Create Organization
+                    Edit Organization
                 </h2>
             }
         >
@@ -48,54 +48,6 @@ export default function Create({ auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
-                            <div>
-                                <InputLabel
-                                    htmlFor="logo"
-                                    value="Logo"
-                                />
-
-                                <input
-                                    type="file"
-                                    id="logo"
-                                    name="logo"
-                                    className="mt-1 block w-full"
-                                    autoComplete="logo"
-                                    onChange={(e) =>
-                                        setData("logo", e.target.files[0])
-                                    }
-                                    required
-                                />
-
-                                <InputError
-                                    message={errors.logo}
-                                    className="mt-2"
-                                />
-                                </div>
-
-                                <div>
-                                <InputLabel
-                                    htmlFor="cover"
-                                    value="Cover"
-                                />
-
-                                <input
-                                    type="file"
-                                    id="cover"
-                                    name="cover"
-                                    className="mt-1 block w-full"
-                                    autoComplete="cover"
-                                    onChange={(e) =>
-                                        setData("cover", e.target.files[0])
-                                    }
-                                    required
-                                />
-
-                                <InputError
-                                    message={errors.cover}
-                                    className="mt-2"
-                                />
-                        </div>
-
                                 <div>
                                     <InputLabel
                                         htmlFor="name"
@@ -282,32 +234,6 @@ export default function Create({ auth }) {
 
                                     <InputError
                                         message={errors.postal_code}
-                                        className="mt-2"
-                                    />
-                                </div>
-
-                                <div>
-                                    <InputLabel
-                                        htmlFor="email"
-                                        value="Email Address"
-                                    />
-
-                                    <TextInput
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        value={data.email}
-                                        className="mt-1 block w-full"
-                                        autoComplete="email"
-                                        isFocused={true}
-                                        onChange={(e) =>
-                                            setData("email", e.target.value)
-                                        }
-                                        required
-                                    />
-
-                                    <InputError
-                                        message={errors.email}
                                         className="mt-2"
                                     />
                                 </div>
@@ -522,7 +448,7 @@ export default function Create({ auth }) {
 
                                 <div className="flex items-center justify-end mt-4">
                                     <Link
-                                        href={route("quizzes.index")}
+                                        href={route("organizations.index")}
                                         className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                     >
                                         Go to Organizations lists
@@ -531,7 +457,7 @@ export default function Create({ auth }) {
                                         className="ms-4"
                                         disabled={processing}
                                     >
-                                        Add Organization
+                                        Edit Organization
                                     </PrimaryButton>
                                 </div>
                             </form>
@@ -539,6 +465,6 @@ export default function Create({ auth }) {
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </Authenticated >
     );
 }

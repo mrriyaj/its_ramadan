@@ -1,5 +1,5 @@
 import { Head, useForm, usePage, Link } from "@inertiajs/react";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "../../../Components/PrimaryButton";
 import { useState } from "react";
 
 const ProfileImage = ({ auth, props }) => {
