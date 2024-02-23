@@ -64,6 +64,7 @@ export default function UpdateProfileInformation({
                 className="mt-6 space-y-6"
                 encType="multipart/form-data"
             >
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-4">
                 <div>
                     <InputLabel htmlFor="first_name" value="First Name" />
 
@@ -325,7 +326,8 @@ export default function UpdateProfileInformation({
                             </div>
                         )}
                     </div>
-                )}
+                    )}
+                    </div>
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
