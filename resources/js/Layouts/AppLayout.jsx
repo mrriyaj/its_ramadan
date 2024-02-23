@@ -6,13 +6,14 @@ import {
     Bars3Icon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
+import Footer from '@/Components/Footer';
 
 export default function App({ children, auth }) {
     return (
         <>
             <Popover className="relative bg-main-default">
                 <div className="mx-auto max-w-7xl px-2">
-                    <div className="flex items-center justify-between border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
+                    <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
                             <Logo className="w-48 mb-6 pt-3 fill-current" />
                         </div>
@@ -51,14 +52,14 @@ export default function App({ children, auth }) {
                                 <>
                                     <Link
                                         href={route('login')}
-                                            className="whitespace-nowrap text-base font-medium text-second-500 hover:text-second-900"
+                                        className="whitespace-nowrap text-base font-medium text-second-500 hover:text-second-900"
                                     >
                                         Log in
                                     </Link>
 
                                     <Link
                                         href={route('register')}
-                                            className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-second-default px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-second-700"
+                                        className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-second-default px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-second-700"
                                     >
                                         Register
                                     </Link>
@@ -144,10 +145,11 @@ export default function App({ children, auth }) {
                 </Transition>
             </Popover>
 
-                <main>
-                    {children}
-                </main>
+            <main>
+                {children}
+            </main>
 
+            <Footer />
         </>
     );
 }
