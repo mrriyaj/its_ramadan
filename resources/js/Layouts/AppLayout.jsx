@@ -15,7 +15,7 @@ export default function App({ children, auth }) {
                 <div className="mx-auto max-w-7xl px-2">
                     <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <Logo className="w-48 mb-6 pt-3 fill-current" />
+                            <Logo className="w-48 fill-current" />
                         </div>
                         <div className="my-2 mr-2 md:hidden">
                             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-second-500">
