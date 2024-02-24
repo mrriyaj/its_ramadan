@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
-import Logo from './Logo'
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import Logo from "./Logo";
 
 export default function Hero() {
     return (
@@ -20,13 +20,22 @@ export default function Hero() {
                         <path d="M.5 200V.5H200" fill="none" />
                     </pattern>
                 </defs>
-                <svg x="50%" y={-1} className="overflow-visible fill-main-800/20">
+                <svg
+                    x="50%"
+                    y={-1}
+                    className="overflow-visible fill-main-800/20"
+                >
                     <path
                         d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
                         strokeWidth={0}
                     />
                 </svg>
-                <rect width="100%" height="100%" strokeWidth={0} fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+                <rect
+                    width="100%"
+                    height="100%"
+                    strokeWidth={0}
+                    fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
+                />
             </svg>
             <svg
                 viewBox="0 0 1108 632"
@@ -62,7 +71,10 @@ export default function Hero() {
                             </span>
                             <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-main-300">
                                 <span>Just shipped v1.0</span>
-                                <ChevronRightIcon className="h-5 w-5 text-main-500" aria-hidden="true" />
+                                <ChevronRightIcon
+                                    className="h-5 w-5 text-main-500"
+                                    aria-hidden="true"
+                                />
                             </span>
                         </a>
                     </div>
@@ -70,8 +82,9 @@ export default function Hero() {
                         Deploy to the cloud with confidence
                     </h1>
                     <p className="mt-6 text-lg leading-8 text-main-300">
-                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                        fugiat veniam occaecat fugiat aliqua.
+                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui
+                        irure qui lorem cupidatat commodo. Elit sunt amet fugiat
+                        veniam occaecat fugiat aliqua.
                     </p>
                     <div className="mt-10 flex items-center gap-x-6">
                         <a
@@ -80,7 +93,10 @@ export default function Hero() {
                         >
                             Get started
                         </a>
-                        <a href="#" className="text-base font-semibold leading-7 text-white">
+                        <a
+                            href="#"
+                            className="text-base font-semibold leading-7 text-white"
+                        >
                             Learn more <span aria-hidden="true">→</span>
                         </a>
                     </div>
@@ -98,5 +114,5 @@ export default function Hero() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

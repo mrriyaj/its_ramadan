@@ -28,6 +28,9 @@ use Inertia\Inertia;
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
 
 // Route with "coming soon" middleware
 Route::middleware(['coming_soon'])->group(function () {
@@ -47,27 +50,27 @@ Route::middleware('auth')->group(function () {
 
     //Admin Routes
     Route::prefix('admin')->group(function () {
-    Route::group(['middleware' => 'onboarding','coming_soon'], function () {
-        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+            Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
-        // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
-        Route::post('/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
+            // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
+            Route::post('/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
 
-        Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
-        })->middleware(['auth', 'verified'])->name('dashboard');
+            Route::get('/dashboard', function () {
+                return Inertia::render('Dashboard');
+            })->middleware(['auth', 'verified'])->name('dashboard');
 
-        // User Routes
-        Route::resource('/users', AdminUserController::class);
+            // User Routes
+            Route::resource('/users', AdminUserController::class);
 
-        //Quiz Route
-        Route::resource('/quizzes', AdminQuizController::class);
+            //Quiz Route
+            Route::resource('/quizzes', AdminQuizController::class);
 
-        // Organization Routes
-        Route::resource('/organization', AdminOrganizationController::class);
-    });
+            // Organization Routes
+            Route::resource('/organization', AdminOrganizationController::class);
+        });
     });
 
     // User Routes
