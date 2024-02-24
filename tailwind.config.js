@@ -14,6 +14,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                "ramadhan-karim": ["'Ramadhan Karim'"],
+                "dancing-script": "'Dancing Script'",
             },
             colors: {
                 'main': {
