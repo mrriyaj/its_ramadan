@@ -39,6 +39,15 @@ const Subscribe = () => {
                                 Notify me
                             </button>
                         </form>
+                        {/* <p className="mt-3 text-sm text-indigo-200">
+                            We care about the protection of your data. Read our{" "}
+                            <a
+                                href="#"
+                                className="font-medium text-white underline"
+                            >
+                                Privacy Policy.
+                            </a>
+                        </p> */}
                     </div>
                 </div>
             </div>
