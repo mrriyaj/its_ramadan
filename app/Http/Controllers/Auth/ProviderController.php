@@ -25,6 +25,7 @@ class ProviderController extends Controller
         ], [
             'first_name' => $SocialUser->name,
             'email' => $SocialUser->email,
+            'profile' => $SocialUser->avatar,
             'provider_token' => $SocialUser->token,
             'email_verified_at' => now(),
         ]);
