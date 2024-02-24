@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Guest({ children }) {
   return (
-    <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-main dark:bg-main">
+    <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-main-default dark:bg-main-900">
       <div>
         <Link href="/">
           <ApplicationLogo className="w-48 mb-6 fill-current" />

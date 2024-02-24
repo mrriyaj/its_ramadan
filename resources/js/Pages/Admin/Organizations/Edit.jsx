@@ -4,7 +4,6 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-import React, { useState } from "react";
 
 export default function Edit({ organization, auth }) {
 
@@ -25,7 +24,6 @@ export default function Edit({ organization, auth }) {
         website: organization.website,
         youtube: organization.youtube,
     });
-
 
     const submit = (e) => {
         e.preventDefault();
