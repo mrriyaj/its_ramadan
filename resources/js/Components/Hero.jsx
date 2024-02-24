@@ -1,5 +1,4 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import Logo from "./Logo";
 
 export default function Hero() {
     return (
@@ -63,7 +62,6 @@ export default function Hero() {
             </svg>
             <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:py-40 lg:px-8">
                 <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-                    <Logo className="w-48 fill-current" />
                     <div className="mt-12 sm:mt-16 lg:mt-8">
                         <a href="#" className="inline-flex space-x-6">
                             <span className="rounded-full bg-second-500/10 px-3 py-1 text-sm font-semibold leading-6 text-second-400 ring-1 ring-inset ring-second-500/20">
@@ -78,37 +76,39 @@ export default function Hero() {
                             </span>
                         </a>
                     </div>
-                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                        Deploy to the cloud with confidence
+                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] font-ramadhan-karim">
+                        Ramadan <br />
+                        <span className="text-second-500">Kareem</span>
                     </h1>
+
                     <p className="mt-6 text-lg leading-8 text-main-300">
-                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui
-                        irure qui lorem cupidatat commodo. Elit sunt amet fugiat
-                        veniam occaecat fugiat aliqua.
+                        Happy Ramadan!! in the holy monthof Ramada, May your
+                        heart be filled with peace, harmony and joy.
                     </p>
                     <div className="mt-10 flex items-center gap-x-6">
                         <a
                             href="#"
-                            className="rounded-md bg-second-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-second-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-second-400"
+                            className="rounded-md bg-second-500 px-8 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-second-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-second-400"
                         >
-                            Get started
+                            Explore
                         </a>
                         <a
                             href="#"
                             className="text-base font-semibold leading-7 text-white"
                         >
-                            Learn more <span aria-hidden="true">→</span>
+                            Ramadan Calendar <span aria-hidden="true">→</span>
                         </a>
                     </div>
                 </div>
                 <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
                     <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
                         <img
-                            src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+                            src="/image/hero-img.png"
                             alt="App screenshot"
                             width={2432}
                             height={1442}
-                            className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+                            // className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+                            className="w-[32rem] rounded-md bg-cover bg-no-repeat bg-center "
                         />
                     </div>
                 </div>
