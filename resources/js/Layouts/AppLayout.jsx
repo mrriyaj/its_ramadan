@@ -24,7 +24,7 @@ export default function App({ children, auth }) {
                             </Popover.Button>
                         </div>
                         <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
+                            <a href="/" className="text-base font-medium text-white hover:text-second-500">
                                 Home
                             </a>
                             <a href="#" className="text-base font-medium text-white hover:text-second-500">
