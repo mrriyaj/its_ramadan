@@ -11,11 +11,11 @@ import Footer from '@/Components/Footer';
 export default function App({ children, auth }) {
     return (
         <>
-            <Popover className="relative bg-main-default">
+            <Popover className="min-h-screen relative bg-main-default">
                 <div className="mx-auto max-w-7xl px-2">
                     <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <Logo className="w-48 mb-6 pt-3 fill-current" />
+                            <Logo className="w-48 fill-current" />
                         </div>
                         <div className="my-2 mr-2 md:hidden">
                             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-second-500">
@@ -24,21 +24,11 @@ export default function App({ children, auth }) {
                             </Popover.Button>
                         </div>
                         <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                Home
-                            </a>
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                Quran
-                            </a>
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                Organization
-                            </a>
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                Blog
-                            </a>
-                            <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                Contact
-                            </a>
+                            <Link href="/" className="text-base font-medium text-white hover:text-second-500">Home</Link>
+                            <Link href="/quran" className="text-base font-medium text-white hover:text-second-500">Quran</Link>
+                            <Link href="/organizations" className="text-base font-medium text-white hover:text-second-500">Organizations</Link>
+                            <Link href="/blog" className="text-base font-medium text-white hover:text-second-500">Blog</Link>
+                            <Link href="/contact" className="text-base font-medium text-white hover:text-second-500">Contact</Link>
                         </Popover.Group>
                         <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                             {auth.user ? (
@@ -68,7 +58,9 @@ export default function App({ children, auth }) {
                         </div>
                     </div>
                 </div>
-
+                <main>
+                    {children}
+                </main>
                 <Transition
                     as={Fragment}
                     enter="duration-200 ease-out"
@@ -95,21 +87,11 @@ export default function App({ children, auth }) {
                             </div>
                             <div className="space-y-6 py-6 px-5">
                                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                                    <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                        Home
-                                    </a>
-                                    <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                        Quran
-                                    </a>
-                                    <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                        Organization
-                                    </a>
-                                    <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                        Blog
-                                    </a>
-                                    <a href="#" className="text-base font-medium text-white hover:text-second-500">
-                                        Contact
-                                    </a>
+                                    <Link href="/" className="text-base font-medium text-white hover:text-second-500">Home</Link>
+                                    <Link href="/quran" className="text-base font-medium text-white hover:text-second-500">Quran</Link>
+                                    <Link href="/organizations" className="text-base font-medium text-white hover:text-second-500">Organizations</Link>
+                                    <Link href="/blog" className="text-base font-medium text-white hover:text-second-500">Blog</Link>
+                                    <Link href="/contact" className="text-base font-medium text-white hover:text-second-500">Contact</Link>
                                 </div>
                                 <div>
                                     {auth.user ? (
@@ -145,9 +127,6 @@ export default function App({ children, auth }) {
                 </Transition>
             </Popover>
 
-            <main>
-                {children}
-            </main>
 
             <Footer />
         </>

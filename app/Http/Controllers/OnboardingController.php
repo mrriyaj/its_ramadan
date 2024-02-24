@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Redirect;
+use Illuminate\Support\Facades\Redirect;
 
 class OnboardingController extends Controller
 {
-
-
+    /**
+     * Display the onboarding form
+     */
     public function update(ProfileUpdateRequest $request)
     {
         $request->user()->fill($request->validated());

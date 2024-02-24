@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -63,7 +64,7 @@ class QuizController extends Controller
             'approval_type' => 'required|in:automatic,manual'
         ]);
 
-        $quiz->update($validated);        
+        $quiz->update($validated);
         return Redirect::route('quizzes.index')->with('success', 'Quiz has been Updated');
     }
 

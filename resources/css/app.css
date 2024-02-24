@@ -8,3 +8,15 @@
   src: url("/public/RamadhanKarim.otf");
   font-weight: 400;
 }
+
+
+.stars {
+ background: #185D4E url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+ position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: block;
+  	z-index: 0;
+}

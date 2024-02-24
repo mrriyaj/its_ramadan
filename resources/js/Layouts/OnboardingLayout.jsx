@@ -6,7 +6,7 @@ const OnboardingLayout = ({ children }) => {
         <div className="min-h-screen flex flex-col sm:justify-center items-center sm:pt-0 bg-main-default dark:bg-main-dark">
             <div>
                 <Link href="/">
-                    <Logo className="w-36 mt-6 fill-current" />
+                    <Logo className="w-36 mt-4 fill-current" />
                 </Link>
             </div>
 

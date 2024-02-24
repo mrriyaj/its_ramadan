@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Organization;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class OrganizationsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $organizations = Organization::all();
 
-        $users = User::all();
-
-        return Inertia::render('Admin/Users/Index', [
-            'users' => $users,
+        return Inertia::render('User/Organizations/Index', [
+            'organizations' => $organizations
         ]);
     }
 
@@ -40,10 +40,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $id)
     {
-        return Inertia::render('Admin/Users/Show', [
-            'user' => $user
+        $organization = Organization::findOrFail($id);
+
+        return Inertia::render('User/Organizations/Show', [
+            'organization' => $organization
         ]);
     }
 
@@ -66,8 +68,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        $user->delete();;
+        //
     }
 }

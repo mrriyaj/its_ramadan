@@ -29,8 +29,8 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    href={route("organizations.index")}
-                                    active={route().current("organizations.index")}
+                                    href={route("organization.index")}
+                                    active={route().current("organization.index")}
                                 >
                                     Organizations
                                 </NavLink>
@@ -40,7 +40,8 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Quizzes
                                 </NavLink>
-                                <NavLink href={route('users.index')} active={route().current('users.index')}>
+                                <NavLink href={route('users.index')}
+                                    active={route().current('users.index')}>
                                     Users
                                 </NavLink>
                             </div>
