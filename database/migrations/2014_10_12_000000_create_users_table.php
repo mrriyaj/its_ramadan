@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->string('institute_name')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('whatsapp')->unique()->nullable();
-            $table->string('role')->default('user');
+            $table->enum('role', ['superadmin', 'admin' ,'orgadmin' ,'manager' , 'user'])->default('user');
             $table->tinyInteger('onboarding')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
