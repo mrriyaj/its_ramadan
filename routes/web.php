@@ -32,6 +32,10 @@ Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('contact');
 
+Route::get('/about', function () {
+    return Inertia::render('About');
+});
+
 // Route with "coming soon" middleware
 Route::middleware(['coming_soon'])->group(function () {
     Route::get('/', function () {
