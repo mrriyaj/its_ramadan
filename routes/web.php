@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileImageController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComingSoonController;
+use App\Http\Controllers\User\OrganizationsController as UserOrganizationsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,17 +24,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
-});
-
 //google auth
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
-
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
 
 // Route with "coming soon" middleware
@@ -46,13 +39,14 @@ Route::middleware(['coming_soon'])->group(function () {
     });
 });
 
-
 Route::middleware('auth')->group(function () {
     Route::patch('/onboarding', [OnboardingController::class, 'update'])->name('onboarding.update');
     Route::get('/onboarding', function () {
         return Inertia::render('Onboarding/Onboarding');
     })->name('onboarding');
 
+    //Admin Routes
+    Route::prefix('admin')->group(function () {
     Route::group(['middleware' => 'onboarding','coming_soon'], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -61,7 +55,7 @@ Route::middleware('auth')->group(function () {
         // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
         Route::post('/profile', [ProfileImageController::class, 'store'])->name('file.upload.store');
 
-        Route::get('/dashboard', function () {
+        Route::get('dashboard', function () {
             return Inertia::render('Dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -74,6 +68,14 @@ Route::middleware('auth')->group(function () {
         // Organization Routes
         Route::resource('organizations', OrganizationController::class);
     });
+    });
+
+    // User Routes
+    Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+        // Organization Routes
+        Route::resource('organizations', UserOrganizationsController::class);
+    });
+
 });
 
 
