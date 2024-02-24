@@ -29,7 +29,7 @@ export default function Create({ auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("organizations.store"), { onSuccess: () => reset() });
+        post(route("organization.store"), { onSuccess: () => reset() });
     };
 
     return (

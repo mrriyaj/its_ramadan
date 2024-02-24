@@ -7,7 +7,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
     const [organizations, setOrganizations] = useState(initialOrganizations);
 
     const deleteOrganization = (organizationId) => {
-        axios.delete(route("organizations.destroy", { organization: organizationId })).then(() => {
+        axios.delete(route("organization.destroy", { organization: organizationId })).then(() => {
             setOrganizations(organizations.filter((organization) => organization.id !== organizationId));
         });
     };
@@ -28,7 +28,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
 
                     <div className='flex justify-end'>
                         <Link className="pr-3 my-2 font-medium text-white-600 dark:text-white hover:underline"
-                            href={route("organizations.create")} >
+                            href={route("organization.create")} >
                             Create Organization
                         </Link>
                     </div>
@@ -72,7 +72,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                         <td className="px-6 py-4">
                                             <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                 href={route(
-                                                    "organizations.show",
+                                                    "organization.show",
                                                     {
                                                         organization: organization.id,
                                                     }
@@ -82,7 +82,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                             </Link>
                                             <Link className="pr-3 font-medium text-green-600 dark:text-green-500 hover:underline"
                                                 href={route(
-                                                    "organizations.edit",
+                                                    "organization.edit",
                                                     {
                                                         organization: organization.id,
                                                     }

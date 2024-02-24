@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Organization;
@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
 
 class OrganizationController extends Controller
 {

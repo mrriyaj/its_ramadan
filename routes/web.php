@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\OnboardingController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProfileImageController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
+use App\Http\Controllers\Admin\QuizController as AdminQuizController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ComingSoonController;
 use App\Http\Controllers\User\OrganizationsController as UserOrganizationsController;
 use Illuminate\Foundation\Application;
@@ -48,32 +48,32 @@ Route::middleware('auth')->group(function () {
     //Admin Routes
     Route::prefix('admin')->group(function () {
     Route::group(['middleware' => 'onboarding','coming_soon'], function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
         // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
-        Route::post('/profile', [ProfileImageController::class, 'store'])->name('file.upload.store');
+        Route::post('/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
 
-        Route::get('dashboard', function () {
+        Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard');
 
         // User Routes
-        Route::resource('users', UserController::class);
+        Route::resource('/users', AdminUserController::class);
 
         //Quiz Route
-        Route::resource('quizzes', QuizController::class);
+        Route::resource('/quizzes', AdminQuizController::class);
 
         // Organization Routes
-        Route::resource('organizations', OrganizationController::class);
+        Route::resource('/organization', AdminOrganizationController::class);
     });
     });
 
     // User Routes
     Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
         // Organization Routes
-        Route::resource('organizations', UserOrganizationsController::class);
+        Route::resource('/organizations', UserOrganizationsController::class);
     });
 
 });
