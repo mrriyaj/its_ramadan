@@ -10,7 +10,7 @@ export default function App({ children, auth }) {
         <>
             <Popover className="min-h-screen relative bg-main-default">
                 <div className="mx-auto max-w-7xl px-2">
-                    <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
+                    <div className="flex items-center justify-between border-gray-100 py-2 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
                             <Logo className="w-48 fill-current" />
                         </div>
