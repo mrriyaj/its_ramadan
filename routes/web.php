@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileImageController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComingSoonController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,18 @@ Route::get('/', function () {
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 
+Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
+
+// Route with "coming soon" middleware
+Route::middleware(['coming_soon'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Home', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    });
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::patch('/onboarding', [OnboardingController::class, 'update'])->name('onboarding.update');
@@ -40,7 +53,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Onboarding/Onboarding');
     })->name('onboarding');
 
-    Route::group(['middleware' => 'onboarding'], function () {
+    Route::group(['middleware' => 'onboarding','coming_soon'], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
