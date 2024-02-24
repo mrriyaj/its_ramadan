@@ -19,13 +19,17 @@ class ProfileImageController extends Controller
 
     public function store(Request $request)
     {
+
+
+
         Validator::make($request->all(), [
             'profile' => ['required'],
         ])->validate();
 
         $fileName = $request->user()->first_name . '-profile-' . time() . '.' . $request->file('profile')->extension();
         $request->file('profile')->storeAs('profile_images', $fileName, 'public');
-        $request->user()->profile = $fileName;
+        $path = "/storage/profile_images/" . $fileName;
+        $request->user()->profile = $path;
         $request->user()->save();
 
 

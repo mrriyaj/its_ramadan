@@ -44,12 +44,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile'
     ];
 
-    protected function profile(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => url('storage/profile_images/' . $value),
-        );
-    }
+    // protected function profile(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn($value) => url('storage/profile_images/' . $value),
+    //     );
+    // }
 
     // public function getOnboardingAttribute()
     // {
