@@ -34,11 +34,9 @@ const ProfileImage = ({ auth, props }) => {
                     className="w-24 h-24 rounded-full object-cover mt-5"
                 />
             ) : (
-                <img
-                    src="/image/profile.png"
-                    alt="Default Profile Image"
-                    className="w-24 h-24 rounded-full object-cover mt-5"
-                />
+                <span class="inline-flex h-24 w-24 items-center justify-center rounded-full bg-gray-500">
+                    <span class="text-sm font-medium leading-none text-white">{user.first_name}</span>
+                </span>
             )}
             <form
                 name="createForm"
