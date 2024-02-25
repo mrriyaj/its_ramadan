@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -14,12 +15,13 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::all();
-
-        return Inertia::render('Admin/Users/Index', [
-            'users' => $users,
-        ]);
+        if (Gate::allows('view_any_user')) {
+            return Inertia::render('Admin/Users/Index', [
+                'users' => User::all(),
+            ]);
+        } else{
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
