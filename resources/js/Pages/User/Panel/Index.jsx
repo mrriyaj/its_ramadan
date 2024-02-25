@@ -22,7 +22,7 @@ export default function Index({ auth }) {
                                 <div className="mt-5 flex justify-center sm:mt-0">
                                     <a
                                         href="#"
-                                        className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-second-600 border border-transparent rounded-md shadow-sm hover:bg-second-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-second-500"
                                     >
                                         View profile
                                     </a>
@@ -37,7 +37,7 @@ export default function Index({ auth }) {
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
                                             <svg
-                                                className="w-6 h-6 text-indigo-600"
+                                                className="w-6 h-6 text-second-600"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ export default function Index({ auth }) {
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
                                             <svg
-                                                className="w-6 h-6 text-indigo-600"
+                                                className="w-6 h-6 text-second-600"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
