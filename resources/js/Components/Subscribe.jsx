@@ -4,7 +4,7 @@ import TextInput from "./TextInput";
 
 const Subscribe = () => {
     return (
-        <div className="">
+        <div>
             <div className="mx-auto max-w-7xl py-12 px-6 lg:py-16 lg:px-8">
                 <div className="rounded-lg bg-main-900 px-6 py-6 md:py-12 md:px-12 lg:py-16 lg:px-16 xl:flex xl:items-center">
                     {/* left side */}
