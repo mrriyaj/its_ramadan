@@ -2,6 +2,7 @@ import { Head } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
 import Hero from "@/Components/Hero";
 import Subscribe from "@/Components/Subscribe";
+import TodayQuiz from "@/Components/TodayQuiz";
 
 export default function Home({ auth }) {
     return (
@@ -9,6 +10,7 @@ export default function Home({ auth }) {
             <Head title="Welcome" />
             <Hero />
             <Subscribe />
+            <TodayQuiz />
         </App>
     );
 }
