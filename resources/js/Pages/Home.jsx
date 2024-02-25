@@ -1,13 +1,16 @@
-import { Head } from '@inertiajs/react';
-import App from '@/Layouts/AppLayout';
-import Hero from '@/Components/Hero';
+import { Head } from "@inertiajs/react";
+import App from "@/Layouts/AppLayout";
+import Hero from "@/Components/Hero";
+import Subscribe from "@/Components/Subscribe";
+import TodayQuiz from "@/Components/TodayQuiz";
 
-    export default function Home({ auth }) {
-        return (
-                <App auth={auth}>
-                <Head title="Welcome" />
-                    <Hero />
-
-                </App>
-        );
-    }
+export default function Home({ auth }) {
+    return (
+        <App auth={auth}>
+            <Head title="Welcome" />
+            <Hero />
+            <Subscribe />
+            <TodayQuiz />
+        </App>
+    );
+}
