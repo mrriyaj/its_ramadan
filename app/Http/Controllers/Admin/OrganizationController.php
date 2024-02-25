@@ -38,6 +38,7 @@ class OrganizationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'slug' => 'required|max:255|unique:organizations,slug', // 'slug' is a unique field in the 'organizations' table
             'name' => 'required|max:255',
             'logo' => 'nullable|image',
             'cover' => 'nullable|image',
@@ -56,6 +57,10 @@ class OrganizationController extends Controller
             'twitter' => 'nullable|max:255',
             'website' => 'nullable|max:255',
             'youtube' => 'nullable|max:255',
+            'linkedin' => 'nullable|max:255',
+            'is_active' => 'required|boolean',
+            'is_verified' => 'required|boolean',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         $organization = new Organization();
@@ -111,6 +116,7 @@ class OrganizationController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $validated = $request->validate([
+            'slug' => 'required|max:255|unique:organizations,slug,' . $id, // 'slug' is a unique field in the 'organizations' table
             'name' => 'required|max:255',
             'description' => 'required|max:1024',
             'address_line_1' => 'required|max:255',
@@ -126,6 +132,10 @@ class OrganizationController extends Controller
             'twitter' => 'nullable|max:255',
             'website' => 'nullable|max:255',
             'youtube' => 'nullable|max:255',
+            'linkedin' => 'nullable|max:255',
+            'is_active' => 'required|boolean',
+            'is_verified' => 'required|boolean',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if ($id) {

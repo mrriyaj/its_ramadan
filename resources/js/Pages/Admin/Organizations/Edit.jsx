@@ -27,7 +27,7 @@ export default function Edit({ organization, auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route("organization.update", organization));
+        patch(route("organizations.update", organization));
     };
 
     return (
@@ -446,7 +446,7 @@ export default function Edit({ organization, auth }) {
 
                                 <div className="flex items-center justify-end mt-4">
                                     <Link
-                                        href={route("organization.index")}
+                                        href={route("organizations.index")}
                                         className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                     >
                                         Go to Organizations lists

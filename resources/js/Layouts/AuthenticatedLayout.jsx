@@ -39,7 +39,7 @@ export default function Authenticated({ auth, header, children }) {
                             Dashboard
                         </Link>
                         <Link
-                            href={route("organization.index")}
+                            href={route("organizations.index")}
                             className="text-base font-medium text-white hover:text-second-500"
                         >
                             Organizations

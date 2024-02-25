@@ -7,7 +7,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
     const [organizations, setOrganizations] = useState(initialOrganizations);
 
     const deleteOrganization = (organizationId) => {
-        axios.delete(route("organization.destroy", { organization: organizationId })).then(() => {
+        axios.delete(route("organizations.destroy", { organization: organizationId })).then(() => {
             setOrganizations(organizations.filter((organization) => organization.id !== organizationId));
         });
     };
@@ -28,7 +28,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
 
                     <div className='flex justify-end'>
                         <Link className="pr-3 my-2 font-medium text-white-600 dark:text-white hover:underline"
-                            href={route("organization.create")} >
+                            href={route("organizations.create")} >
                             Create Organization
                         </Link>
                     </div>
@@ -47,6 +47,9 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                         Email
                                     </th>
                                     <th scope="col" className="px-6 py-3">
+                                        isActive
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
                                         Action
                                     </th>
                                 </tr>
@@ -61,7 +64,15 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                             scope="row"
                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                         >
-                                            <img src={organization.logo} alt="Image" className="w-12 h-12 rounded-full object-cover"/>
+                                            <span className="inline-flex rounded-md">
+                                                {organization.logo ? (
+                                                    <img className="h-10 w-10 rounded-full" src={organization.logo} alt="logo" />
+                                                ) : (
+                                                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gray-500">
+                                                        <span className="text-lg font-medium leading-none text-white">{organization.name.substring(0, 2)}</span>
+                                                    </span>
+                                                )}
+                                            </span>
                                         </th>
                                         <td className="px-6 py-4">
                                             {organization.name}
@@ -70,9 +81,20 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                             {organization.email}
                                         </td>
                                         <td className="px-6 py-4">
+                                            {organization.is_active ? (
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Active
+                                                </span>
+                                            ) : (
+                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    Inactive
+                                                </span>
+                                            )}
+                                        </td>
+                                        <td className="px-6 py-4">
                                             <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                 href={route(
-                                                    "organization.show",
+                                                    "organizations.show",
                                                     {
                                                         organization: organization.id,
                                                     }
@@ -82,7 +104,7 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                             </Link>
                                             <Link className="pr-3 font-medium text-green-600 dark:text-green-500 hover:underline"
                                                 href={route(
-                                                    "organization.edit",
+                                                    "organizations.edit",
                                                     {
                                                         organization: organization.id,
                                                     }

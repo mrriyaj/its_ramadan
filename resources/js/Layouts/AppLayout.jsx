@@ -42,7 +42,7 @@ export default function App({ children, auth }) {
                                 Quran
                             </Link>
                             <Link
-                                href="/organizations"
+                                href={route("organizations.user.index")}
                                 className="text-base font-medium text-white hover:text-second-500"
                             >
                                 Organizations
