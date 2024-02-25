@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\QuizController as AdminQuizController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ComingSoonController;
 use App\Http\Controllers\User\OrganizationsController as UserOrganizationsController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\User\PanelController as UserPanelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
         // Organization Routes
         Route::resource('/organizations', UserOrganizationsController::class);
+        // Panel 
+        Route::get('/panel', [UserPanelController::class, 'index'])->name('panel');
     });
 
 });
