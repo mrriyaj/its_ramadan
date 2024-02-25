@@ -171,8 +171,9 @@ export default function Authenticated({ auth, header, children }) {
                     </div>
                 </header>
             )}
-
-    <main>{children}</main>
+            <div className="min-h-screen bg-main-default">
+                <main>{children}</main>
+            </div>
     </>
     );
 }

@@ -62,6 +62,37 @@ class User extends Authenticatable implements MustVerifyEmail
     // }
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+
+    public function isSuperadmin()
+    {
+        return $this->role == 'superadmin';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function isOrgAdmin()
+    {
+        return $this->role == 'orgadmin';
+    }
+
+    public function isManager()
+    {
+        return $this->role == 'manager';
+    }
+
+    public function isUser()
+    {
+        return $this->role == 'user';
+    }
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
