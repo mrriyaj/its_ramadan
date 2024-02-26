@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,11 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Organizations/Create');
+        $users = User::all();
+
+        return Inertia::render('Admin/Organizations/Create',[
+            'users' => $users
+        ]);
     }
 
     /**
@@ -39,6 +44,7 @@ class OrganizationController extends Controller
     {
         $validated = $request->validate([
             'slug' => 'required|max:255|unique:organizations,slug', // 'slug' is a unique field in the 'organizations' table
+            'owner' => 'required|exists:users,id',
             'name' => 'required|max:255',
             'logo' => 'nullable|image',
             'cover' => 'nullable|image',
@@ -60,7 +66,7 @@ class OrganizationController extends Controller
             'linkedin' => 'nullable|max:255',
             'is_active' => 'required|boolean',
             'is_verified' => 'required|boolean',
-            'user_id' => 'required|exists:users,id'
+            'created_by' => 'required|exists:users,id',
         ]);
 
         $organization = new Organization();
@@ -117,6 +123,7 @@ class OrganizationController extends Controller
     {
         $validated = $request->validate([
             'slug' => 'required|max:255|unique:organizations,slug,' . $id, // 'slug' is a unique field in the 'organizations' table
+            'owner' => 'required|exists:users,id',
             'name' => 'required|max:255',
             'description' => 'required|max:1024',
             'address_line_1' => 'required|max:255',
@@ -135,7 +142,7 @@ class OrganizationController extends Controller
             'linkedin' => 'nullable|max:255',
             'is_active' => 'required|boolean',
             'is_verified' => 'required|boolean',
-            'user_id' => 'required|exists:users,id'
+            'created_by' => 'required|exists:users,id',
         ]);
 
         if ($id) {
