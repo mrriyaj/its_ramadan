@@ -4,6 +4,7 @@ import axios from "axios";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import TextInput from "@/Components/TextInput";
 import SortableTableHeader from "@/Components/SortableTableHeader";
+import SecondaryButton from "@/Components/SecondaryButton";
 
 export default function Index({ auth, organizations: initialOrganizations }) {
     const [organizations, setOrganizations] = useState(initialOrganizations);
@@ -55,6 +56,13 @@ export default function Index({ auth, organizations: initialOrganizations }) {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     };
 
+    const resetFilters = () => {
+        setSearch("");
+        setParentFilter("all");
+        setSortColumn(null);
+        setSortOrder("asc");
+    };
+
     return (
         <Authenticated
             user={auth.user}
@@ -98,6 +106,10 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
                                 </select>
+
+                                <SecondaryButton onClick={resetFilters}>
+                                    Reset
+                                </SecondaryButton>
                             </div>
                         </div>
                         {sortedOrganizations.length === 0 ? (
