@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import Logo from "@/Components/Logo";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Footer from "@/Components/Footer";
 import Dropdown from "@/Components/Dropdown";
 
 export default function App({ children, auth }) {
+    const user = usePage().props.auth.user;
 
     return (
         <>
@@ -73,7 +74,7 @@ export default function App({ children, auth }) {
                                         <Dropdown>
                                             <Dropdown.Trigger>
                                                 <span className="inline-flex rounded-md">
-                                                    {auth.user.profile ? (
+                                                    {user.profile ? (
                                                         <img className="h-10 w-10 rounded-full" src={auth.user.profile} alt="logo" />
                                                     ) : (
                                                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
@@ -83,20 +84,43 @@ export default function App({ children, auth }) {
                                                 </span>
                                             </Dropdown.Trigger>
 
-                                            <Dropdown.Content>
-                                                <Dropdown.Link
-                                                    href={route("panel")}
-                                                >
-                                                    Panel
-                                                </Dropdown.Link>
-                                                <Dropdown.Link
-                                                    href={route("logout")}
-                                                    method="post"
-                                                    as="button"
-                                                >
-                                                    Log Out
-                                                </Dropdown.Link>
-                                            </Dropdown.Content>
+                                            {user.role === "superadmin" || user.role === "admin" ? (
+                                                <Dropdown.Content>
+                                                    <Dropdown.Link
+                                                        href={route("dashboard")}
+                                                    >
+                                                        Admin
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("panel")}
+                                                    >
+                                                        Panel
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("logout")}
+                                                        method="post"
+                                                        as="button"
+                                                    >
+                                                        Log Out
+                                                    </Dropdown.Link>
+                                                </Dropdown.Content>
+                                            ) : (
+                                                <Dropdown.Content>
+                                                    <Dropdown.Link
+                                                        href={route("panel")}
+                                                    >
+                                                        Panel
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("logout")}
+                                                        method="post"
+                                                        as="button"
+                                                    >
+                                                        Log Out
+                                                    </Dropdown.Link>
+                                                </Dropdown.Content>
+                                            )
+                                            }
                                         </Dropdown>
                                     </div>
                                 </div>
@@ -189,6 +213,15 @@ export default function App({ children, auth }) {
                                 <div>
                                     {auth.user ? (
                                         <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+                                            {user.role === "admin" || user.role === "superadmin" ? (
+                                                <Link
+                                                    href={route("dashboard")}
+                                                    className="text-base font-medium text-white hover:text-second-500"
+                                                >
+                                                    Admin
+                                                </Link>
+                                            ) : null
+                                            }
                                             <Link
                                                 href={route("panel")}
                                                 className="text-base font-medium text-white hover:text-second-500"
