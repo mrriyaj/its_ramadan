@@ -10,6 +10,7 @@ class Organization extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'slug',
         'name',
         'logo',
         'cover',
@@ -28,6 +29,10 @@ class Organization extends Model
         'twitter',
         'website',
         'youtube',
+        'linkedin',
+        'is_active',
+        'is_verified',
+        'user_id',
     ];
 
     /**

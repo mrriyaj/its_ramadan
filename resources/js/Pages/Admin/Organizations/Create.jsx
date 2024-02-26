@@ -4,9 +4,11 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import TextInputWithUrl from "@/Components/TextInputWithUrl";
 
 export default function Create({ auth }) {
     const { data, setData, post, processing, errors, reset } = useForm({
+        slug: "",
         name: "",
         logo: "",
         cover: "",
@@ -25,11 +27,12 @@ export default function Create({ auth }) {
         twitter: "",
         website: "",
         youtube: "",
+        linkedin: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("organization.store"), { onSuccess: () => reset() });
+        post(route("organizations.store"), { onSuccess: () => reset() });
     };
 
     return (
@@ -48,53 +51,76 @@ export default function Create({ auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
-                            <div>
-                                <InputLabel
-                                    htmlFor="logo"
-                                    value="Logo"
-                                />
-
-                                <input
-                                    type="file"
-                                    id="logo"
-                                    name="logo"
-                                    className="mt-1 block w-full"
-                                    autoComplete="logo"
-                                    onChange={(e) =>
-                                        setData("logo", e.target.files[0])
-                                    }
-                                    required
-                                />
-
-                                <InputError
-                                    message={errors.logo}
-                                    className="mt-2"
-                                />
+                                <div>
+                                    <InputLabel
+                                        htmlFor="slug"
+                                        value="Slug"
+                                    />
+                                    <TextInputWithUrl
+                                        id="slug"
+                                        name="slug"
+                                        value={data.slug}
+                                        className="mt-1 block w-full"
+                                        autoComplete="slug"
+                                        isFocused={true}
+                                        onChange={(e) =>
+                                            setData("slug", e.target.value)
+                                        }
+                                        required
+                                    />
+                                    <InputError
+                                        message={errors.slug}
+                                        className="mt-2"
+                                    />
                                 </div>
 
                                 <div>
-                                <InputLabel
-                                    htmlFor="cover"
-                                    value="Cover"
-                                />
+                                    <InputLabel
+                                        htmlFor="logo"
+                                        value="Logo"
+                                    />
 
-                                <input
-                                    type="file"
-                                    id="cover"
-                                    name="cover"
-                                    className="mt-1 block w-full"
-                                    autoComplete="cover"
-                                    onChange={(e) =>
-                                        setData("cover", e.target.files[0])
-                                    }
-                                    required
-                                />
+                                    <input
+                                        type="file"
+                                        id="logo"
+                                        name="logo"
+                                        className="mt-1 block w-full"
+                                        autoComplete="logo"
+                                        onChange={(e) =>
+                                            setData("logo", e.target.files[0])
+                                        }
+                                        required
+                                    />
 
-                                <InputError
-                                    message={errors.cover}
-                                    className="mt-2"
-                                />
-                        </div>
+                                    <InputError
+                                        message={errors.logo}
+                                        className="mt-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <InputLabel
+                                        htmlFor="cover"
+                                        value="Cover"
+                                    />
+
+                                    <input
+                                        type="file"
+                                        id="cover"
+                                        name="cover"
+                                        className="mt-1 block w-full"
+                                        autoComplete="cover"
+                                        onChange={(e) =>
+                                            setData("cover", e.target.files[0])
+                                        }
+                                        required
+                                    />
+
+                                    <InputError
+                                        message={errors.cover}
+                                        className="mt-2"
+                                    />
+                                </div>
 
                                 <div>
                                     <InputLabel
@@ -520,9 +546,35 @@ export default function Create({ auth }) {
                                     />
                                 </div>
 
+                                <div>
+                                    <InputLabel
+                                        htmlFor="linkedin"
+                                        value="Linkedin link"
+                                    />
+
+                                    <TextInput
+                                        id="linkedin"
+                                        name="linkedin"
+                                        type="url"
+                                        value={data.linkedin}
+                                        className="mt-1 block w-full"
+                                        autoComplete="linkedin"
+                                        isFocused={true}
+                                        onChange={(e) =>
+                                            setData("linkedin", e.target.value)
+                                        }
+                                        required
+                                    />
+
+                                    <InputError
+                                        message={errors.linkedin}
+                                        className="mt-2"
+                                    />
+                                </div>
+
                                 <div className="flex items-center justify-end mt-4">
                                     <Link
-                                        href={route("quizzes.index")}
+                                        href={route("organizations.index")}
                                         className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                     >
                                         Go to Organizations lists

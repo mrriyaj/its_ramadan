@@ -39,7 +39,7 @@ export default function Authenticated({ auth, header, children }) {
                             Dashboard
                         </Link>
                         <Link
-                            href={route("organization.index")}
+                            href={route("organizations.index")}
                             className="text-base font-medium text-white hover:text-second-500"
                         >
                             Organizations
@@ -165,7 +165,7 @@ export default function Authenticated({ auth, header, children }) {
         </Popover>
 
             {header && (
-                <header className="bg-white dark:bg-gray-800 shadow">
+                <header className="bg-main-dark shadow">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
