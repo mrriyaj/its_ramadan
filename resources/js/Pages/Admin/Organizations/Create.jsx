@@ -114,7 +114,6 @@ export default function Create({ auth, users }) {
                                                 <Combobox.Input
                                                     className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-main-500 dark:focus:border-main-600 focus:ring-main-500 dark:focus:ring-main-600 rounded-md shadow-sm "
                                                     displayValue={(user) => user.first_name}
-                                                    placeholder="Search for a user"
                                                     onChange={(event) => setQuery(event.target.value)}
                                                 />
                                                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">

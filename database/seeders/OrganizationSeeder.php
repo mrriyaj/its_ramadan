@@ -25,6 +25,7 @@ class OrganizationSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) { // Generate 50 organizations
             Organization::create([
                 'slug' => Str::slug($faker->unique()->company),
+                'owner' => $user->id, // Assuming you have users seeded
                 'name' => $faker->company,
                 'cover' => $faker->imageUrl(1280, 720, 'city', true),  // Placeholder image
                 'description' => $faker->paragraph(3),
@@ -45,7 +46,7 @@ class OrganizationSeeder extends Seeder
                 'linkedin' => 'https://linkedin.com/company/' . $faker->word,  // Sample
                 'is_active' => $faker->boolean(90), // 90% chance of being active
                 'is_verified' => $faker->boolean(50), // 50% chance of being verified
-                'user_id' => $user->id, // Assuming you have users seeded
+                'created_by' => $user->id,
             ]);
         }
         }
