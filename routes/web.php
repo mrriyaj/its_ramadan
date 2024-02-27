@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ComingSoonController;
-use App\Http\Controllers\User\PanelController;
-use App\Http\Controllers\User\OrganizationController;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OnboardingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -93,6 +93,5 @@ Route::middleware('auth')->group(function () {
         });
 
 });
-
 
 require __DIR__ . '/auth.php';

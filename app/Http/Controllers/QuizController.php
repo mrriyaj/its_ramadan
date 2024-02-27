@@ -1,25 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Organization;
-use App\Models\Quiz;
-use Inertia\Inertia;
 
-class OrganizationController extends Controller
+class QuizController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $organizations = Organization::all();
-
-        return Inertia::render('User/Organizations/Index', [
-            'organizations' => $organizations
-        ]);
+        //
     }
 
     /**
@@ -43,13 +36,7 @@ class OrganizationController extends Controller
      */
     public function show(string $id)
     {
-        $organization = Organization::findOrFail($id);
-        $quizzes = Quiz::where('organization_id', $id)->get();
-
-        return Inertia::render('User/Organizations/Show', [
-            'quizzes' => $quizzes,
-            'organization' => $organization
-        ]);
+        //
     }
 
     /**

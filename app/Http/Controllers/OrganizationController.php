@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Organization;
+use App\Models\Quiz;
 use Inertia\Inertia;
 
-
-class PanelController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Auth $auth)
+    public function index()
     {
+        $organizations = Organization::all();
 
-        $organizations = Organization::where('owner', $auth::id())->get();
-
-        return Inertia::render('User/Panel/Index', [
+        return Inertia::render('Organizations/Index', [
             'organizations' => $organizations
         ]);
     }
@@ -45,7 +43,13 @@ class PanelController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $organization = Organization::findOrFail($id);
+        $quizzes = Quiz::where('organization_id', $id)->get();
+
+        return Inertia::render('Organizations/Show', [
+            'quizzes' => $quizzes,
+            'organization' => $organization
+        ]);
     }
 
     /**
