@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Organization;
+use App\Models\QuizReward;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
@@ -42,7 +43,9 @@ class QuizController extends Controller
             'description' => 'required|max:1024',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'approval_type' => 'required|in:auto,manual'
+            'approval_type' => 'required|in:auto,manual',
+            'status' => 'required|in:active,inactive',
+            'created_by' => 'required|exists:users,id'
         ]);
 
         Quiz::create($validated);
@@ -53,9 +56,14 @@ class QuizController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Quiz $quiz)
     {
-        //
+        $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
+
+        return Inertia::render('Quizzes/Show', [
+            'quiz' => $quiz,
+            'rewards' => $rewards
+        ]);
     }
 
     /**

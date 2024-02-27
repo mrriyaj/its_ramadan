@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('approval_type', ['auto', 'manual']);
+            $table->enum('status', ['active', 'inactive']);
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }

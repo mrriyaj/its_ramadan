@@ -23,7 +23,9 @@ export default function Create({auth, organization}) {
         description: "",
         start_date: "",
         end_date: "",
-        approval_type: selected.value
+        approval_type: selected.value,
+        status: "active",
+        created_by: auth.user.id,
     });
 
     const submit = (e) => {
