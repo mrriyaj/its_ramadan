@@ -8,6 +8,8 @@ import { Head, Link, useForm } from "@inertiajs/react";
 export default function Edit({ organization, auth }) {
 
     const { data, setData, patch, processing, errors, reset } = useForm({
+        slug: organization.slug,
+        owner: organization.owner,
         name: organization.name,
         description: organization.description,
         address_line_1: organization.address_line_1,
@@ -23,6 +25,10 @@ export default function Edit({ organization, auth }) {
         twitter: organization.twitter,
         website: organization.website,
         youtube: organization.youtube,
+        linkedin: organization.linkedin,
+        is_active: organization.is_active,
+        is_verified: organization.is_verified,
+
     });
 
     const submit = (e) => {
