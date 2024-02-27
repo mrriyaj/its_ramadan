@@ -10,6 +10,7 @@ use App\Http\Controllers\ComingSoonController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -85,11 +86,17 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
         Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+            // Panel
+            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
             // Organization Routes
             Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
             Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
-            // Panel
-            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
+            // Quiz Routes
+            Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
+            Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
+
         });
 
 });

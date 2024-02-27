@@ -26,12 +26,12 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // 'organization_id' => 'required|exists:organizations,id',
+            'organization_id' => 'required|exists:organizations,id',
             'title' => 'required|max:255',
             'description' => 'required|max:1024',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'approval_type' => 'required|in:automatic,manual'
+            'approval_type' => 'required|in:auto,manual'
         ]);
 
         Quiz::create($validated);

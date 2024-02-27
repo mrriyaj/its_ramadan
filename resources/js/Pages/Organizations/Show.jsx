@@ -304,12 +304,18 @@ export default function Show({ auth, organization, quizzes }) {
                                         </div>
                                         <div className="ml-3">
                                             <p className="text-sm font-medium text-gray-900">
-                                                Create quiz
+                                                Create a new quiz
                                             </p>
                                             <p className="text-sm text-gray-500">
                                                 Create a new quiz for this organization
                                             </p>
                                         </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Link
+                                            href={`/quizzes/create/${organization.id}`}
+                                            value="Create"
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Quiz;
+use App\Models\Organization;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class QuizController extends Controller
 {
@@ -18,9 +22,13 @@ class QuizController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(int $organizationId)
     {
-        //
+        $organization = Organization::findOrFail($organizationId);
+
+        return Inertia::render('Quizzes/Create', [
+            'organization' => $organization
+        ]);
     }
 
     /**
@@ -28,7 +36,18 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'organization_id' => 'required|exists:organizations,id',
+            'title' => 'required|max:255',
+            'description' => 'required|max:1024',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'approval_type' => 'required|in:auto,manual'
+        ]);
+
+        Quiz::create($validated);
+
+        return Redirect::route('panel')->with('success', 'Quiz has been created');
     }
 
     /**
