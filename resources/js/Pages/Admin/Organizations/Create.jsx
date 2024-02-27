@@ -19,15 +19,6 @@ export default function Create({ auth, users }) {
             ? users
             : users.filter((user) =>
                 user.first_name
-                    .concat(' ')
-                    .concat(user.last_name)
-                    .concat(' ')
-                    .concat(user.email)
-                    .concat(' ')
-                    .concat(user.phone)
-                    .concat(' ')
-                    .concat(user.whatsapp)
-                    .concat(' ')
                     .toLowerCase()
                     .replace(/\s+/g, '')
                     .includes(query.toLowerCase().replace(/\s+/g, ''))
@@ -35,7 +26,7 @@ export default function Create({ auth, users }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         slug: "",
-        owner: "",
+        owner: selected.id,
         name: "",
         logo: "",
         cover: "",
@@ -141,7 +132,7 @@ export default function Create({ auth, users }) {
                                                                 className={({ active }) =>
                                                                     `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'}`
                                                                 }
-                                                                value={user.id}
+                                                                value={user}
                                                             >
                                                                 {({ selected, active }) => (
                                                                     <>

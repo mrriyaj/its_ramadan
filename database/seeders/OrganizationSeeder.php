@@ -19,10 +19,10 @@ class OrganizationSeeder extends Seeder
 
         $faker = Faker::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $user = User::factory()->create(); // Create a new user
 
-        for ($i = 0; $i < 50; $i++) { // Generate 50 organizations
+        for ($i = 0; $i < 20; $i++) { // Generate 50 organizations
             Organization::create([
                 'slug' => Str::slug($faker->unique()->company),
                 'owner' => $user->id, // Assuming you have users seeded

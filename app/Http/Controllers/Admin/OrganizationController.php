@@ -142,7 +142,6 @@ class OrganizationController extends Controller
             'linkedin' => 'nullable|max:255',
             'is_active' => 'required|boolean',
             'is_verified' => 'required|boolean',
-            'created_by' => 'required|exists:users,id',
         ]);
 
         if ($id) {
