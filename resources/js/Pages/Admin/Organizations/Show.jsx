@@ -33,6 +33,14 @@ export default function Show({ organization, auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100 grid grid-cols-2 gap-4">
                             <div>
+                                <label className="font-bold">Slug</label>
+                                <span>{organization.slug}</span>
+                            </div>
+                            <div>
+                                <label className="font-bold">Owner</label>
+                                <span>{organization.owner}</span>
+                            </div>
+                            <div>
                                 <label className="font-bold">Logo</label>
                                 <img src={organization.logo} alt="Logo" className="w-24 h-24 rounded-full object-cover mt-5" />
                             </div>

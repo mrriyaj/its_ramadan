@@ -1,15 +1,17 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ComingSoonController;
-use App\Http\Controllers\User\PanelController;
-use App\Http\Controllers\User\OrganizationController;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizRewardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -85,14 +87,24 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
         Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+            // Panel
+            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
             // Organization Routes
             Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
             Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
-            // Panel
-            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
+            // Quiz Routes
+            Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
+            Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
+            Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.user.show');
+
+            // Quiz Reward Routes
+            Route::get('/reward/create/{quizId}', [QuizRewardController::class, 'create'])->name('rewards.user.create');
+            Route::post('/reward/store', [QuizRewardController::class, 'store'])->name('rewards.user.store');
+
         });
 
 });
-
 
 require __DIR__ . '/auth.php';

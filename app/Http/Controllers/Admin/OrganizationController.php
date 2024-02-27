@@ -110,9 +110,11 @@ class OrganizationController extends Controller
     public function edit(string $id)
     {
         $organization = Organization::findOrFail($id);
+        $users = User::all();
 
         return Inertia::render('Admin/Organizations/Edit', [
-            'organization' => $organization
+            'organization' => $organization,
+            'users' => $users
         ]);
     }
 

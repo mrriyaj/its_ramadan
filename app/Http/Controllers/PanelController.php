@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
@@ -19,7 +19,7 @@ class PanelController extends Controller
 
         $organizations = Organization::where('owner', $auth::id())->get();
 
-        return Inertia::render('User/Panel/Index', [
+        return Inertia::render('Panel/Index', [
             'organizations' => $organizations
         ]);
     }

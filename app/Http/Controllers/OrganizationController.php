@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class OrganizationController extends Controller
     {
         $organizations = Organization::all();
 
-        return Inertia::render('User/Organizations/Index', [
+        return Inertia::render('Organizations/Index', [
             'organizations' => $organizations
         ]);
     }
@@ -46,7 +46,7 @@ class OrganizationController extends Controller
         $organization = Organization::findOrFail($id);
         $quizzes = Quiz::where('organization_id', $id)->get();
 
-        return Inertia::render('User/Organizations/Show', [
+        return Inertia::render('Organizations/Show', [
             'quizzes' => $quizzes,
             'organization' => $organization
         ]);
