@@ -1,6 +1,8 @@
 import App from "@/Layouts/AppLayout";
+import { usePage } from "@inertiajs/react";
 
-export default function Index({ auth }) {
+export default function Index({ auth, organizations }) {
+    const user = usePage().props.auth.user;
 
     return (
         <App auth={auth}>
@@ -32,66 +34,65 @@ export default function Index({ auth }) {
                     </div>
                     <div className="mt-8">
                         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                            <div className="overflow-hidden rounded-lg bg-white shadow">
-                                <div className="p-6">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <svg
-                                                className="w-6 h-6 text-second-600"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                                />
-                                            </svg>
+                            {/* {user.role === 'superadmin' || user.role === 'admin' ?
+                                <div className="overflow-hidden rounded-lg bg-white shadow">
+                                    <div className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <img className="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-gray-900">Create organization</p>
+                                                <p className="text-sm text-gray-500">Create a new organization</p>
+                                            </div>
                                         </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">Create a new project</p>
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                Get started by creating a new project.
-                                            </p>
+                                    </div>
+                                </div> : null} */}
+
+                            {organizations.length === 0 && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') &&
+                                <div className="overflow-hidden rounded-lg bg-white shadow">
+                                    <div className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <img className="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-gray-900">No organization found</p>
+                                                <p className="text-sm text-gray-500">You have not joined any organization yet</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="overflow-hidden rounded-lg bg-white shadow">
-                                <div className="p-6">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <svg
-                                                className="w-6 h-6 text-second-600"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">View your reports</p>
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                Keep track of the latest reports from your projects.
-                                            </p>
+                            }
+
+                            {user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin' ? (
+                                organizations.map((organization) => (
+                                    <div key={organization.id} className="overflow-hidden rounded-lg bg-white shadow">
+                                        <div className="p-6">
+                                            <div className="flex items-center">
+                                                <div className="flex-shrink-0">
+                                                    <img className="w-10 h-10 rounded-full" src={organization.logo} alt="" />
+                                                </div>
+                                                <div className="ml-3">
+                                                    <p className="text-sm font-medium text-gray-900">{organization.name}</p>
+                                                    <p className="text-sm text-gray-500">{organization.email}</p>
+                                                </div>
+                                            </div>
+                                            <div className="mt-4">
+                                                <a
+                                                    href={`/organizations/${organization.id}`}
+                                                    className="text-sm font-medium text-second-600 hover:text-second-700"
+                                                >
+                                                    View
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                ))
+                            ) : null}
                         </div>
                     </div>
+
                 </div>
             </div>
         </App>

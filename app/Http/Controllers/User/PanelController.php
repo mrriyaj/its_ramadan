@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 
@@ -12,9 +14,14 @@ class PanelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Auth $auth)
     {
-        return Inertia::render('User/Panel/Index');
+
+        $organizations = Organization::where('owner', $auth::id())->get();
+
+        return Inertia::render('User/Panel/Index', [
+            'organizations' => $organizations
+        ]);
     }
 
     /**
