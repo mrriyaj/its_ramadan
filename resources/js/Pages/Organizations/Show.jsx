@@ -370,7 +370,7 @@ export default function Show({ auth, organization, quizzes }) {
                                     </div>
                                     <div className="mt-4">
                                         <Link
-                                            href={`/user/quizzes/${quiz.id}`}
+                                            href={`/quizzes/${quiz.id}`}
                                             value="View"
                                         />
                                     </div>
