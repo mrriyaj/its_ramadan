@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organization;
+use App\Models\Quiz;
 use Inertia\Inertia;
 
 class OrganizationController extends Controller
@@ -43,8 +44,10 @@ class OrganizationController extends Controller
     public function show(string $id)
     {
         $organization = Organization::findOrFail($id);
+        $quizzes = Quiz::where('organization_id', $id)->get();
 
         return Inertia::render('User/Organizations/Show', [
+            'quizzes' => $quizzes,
             'organization' => $organization
         ]);
     }

@@ -1,30 +1,9 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
-import { Head } from "@inertiajs/react";
-
-import {
-    Bars3Icon,
-    CalendarIcon,
-    CogIcon,
-    HomeIcon,
-    MagnifyingGlassCircleIcon,
-    MapIcon,
-    MegaphoneIcon,
-    SquaresPlusIcon,
-    UserGroupIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-    ChevronLeftIcon,
-    FunnelIcon,
-    MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { usePage , Head } from "@inertiajs/react";
 
 import {
     CheckBadgeIcon,
-    EnvelopeIcon,
-    PaperClipIcon,
-    PhoneIcon,
 } from "@heroicons/react/20/solid";
 import {
     FaEnvelope,
@@ -38,8 +17,9 @@ import {
 
 import { TbWorldWww } from "react-icons/tb";
 
-export default function Show({ auth, organization }) {
-    const URL = "https://www.localhost:3000/";
+export default function Show({ auth, organization, quizzes }) {
+    const user = usePage().props.auth.user;
+    const URL = "https:// localhost:8000/";
 
     return (
         <App auth={auth}>
@@ -139,8 +119,7 @@ export default function Show({ auth, organization }) {
                                                 </dt>
                                                 <dd className="mt-1 text-sm text-gray-900">
                                                     <a
-                                                        href="{URL}
-                                        {organization.slug}"
+                                                        href="{URL}/{organization.slug}"
                                                     >
                                                         {URL}
                                                         {organization.slug}
@@ -309,6 +288,93 @@ export default function Show({ auth, organization }) {
                     </div>
                 </div>
             </div>
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mt-8">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        {organization.owner === user.id && (
+                            <div className="overflow-hidden rounded-lg bg-white shadow">
+                                <div className="p-6">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <img
+                                                className="w-10 h-10 rounded-full"
+                                                src="https://via.placeholder.com/150"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                Create quiz
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Create a new quiz for this organization
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                        }
+                        {quizzes.length === 0 && (
+                            <div className="overflow-hidden rounded-lg bg-white shadow">
+                                <div className="p-6">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <img
+                                                className="w-10 h-10 rounded-full"
+                                                src="https://via.placeholder.com/150"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                No quiz found
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                No quiz found for this organization
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                        }
+                        {quizzes.map((quiz) => (
+                            <div
+                                key={quiz.id}
+                                className="overflow-hidden rounded-lg bg-white shadow"
+                            >
+                                <div className="p-6">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <img
+                                                className="w-10 h-10 rounded-full"
+                                                src={quiz.cover}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                {quiz.title}
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                {quiz.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Link
+                                            href={`/user/quizzes/${quiz.id}`}
+                                            value="View"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
         </App>
     );
 }
