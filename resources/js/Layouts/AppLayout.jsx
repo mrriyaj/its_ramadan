@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Popover, Transition, Menu } from "@headlessui/react";
+import { Popover, Transition } from "@headlessui/react";
 import Logo from "@/Components/Logo";
 import { Link, usePage } from "@inertiajs/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";

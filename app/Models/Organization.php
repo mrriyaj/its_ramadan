@@ -11,6 +11,7 @@ class Organization extends Model
     use HasFactory;
     protected $fillable = [
         'slug',
+        'owner', // Change to 'user_id'
         'name',
         'logo',
         'cover',
@@ -32,7 +33,7 @@ class Organization extends Model
         'linkedin',
         'is_active',
         'is_verified',
-        'user_id',
+        'created_by', // Change to 'user_id'
     ];
 
     /**

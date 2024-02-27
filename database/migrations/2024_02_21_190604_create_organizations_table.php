@@ -12,6 +12,7 @@ return new class extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
+            $table->foreignId('owner')->constrained('users');
             $table->string('name');
             $table->string('logo')->nullable(); // Allow for optional logos
             $table->string('cover')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_verified')->default(false);
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }
