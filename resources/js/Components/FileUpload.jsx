@@ -18,7 +18,6 @@ const FileUpload = ({ auth, buttonValue, className, ...props }) => {
     function handleSubmit(e) {
         e.preventDefault();
         post(route("file.upload.store"));
-
         setData("profile", null);
     }
 
@@ -26,7 +25,6 @@ const FileUpload = ({ auth, buttonValue, className, ...props }) => {
         setImage(e.target.files[0]);
         setData("profile", e.target.files[0]);
         setFileName(e.target.files[0].name);
-
         setButtonDisabled(false);
     };
 
