@@ -49,20 +49,6 @@ export default function Index({ auth, organizations: initialOrganizations }) {
             setSortOrder("asc");
         };
 
-    const deleteOrganization = (id) => async () => {
-        if (confirm("Are you sure you want to delete this organization?")) {
-            try {
-                await axios.delete(route("organizations.destroy", { organization: id }));
-
-                setOrganizations((organizations) =>
-                    organizations.filter((organization) => organization.id !== id)
-                );
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    }
-
         return (
             <Authenticated
                 user={auth.user}
@@ -232,8 +218,15 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                                             </Link>
                                                             <Link
                                                                 className="pr-3 font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                                onClick={deleteOrganization(
-                                                                    organization.id
+                                                                method="delete"
+                                                                as="button"
+                                                                type="button"
+                                                                href={route(
+                                                                    "organizations.destroy",
+                                                                    {
+                                                                        organization:
+                                                                            organization.id,
+                                                                    }
                                                                 )}
                                                             >
                                                                 Delete
