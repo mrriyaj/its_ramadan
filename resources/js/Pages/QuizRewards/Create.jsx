@@ -36,7 +36,7 @@ export default function Create({ auth, quiz }) {
                             <form onSubmit={submit}>
 
                                 <div>
-                                    <InputLabel forInput="name" value="Name" />
+                                    <InputLabel htmlFor="name" value="Name" />
                                     <TextInput
                                         id="name"
                                         type="text"
@@ -48,7 +48,7 @@ export default function Create({ auth, quiz }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="description" value="Description" />
+                                    <InputLabel htmlFor="description" value="Description" />
                                     <TextInput
                                         id="description"
                                         type="text"
@@ -60,7 +60,7 @@ export default function Create({ auth, quiz }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="quantity" value="Quantity" />
+                                    <InputLabel htmlFor="quantity" value="Quantity" />
                                     <TextInput
                                         id="quantity"
                                         type="number"
@@ -72,7 +72,7 @@ export default function Create({ auth, quiz }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="image" value="Image" />
+                                    <InputLabel htmlFor="image" value="Image" />
                                     <input
                                         type="file"
                                         id="image"
@@ -88,7 +88,7 @@ export default function Create({ auth, quiz }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="redeem_date" value="Redeem Date" />
+                                    <InputLabel htmlFor="redeem_date" value="Redeem Date" />
                                     <TextInput
                                         id="redeem_date"
                                         type="date"
