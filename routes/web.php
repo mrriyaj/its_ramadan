@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
             // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
-            Route::post('/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
+            Route::post('/admin/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
 
             Route::get('/dashboard', function () {
                 return Inertia::render('Dashboard');
