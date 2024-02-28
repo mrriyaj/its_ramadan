@@ -12,6 +12,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizRewardController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -101,7 +102,11 @@ Route::middleware('auth')->group(function () {
 
             // Quiz Reward Routes
             Route::get('/reward/create/{quizId}', [QuizRewardController::class, 'create'])->name('rewards.user.create');
-            Route::post('/reward/store', [QuizRewardController::class, 'store'])->name('rewards.user.store');
+            Route::post('/reward', [QuizRewardController::class, 'store'])->name('rewards.user.store');
+
+            // Question Routes
+            Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
+            Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
 
         });
 

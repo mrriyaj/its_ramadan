@@ -148,7 +148,7 @@ export default function Show({ auth, quiz, rewards }) {
                                 </div>
                                 <div className="mt-4">
                                     <Link
-                                        href={`/reward/create/${quiz.id}`}
+                                        href={`/questions/create/${quiz.id}`}
                                         value="Create"
                                     />
                                 </div>

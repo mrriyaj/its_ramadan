@@ -8,12 +8,12 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Fragment, useState } from 'react'
 
-export default function Create({auth, organization}) {
+const types = [
+    { label: "Auto", value: "auto" },
+    { label: "Manual", value: "manual" },
+];
 
-    const types = [
-        { label: "Auto", value: "auto" },
-        { label: "Manual", value: "manual" },
-    ];
+export default function Create({auth, organization}) {
 
     const [selected, setSelected] = useState(types[0]);
 
@@ -43,7 +43,7 @@ export default function Create({auth, organization}) {
                             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Create a new quiz</h2>
                         </div>
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit}>
+                            <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
 
                                 <div>
                                     <InputLabel
@@ -215,7 +215,7 @@ export default function Create({auth, organization}) {
                                                                         `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                     }
-                                                                    value={type.value}
+                                                                    value={type}
                                                                 >
                                                                     {({ selected, active }) => (
                                                                         <>
