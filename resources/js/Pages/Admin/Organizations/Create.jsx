@@ -4,10 +4,10 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-import TextInputWithUrl from "@/Components/TextInputWithUrl";
 import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import TextInputWithPrefix from "@/Components/TextInputWithPrefix";
 
 
 export default function Create({ auth, users }) {
@@ -77,7 +77,8 @@ export default function Create({ auth, users }) {
                                         htmlFor="slug"
                                         value="Slug"
                                     />
-                                    <TextInputWithUrl
+                                    <TextInputWithPrefix
+                                        prefix="https://itsramadan.com/"
                                         id="slug"
                                         name="slug"
                                         value={data.slug}
