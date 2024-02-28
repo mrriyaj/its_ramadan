@@ -2,14 +2,16 @@
 
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
-use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ComingSoonController;
-use App\Http\Controllers\User\OrganizationsController as UserOrganizationsController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizRewardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -28,13 +30,8 @@ use Inertia\Inertia;
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
-})->name('contact');
 
-Route::get('/about', function () {
-    return Inertia::render('About');
-});
+
 
 // Route with "coming soon" middleware
 Route::middleware(['coming_soon'])->group(function () {
@@ -43,6 +40,13 @@ Route::middleware(['coming_soon'])->group(function () {
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
+    });
+    Route::get('/contact', function () {
+        return Inertia::render('Contact');
+    })->name('contact');
+
+    Route::get('/about', function () {
+        return Inertia::render('About');
     });
 });
 
@@ -54,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
     //Admin Routes
     Route::prefix('admin')->group(function () {
-        Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+        Route::group(['middleware' => 'onboarding', 'coming_soon', 'auth'], function () {
             Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
             Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
@@ -66,6 +70,10 @@ Route::middleware('auth')->group(function () {
                 return Inertia::render('Dashboard');
             })->middleware(['auth', 'verified'])->name('dashboard');
 
+            Route::get('/', function () {
+                return Inertia::render('Dashboard');
+            })->middleware(['auth', 'verified'])->name('dashboard');
+
             // User Routes
             Route::resource('/users', AdminUserController::class);
 
@@ -73,17 +81,30 @@ Route::middleware('auth')->group(function () {
             Route::resource('/quizzes', AdminQuizController::class);
 
             // Organization Routes
-            Route::resource('/organization', AdminOrganizationController::class);
+            Route::resource('/organizations', AdminOrganizationController::class);
         });
     });
 
     // User Routes
-    Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
-        // Organization Routes
-        Route::resource('/organizations', UserOrganizationsController::class);
-    });
+        Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+            // Panel
+            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
+            // Organization Routes
+            Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
+            Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
+
+            // Quiz Routes
+            Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
+            Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
+            Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.user.show');
+
+            // Quiz Reward Routes
+            Route::get('/reward/create/{quizId}', [QuizRewardController::class, 'create'])->name('rewards.user.create');
+            Route::post('/reward/store', [QuizRewardController::class, 'store'])->name('rewards.user.store');
+
+        });
 
 });
-
 
 require __DIR__ . '/auth.php';

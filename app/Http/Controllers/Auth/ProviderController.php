@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use App\Providers\RouteServiceProvider;
 
 class ProviderController extends Controller
 {
@@ -32,6 +33,16 @@ class ProviderController extends Controller
 
         Auth::login($user);
 
-        return redirect('/admin/dashboard');
+        if (Auth::user()->role == 'superadmin') {
+            return redirect(RouteServiceProvider::DASHBOARD);
+        } elseif (Auth::user()->role == 'orgadmin') {
+            return redirect(RouteServiceProvider::HOME);
+        } elseif (Auth::user()->role == 'admin') {
+            return redirect(RouteServiceProvider::DASHBOARD);
+        } elseif (Auth::user()->role == 'manager') {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            return redirect(RouteServiceProvider::HOME);
+        }
     }
 }

@@ -1,13 +1,31 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import TextInputWithUrl from "@/Components/TextInputWithUrl";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { Fragment, useState } from 'react';
+import { Combobox, Transition } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-export default function Edit({ organization, auth }) {
+export default function Edit({ organization, auth, users }) {
+    const [selected, setSelected] = useState(users.find((user) => user.id === organization.owner));
+    const [query, setQuery] = useState('');
+
+    const filteredUsers =
+        query === ''
+            ? users
+            : users.filter((user) =>
+                user.first_name
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(query.toLowerCase().replace(/\s+/g, ''))
+            )
 
     const { data, setData, patch, processing, errors, reset } = useForm({
+        slug: organization.slug,
+        owner: selected.id,
         name: organization.name,
         description: organization.description,
         address_line_1: organization.address_line_1,
@@ -23,11 +41,14 @@ export default function Edit({ organization, auth }) {
         twitter: organization.twitter,
         website: organization.website,
         youtube: organization.youtube,
+        linkedin: organization.linkedin,
+        is_active: organization.is_active,
+        is_verified: organization.is_verified,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route("organization.update", organization));
+        patch(route("organizations.update", organization));
     };
 
     return (
@@ -46,6 +67,105 @@ export default function Edit({ organization, auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <InputLabel
+                                        htmlFor="slug"
+                                        value="Slug"
+                                    />
+
+                                    <TextInputWithUrl
+                                        id="slug"
+                                        name="slug"
+                                        value={data.slug}
+                                        className="mt-1 block w-full"
+                                        autoComplete="slug"
+                                        isFocused={true}
+                                        onChange={(e) =>
+                                            setData("slug", e.target.value)
+                                        }
+                                        required
+                                    />
+
+                                    <InputError
+                                        message={errors.slug}
+                                        className="mt-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <InputLabel
+                                        htmlFor="owner"
+                                        value="Owner"
+                                    />
+
+                                    <Combobox value={selected}
+                                        onChange={(value) => {
+                                            setSelected(value);
+                                            setData("owner", value.id);
+                                        }}>
+                                        <div className="relative mt-1">
+                                            <Combobox.Input
+                                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-main-500 dark:focus:border-main-600 focus:ring-main-500 dark:focus:ring-main-600 rounded-md shadow-sm "
+                                                displayValue={(user) => user.first_name}
+                                                onChange={(event) => setQuery(event.target.value)}
+                                            />
+                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                                <ChevronUpDownIcon
+                                                    className="h-5 w-5 text-gray-400"
+                                                    aria-hidden="true"
+                                                />
+                                            </Combobox.Button>
+                                            <Transition
+                                                as={Fragment}
+                                                leave="transition ease-in duration-100"
+                                                leaveFrom="opacity-100"
+                                                leaveTo="opacity-0"
+                                                afterLeave={() => setQuery('')}
+                                            >
+                                                <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                                    {filteredUsers.length === 0 && query !== '' ? (
+                                                        <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+                                                            Nothing found.
+                                                        </div>
+                                                    ) : (
+                                                        filteredUsers.map((user) => (
+                                                            <Combobox.Option
+                                                                key={user.id}
+                                                                className={({ active }) =>
+                                                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'}`
+                                                                }
+                                                                value={user}
+                                                            >
+                                                                {({ selected, active }) => (
+                                                                    <>
+                                                                        <span
+                                                                            className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
+                                                                        >
+                                                                            {user.first_name}
+                                                                        </span>
+                                                                        {selected ? (
+                                                                            <span
+                                                                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-teal-600'}`}
+                                                                            >
+                                                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : null}
+                                                                    </>
+                                                                )}
+                                                            </Combobox.Option>
+                                                        ))
+                                                    )}
+                                                </Combobox.Options>
+                                            </Transition>
+                                        </div>
+                                    </Combobox>
+
+                                    <InputError
+                                        message={errors.owner}
+                                        className="mt-2"
+                                    />
+
+                                </div>
                                 <div>
                                     <InputLabel
                                         htmlFor="name"
@@ -446,7 +566,7 @@ export default function Edit({ organization, auth }) {
 
                                 <div className="flex items-center justify-end mt-4">
                                     <Link
-                                        href={route("organization.index")}
+                                        href={route("organizations.index")}
                                         className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                     >
                                         Go to Organizations lists

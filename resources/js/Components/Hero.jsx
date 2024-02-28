@@ -10,8 +10,8 @@ export default function Hero() {
                 <defs>
                     <pattern
                         id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
-                        width={100}
-                        height={100}
+                        width={50}
+                        height={50}
                         x="50%"
                         y={-1}
                         patternUnits="userSpaceOnUse"
@@ -55,8 +55,8 @@ export default function Hero() {
                         y2="638.714"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop stopColor="#4F46E5" />
-                        <stop offset={1} stopColor="#80CAFF" />
+                        <stop stopColor="#fec200" />
+                        <stop offset={1} stopColor="#ffffea" />
                     </linearGradient>
                 </defs>
             </svg>

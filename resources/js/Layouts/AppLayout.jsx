@@ -1,14 +1,17 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import Logo from "@/Components/Logo";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Footer from "@/Components/Footer";
+import Dropdown from "@/Components/Dropdown";
 
 export default function App({ children, auth }) {
+    const user = usePage().props.auth.user;
+
     return (
         <>
-            <Popover className="min-h-screen relative bg-main-default">
+            <Popover className="relative bg-main-default">
                 <div className="mx-auto max-w-7xl px-2">
                     <div className="flex items-center justify-between border-gray-100 py-2 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -40,7 +43,7 @@ export default function App({ children, auth }) {
                                 Quran
                             </Link>
                             <Link
-                                href="/organizations"
+                                href={route("organizations.user.index")}
                                 className="text-base font-medium text-white hover:text-second-500"
                             >
                                 Organizations
@@ -66,12 +69,61 @@ export default function App({ children, auth }) {
                         </Popover.Group>
                         <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                             {auth.user ? (
-                                <Link
-                                    href={route("dashboard")}
-                                    className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-second-default px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-second-700"
-                                >
-                                    Dashboard
-                                </Link>
+                                <div className="hidden sm:flex sm:items-center sm:ms-6">
+                                    <div className="ms-3 relative">
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
+                                                <span className="inline-flex rounded-md">
+                                                    {user.profile ? (
+                                                        <img className="h-10 w-10 rounded-full" src={auth.user.profile} alt="logo" />
+                                                    ) : (
+                                                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
+                                                            <span class="text-sm font-medium leading-none text-white">{auth.user.first_name}</span>
+                                                        </span>
+                                                    )}
+                                                </span>
+                                            </Dropdown.Trigger>
+
+                                            {user.role === "superadmin" || user.role === "admin" ? (
+                                                <Dropdown.Content>
+                                                    <Dropdown.Link
+                                                        href={route("dashboard")}
+                                                    >
+                                                        Admin
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("panel")}
+                                                    >
+                                                        Panel
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("logout")}
+                                                        method="post"
+                                                        as="button"
+                                                    >
+                                                        Log Out
+                                                    </Dropdown.Link>
+                                                </Dropdown.Content>
+                                            ) : (
+                                                <Dropdown.Content>
+                                                    <Dropdown.Link
+                                                        href={route("panel")}
+                                                    >
+                                                        Panel
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={route("logout")}
+                                                        method="post"
+                                                        as="button"
+                                                    >
+                                                        Log Out
+                                                    </Dropdown.Link>
+                                                </Dropdown.Content>
+                                            )
+                                            }
+                                        </Dropdown>
+                                    </div>
+                                </div>
                             ) : (
                                 <>
                                     <Link
@@ -160,12 +212,31 @@ export default function App({ children, auth }) {
                                 </div>
                                 <div>
                                     {auth.user ? (
-                                        <Link
-                                            href={route("dashboard")}
-                                            className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-second-default px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-second-700"
-                                        >
-                                            Dashboard
-                                        </Link>
+                                        <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+                                            {user.role === "admin" || user.role === "superadmin" ? (
+                                                <Link
+                                                    href={route("dashboard")}
+                                                    className="text-base font-medium text-white hover:text-second-500"
+                                                >
+                                                    Admin
+                                                </Link>
+                                            ) : null
+                                            }
+                                            <Link
+                                                href={route("panel")}
+                                                className="text-base font-medium text-white hover:text-second-500"
+                                            >
+                                                Panel
+                                            </Link>
+                                            <Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
+                                                className="text-base font-medium text-white hover:text-second-500"
+                                            >
+                                                Log Out
+                                            </Link>
+                                        </div>
                                     ) : (
                                         <>
                                             <Link

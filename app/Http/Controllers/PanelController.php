@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class UserController extends Controller
+
+class PanelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Auth $auth)
     {
-        if (Gate::allows('view_any_user')) {
-            return Inertia::render('Admin/Users/Index', [
-                'users' => User::all(),
-            ]);
-        } else{
-            abort(403, 'Unauthorized Action');
-        }
+
+        $organizations = Organization::where('owner', $auth::id())->get();
+
+        return Inertia::render('Panel/Index', [
+            'organizations' => $organizations
+        ]);
     }
 
     /**
@@ -43,11 +43,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(string $id)
     {
-        return Inertia::render('Admin/Users/Show', [
-            'user' => $user
-        ]);
+        //
     }
 
     /**
@@ -69,8 +67,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        $user->delete();;
+        //
     }
 }
