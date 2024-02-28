@@ -5,6 +5,7 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import ProfileImage from "@/Pages/Profile/Partials/ProfileImage";
+import FileUpload from "@/Components/FileUpload";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -58,6 +59,7 @@ export default function UpdateProfileInformation({
             </header>
 
             <ProfileImage />
+            <FileUpload buttonValue="Upload Profile" />
 
             <form
                 onSubmit={submit}
@@ -72,13 +74,18 @@ export default function UpdateProfileInformation({
                             id="first_name"
                             className="mt-1 block w-full"
                             value={data.first_name}
-                            onChange={(e) => setData("first_name", e.target.value)}
+                            onChange={(e) =>
+                                setData("first_name", e.target.value)
+                            }
                             required
                             isFocused
                             autoComplete="first_name"
                         />
 
-                        <InputError className="mt-2" message={errors.first_name} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.first_name}
+                        />
                     </div>
                     <div>
                         <InputLabel htmlFor="last_name" value="Last Name" />
@@ -87,11 +94,16 @@ export default function UpdateProfileInformation({
                             id="last_name"
                             className="mt-1 block w-full"
                             value={data.last_name}
-                            onChange={(e) => setData("last_name", e.target.value)}
+                            onChange={(e) =>
+                                setData("last_name", e.target.value)
+                            }
                             autoComplete="last_name"
                         />
 
-                        <InputError className="mt-2" message={errors.last_name} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.last_name}
+                        />
                     </div>
                     <div>
                         <InputLabel htmlFor="gender" value="Gender" />
@@ -190,11 +202,16 @@ export default function UpdateProfileInformation({
                             id="district"
                             className="mt-1 block w-full"
                             value={data.district}
-                            onChange={(e) => setData("district", e.target.value)}
+                            onChange={(e) =>
+                                setData("district", e.target.value)
+                            }
                             autoComplete="district"
                         />
 
-                        <InputError className="mt-2" message={errors.district} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.district}
+                        />
                     </div>
                     <div>
                         <InputLabel htmlFor="country" value="Country" />
@@ -216,11 +233,16 @@ export default function UpdateProfileInformation({
                             id="postal_code"
                             className="mt-1 block w-full"
                             value={data.postal_code}
-                            onChange={(e) => setData("postal_code", e.target.value)}
+                            onChange={(e) =>
+                                setData("postal_code", e.target.value)
+                            }
                             autoComplete="postal_code"
                         />
 
-                        <InputError className="mt-2" message={errors.postal_code} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.postal_code}
+                        />
                     </div>
                     <div>
                         <InputLabel
@@ -278,17 +300,25 @@ export default function UpdateProfileInformation({
                         <InputError className="mt-2" message={errors.phone} />
                     </div>
                     <div>
-                        <InputLabel htmlFor="whatsapp" value="Whatsapp Number" />
+                        <InputLabel
+                            htmlFor="whatsapp"
+                            value="Whatsapp Number"
+                        />
 
                         <TextInput
                             id="whatsapp"
                             className="mt-1 block w-full"
                             value={data.whatsapp}
-                            onChange={(e) => setData("whatsapp", e.target.value)}
+                            onChange={(e) =>
+                                setData("whatsapp", e.target.value)
+                            }
                             autoComplete="whatsapp"
                         />
 
-                        <InputError className="mt-2" message={errors.whatsapp} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.whatsapp}
+                        />
                     </div>
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
@@ -315,14 +345,15 @@ export default function UpdateProfileInformation({
                                     as="button"
                                     className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                 >
-                                    Click here to re-send the verification email.
+                                    Click here to re-send the verification
+                                    email.
                                 </Link>
                             </p>
 
                             {status === "verification-link-sent" && (
                                 <div className="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                                    A new verification link has been sent to your
-                                    email address.
+                                    A new verification link has been sent to
+                                    your email address.
                                 </div>
                             )}
                         </div>
