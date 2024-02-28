@@ -12,7 +12,7 @@ class Question extends Model
     protected $fillable = [
         'quiz_id',
         'title',
-        'day',
+        'question_number',
         'quiz_text',
         'quiz_image',
         'quiz_audio',
@@ -81,20 +81,6 @@ class Question extends Model
     {
         return Attribute::make(
             get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
-    }
-
-    public function start_date(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('d-m-Y H:i:s', strtotime($value)),
-        );
-    }
-
-    public function end_date(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('d-m-Y H:i:s', strtotime($value)),
         );
     }
 

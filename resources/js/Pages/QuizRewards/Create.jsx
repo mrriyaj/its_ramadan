@@ -44,7 +44,7 @@ export default function Create({ auth, quiz }) {
                                         value={data.name}
                                         onChange={(e) => setData("name", e.target.value)}
                                     />
-                                    <InputError error={errors.name} />
+                                    <InputError message={errors.name} />
                                 </div>
 
                                 <div>
@@ -56,7 +56,7 @@ export default function Create({ auth, quiz }) {
                                         value={data.description}
                                         onChange={(e) => setData("description", e.target.value)}
                                     />
-                                    <InputError error={errors.description} />
+                                    <InputError message={errors.description} />
                                 </div>
 
                                 <div>
@@ -68,7 +68,7 @@ export default function Create({ auth, quiz }) {
                                         value={data.quantity}
                                         onChange={(e) => setData("quantity", e.target.value)}
                                     />
-                                    <InputError error={errors.quantity} />
+                                    <InputError message={errors.quantity} />
                                 </div>
 
                                 <div>
@@ -84,7 +84,7 @@ export default function Create({ auth, quiz }) {
                                         }
                                         required
                                     />
-                                    <InputError error={errors.image} />
+                                    <InputError message={errors.image} />
                                 </div>
 
                                 <div>
@@ -96,7 +96,7 @@ export default function Create({ auth, quiz }) {
                                         value={data.redeem_date}
                                         onChange={(e) => setData("redeem_date", e.target.value)}
                                     />
-                                    <InputError error={errors.redeem_date} />
+                                    <InputError message={errors.redeem_date} />
                                 </div>
 
                                 <div className="flex items-center justify-end mt-4">

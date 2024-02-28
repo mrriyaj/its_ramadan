@@ -4,34 +4,53 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { Fragment, useState } from 'react'
+
+const options = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+    { value: "option4", label: "Option 4" },
+];
+
+const status = [
+    { value: "active", label: "Active" },
+    { value: "inactive", label: "Inactive" },
+];
 
 export default function Create({ auth, quiz }) {
+    const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [selectedStatus, setSelectedStatus] = useState(status[0]);
+
+
 
     const { data, setData, post, processing, errors, reset } = useForm({
-            quiz_id: quiz.id,
-            title: '',
-            day: '',
-            quiz_text: '',
-            quiz_image: null,
-            quiz_audio: null,
-            quiz_video: null,
-            answer_option1: '',
-            image_option1: null,
-            answer_option2: '',
-            image_option2: null,
-            answer_option3: '',
-            image_option3: null,
-            answer_option4: '',
-            image_option4: null,
-            correct_answer: '',
-            quiz_explanation: '',
-            quiz_hint: '',
-            quiz_points: '',
-            status: '',
-            start_date: '',
-            end_date: '',
-            created_by: ''
-        });
+        quiz_id: quiz.id,
+        title: "",
+        question_number: "",
+        quiz_text: "",
+        quiz_image: "",
+        quiz_audio: "",
+        quiz_video: "",
+        answer_option1: "",
+        image_option1: "",
+        answer_option2: "",
+        image_option2: "",
+        answer_option3: "",
+        image_option3: "",
+        answer_option4: "",
+        image_option4: "",
+        correct_answer: selectedOption.value,
+        quiz_explanation: "",
+        quiz_hint: "",
+        quiz_points: "",
+        status: "inactive",
+        start_date: "",
+        end_date: "",
+        created_by: auth.user.id
+    });
 
     const submit = (e) => {
         e.preventDefault();
@@ -48,274 +67,376 @@ export default function Create({ auth, quiz }) {
                             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Create a new quiz</h2>
                         </div>
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit}>
+                            <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
                                 <div className="grid grid-cols-2 gap-4">
-                                <div >
-                                    <InputLabel forInput="title" value="Title" />
-                                    <TextInput
-                                        id="title"
-                                        type="text"
-                                        name="title"
-                                        autoComplete="title"
-                                        value={data.title}
-                                        onChange={(e) => setData("title", e.target.value)}
-                                    />
-                                    <InputError error={errors.title} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="day" value="Day" />
-                                    <TextInput
-                                        id="day"
-                                        type="text"
-                                        name="day"
-                                        autoComplete="day"
-                                        value={data.day}
-                                        onChange={(e) => setData("day", e.target.value)}
-                                    />
-                                    <InputError error={errors.day} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_text" value="Question" />
-                                    <TextInput
-                                        id="quiz_text"
-                                        type="text"
-                                        name="quiz_text"
-                                        autoComplete="quiz_text"
-                                        value={data.quiz_text}
-                                        onChange={(e) => setData("quiz_text", e.target.value)}
-                                    />
-                                    <InputError error={errors.quiz_text} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_image" value="Question Image" />
-                                    <TextInput
-                                        id="quiz_image"
-                                        type="file"
-                                        name="quiz_image"
-                                        autoComplete="quiz_image"
-                                        value={data.quiz_image}
-                                        onChange={(e) => setData("quiz_image", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.quiz_image} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_audio" value="Question Audio" />
-                                    <TextInput
-                                        id="quiz_audio"
-                                        type="file"
-                                        name="quiz_audio"
-                                        autoComplete="quiz_audio"
-                                        value={data.quiz_audio}
-                                        onChange={(e) => setData("quiz_audio", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.quiz_audio} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_video" value="Question Video" />
-                                    <TextInput
-                                        id="quiz_video"
-                                        type="file"
-                                        name="quiz_video"
-                                        autoComplete="quiz_video"
-                                        value={data.quiz_video}
-                                        onChange={(e) => setData("quiz_video", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.quiz_video} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="answer_option1" value="Option 1" />
-                                    <TextInput
-                                        id="answer_option1"
-                                        type="text"
-                                        name="answer_option1"
-                                        autoComplete="answer_option1"
-                                        value={data.answer_option1}
-                                        onChange={(e) => setData("answer_option1", e.target.value)}
-                                    />
-                                    <InputError error={errors.answer_option1} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="image_option1" value="Option 1 Image" />
-                                    <TextInput
-                                        id="image_option1"
-                                        type="file"
-                                        name="image_option1"
-                                        autoComplete="image_option1"
-                                        value={data.image_option1}
-                                        onChange={(e) => setData("image_option1", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.image_option1} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="answer_option2" value="Option 2" />
-                                    <TextInput
-                                        id="answer_option2"
-                                        type="text"
-                                        name="answer_option2"
-                                        autoComplete="answer_option2"
-                                        value={data.answer_option2}
-                                        onChange={(e) => setData("answer_option2", e.target.value)}
-                                    />
-                                    <InputError error={errors.answer_option2} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="image_option2" value="Option 2 Image" />
-                                    <TextInput
-                                        id="image_option2"
-                                        type="file"
-                                        name="image_option2"
-                                        autoComplete="image_option2"
-                                        value={data.image_option2}
-                                        onChange={(e) => setData("image_option2", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.image_option2} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="answer_option3" value="Option 3" />
-                                    <TextInput
-                                        id="answer_option3"
-                                        type="text"
-                                        name="answer_option3"
-                                        autoComplete="answer_option3"
-                                        value={data.answer_option3}
-                                        onChange={(e) => setData("answer_option3", e.target.value)}
-                                    />
-                                    <InputError error={errors.answer_option3} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="image_option3" value="Option 3 Image" />
-                                    <TextInput
-                                        id="image_option3"
-                                        type="file"
-                                        name="image_option3"
-                                        autoComplete="image_option3"
-                                        value={data.image_option3}
-                                        onChange={(e) => setData("image_option3", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.image_option3} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="answer_option4" value="Option 4" />
-                                    <TextInput
-                                        id="answer_option4"
-                                        type="text"
-                                        name="answer_option4"
-                                        autoComplete="answer_option4"
-                                        value={data.answer_option4}
-                                        onChange={(e) => setData("answer_option4", e.target.value)}
-                                    />
-                                    <InputError error={errors.answer_option4} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="image_option4" value="Option 4 Image" />
-                                    <TextInput
-                                        id="image_option4"
-                                        type="file"
-                                        name="image_option4"
-                                        autoComplete="image_option4"
-                                        value={data.image_option4}
-                                        onChange={(e) => setData("image_option4", e.target.files[0])}
-                                    />
-                                    <InputError error={errors.image_option4} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="correct_answer" value="Correct Answer" />
-                                    <TextInput
-                                        id="correct_answer"
-                                        type="text"
-                                        name="correct_answer"
-                                        autoComplete="correct_answer"
-                                        value={data.correct_answer}
-                                        onChange={(e) => setData("correct_answer", e.target.value)}
-                                    />
-                                    <InputError error={errors.correct_answer} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_explanation" value="Explanation" />
-                                    <TextInput
-                                        id="quiz_explanation"
-                                        type="text"
-                                        name="quiz_explanation"
-                                        autoComplete="quiz_explanation"
-                                        value={data.quiz_explanation}
-                                        onChange={(e) => setData("quiz_explanation", e.target.value)}
-                                    />
-                                    <InputError error={errors.quiz_explanation} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_hint" value="Hint" />
-                                    <TextInput
-                                        id="quiz_hint"
-                                        type="text"
-                                        name="quiz_hint"
-                                        autoComplete="quiz_hint"
-                                        value={data.quiz_hint}
-                                        onChange={(e) => setData("quiz_hint", e.target.value)}
-                                    />
-                                    <InputError error={errors.quiz_hint} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="quiz_points" value="Points" />
-                                    <TextInput
-                                        id="quiz_points"
-                                        type="text"
-                                        name="quiz_points"
-                                        autoComplete="quiz_points"
-                                        value={data.quiz_points}
-                                        onChange={(e) => setData("quiz_points", e.target.value)}
-                                    />
-                                    <InputError error={errors.quiz_points} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="status" value="Status" />
-                                    <TextInput
-                                        id="status"
-                                        type="text"
-                                        name="status"
-                                        autoComplete="status"
-                                        value={data.status}
-                                        onChange={(e) => setData("status", e.target.value)}
-                                    />
-                                    <InputError error={errors.status} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="start_date" value="Start Date" />
-                                    <TextInput
-                                        id="start_date"
-                                        type="text"
-                                        name="start_date"
-                                        autoComplete="start_date"
-                                        value={data.start_date}
-                                        onChange={(e) => setData("start_date", e.target.value)}
-                                    />
-                                    <InputError error={errors.start_date} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="end_date" value="End Date" />
-                                    <TextInput
-                                        id="end_date"
-                                        type="text"
-                                        name="end_date"
-                                        autoComplete="end_date"
-                                        value={data.end_date}
-                                        onChange={(e) => setData("end_date", e.target.value)}
-                                    />
-                                    <InputError error={errors.end_date} />
-                                </div>
-                                <div >
-                                    <InputLabel forInput="created_by" value="Created By" />
-                                    <TextInput
-                                        id="created_by"
-                                        type="text"
-                                        name="created_by"
-                                        autoComplete="created_by"
-                                        value={data.created_by}
-                                        onChange={(e) => setData("created_by", e.target.value)}
-                                    />
-                                    <InputError error={errors.created_by} />
-                                </div>
-                                <div className="flex items-center justify-end mt-4">
-                                    <PrimaryButton processing={processing}>Create</PrimaryButton>
+                                    <div >
+                                        <InputLabel htmlFor="title" value="Title" />
+                                        <TextInput
+                                            id="title"
+                                            name="title"
+                                            value={data.title}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("title", e.target.value)}
+                                            required
+                                        />
+                                        <InputError message={errors.title} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="question_number" value="question_number" />
+                                        <TextInput
+                                            id="question_number"
+                                            name="question_number"
+                                            className="mt-1 block w-full"
+                                            value={data.day}
+                                            onChange={(e) => setData("question_number", e.target.value)}
+                                        />
+                                        <InputError message={errors.question_number} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_text" value="Question" />
+                                        <TextInput
+                                            id="quiz_text"
+                                            name="quiz_text"
+                                            className="mt-1 block w-full"
+                                            value={data.quiz_text}
+                                            onChange={(e) => setData("quiz_text", e.target.value)}
+                                        />
+                                        <InputError message={errors.quiz_text} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_image" value="Question Image" />
+                                        <input
+                                            id="quiz_image"
+                                            type="file"
+                                            name="quiz_image"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("quiz_image", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.quiz_image} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_audio" value="Question Audio" />
+                                        <input
+                                            id="quiz_audio"
+                                            type="file"
+                                            name="quiz_audio"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("quiz_audio", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.quiz_audio} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_video" value="Question Video" />
+                                        <input
+                                            id="quiz_video"
+                                            type="file"
+                                            name="quiz_video"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("quiz_video", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.quiz_video} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="answer_option1" value="Option 1" />
+                                        <TextInput
+                                            id="answer_option1"
+                                            type="text"
+                                            name="answer_option1"
+                                            className="mt-1 block w-full"
+                                            autoComplete="answer_option1"
+                                            value={data.answer_option1}
+                                            onChange={(e) => setData("answer_option1", e.target.value)}
+                                        />
+                                        <InputError message={errors.answer_option1} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="image_option1" value="Option 1 Image" />
+                                        <input
+                                            id="image_option1"
+                                            type="file"
+                                            name="image_option1"
+                                            autoComplete="image_option1"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("image_option1", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.image_option1} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="answer_option2" value="Option 2" />
+                                        <TextInput
+                                            id="answer_option2"
+                                            type="text"
+                                            name="answer_option2"
+                                            className="mt-1 block w-full"
+                                            autoComplete="answer_option2"
+                                            value={data.answer_option2}
+                                            onChange={(e) => setData("answer_option2", e.target.value)}
+                                        />
+                                        <InputError message={errors.answer_option2} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="image_option2" value="Option 2 Image" />
+                                        <input
+                                            id="image_option2"
+                                            type="file"
+                                            name="image_option2"
+                                            autoComplete="image_option2"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("image_option2", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.image_option2} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="answer_option3" value="Option 3" />
+                                        <TextInput
+                                            id="answer_option3"
+                                            type="text"
+                                            name="answer_option3"
+                                            autoComplete="answer_option3"
+                                            className="mt-1 block w-full"
+                                            value={data.answer_option3}
+                                            onChange={(e) => setData("answer_option3", e.target.value)}
+                                        />
+                                        <InputError message={errors.answer_option3} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="image_option3" value="Option 3 Image" />
+                                        <input
+                                            id="image_option3"
+                                            type="file"
+                                            name="image_option3"
+                                            autoComplete="image_option3"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("image_option3", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.image_option3} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="answer_option4" value="Option 4" />
+                                        <TextInput
+                                            id="answer_option4"
+                                            type="text"
+                                            name="answer_option4"
+                                            autoComplete="answer_option4"
+                                            className="mt-1 block w-full"
+                                            value={data.answer_option4}
+                                            onChange={(e) => setData("answer_option4", e.target.value)}
+                                        />
+                                        <InputError message={errors.answer_option4} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="image_option4" value="Option 4 Image" />
+                                        <input
+                                            id="image_option4"
+                                            type="file"
+                                            name="image_option4"
+                                            autoComplete="image_option4"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData("image_option4", e.target.files[0])}
+                                        />
+                                        <InputError message={errors.image_option4} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="correct_answer" value="Correct Answer" />
+                                        <Listbox value={selectedOption} onChange={setSelectedOption}>
+                                            {({ open }) => (
+                                                <>
+                                                    <div className="mt-1 relative">
+                                                        <span className="block w-full rounded-md shadow-sm">
+                                                            <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                                <span className="block truncate">{selectedOption.label}</span>
+                                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                </span>
+                                                            </Listbox.Button>
+                                                        </span>
+
+                                                        <Transition
+                                                            show={open}
+                                                            as={Fragment}
+                                                            leave="transition ease-in duration-100"
+                                                            leaveFrom="opacity-100"
+                                                            leaveTo="opacity-0"
+                                                        >
+                                                            <Listbox.Options
+                                                                static
+                                                                className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                                            >
+                                                                {options.map((option) => (
+                                                                    <Listbox.Option
+                                                                        key={option.value}
+                                                                        className={({ active }) =>
+                                                                            `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                            cursor-default select-none relative py-2 pl-3 pr-9`
+                                                                        }
+                                                                        value={option}
+                                                                    >
+                                                                        {({ selected, active }) => (
+                                                                            <>
+                                                                                <span
+                                                                                    className={`${selected ? 'font-semibold' : 'font-normal'}
+                                block truncate`}
+                                                                                >
+                                                                                    {option.label}
+                                                                                </span>
+
+                                                                                {selected ? (
+                                                                                    <span
+                                                                                        className={`${active ? 'text-main-600' : 'text-main-600'}
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                                    >
+                                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox.Option>
+                                                                ))}
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </Listbox>
+                                        <InputError message={errors.correct_answer} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_explanation" value="Explanation" />
+                                        <TextInput
+                                            id="quiz_explanation"
+                                            type="text"
+                                            name="quiz_explanation"
+                                            autoComplete="quiz_explanation"
+                                            className="mt-1 block w-full"
+                                            value={data.quiz_explanation}
+                                            onChange={(e) => setData("quiz_explanation", e.target.value)}
+                                        />
+                                        <InputError message={errors.quiz_explanation} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_hint" value="Hint" />
+                                        <TextInput
+                                            id="quiz_hint"
+                                            type="text"
+                                            name="quiz_hint"
+                                            autoComplete="quiz_hint"
+                                            className="mt-1 block w-full"
+                                            value={data.quiz_hint}
+                                            onChange={(e) => setData("quiz_hint", e.target.value)}
+                                        />
+                                        <InputError message={errors.quiz_hint} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="quiz_points" value="Points" />
+                                        <TextInput
+                                            id="quiz_points"
+                                            type="text"
+                                            name="quiz_points"
+                                            autoComplete="quiz_points"
+                                            className="mt-1 block w-full"
+                                            value={data.quiz_points}
+                                            onChange={(e) => setData("quiz_points", e.target.value)}
+                                        />
+                                        <InputError message={errors.quiz_points} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="start_date" value="Start Date" />
+                                        <TextInput
+                                            id="start_date"
+                                            type="datetime-local"
+                                            name="start_date"
+                                            autoComplete="start_date"
+                                            className="mt-1 block w-full"
+                                            value={data.start_date}
+                                            onChange={(e) => setData("start_date", e.target.value)}
+                                        />
+                                        <InputError message={errors.start_date} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="end_date" value="End Date" />
+                                        <TextInput
+                                            id="end_date"
+                                            type="datetime-local"
+                                            name="end_date"
+                                            autoComplete="end_date"
+                                            className="mt-1 block w-full"
+                                            value={data.end_date}
+                                            onChange={(e) => setData("end_date", e.target.value)}
+                                        />
+                                        <InputError message={errors.end_date} />
+                                    </div>
+                                    <div >
+                                        <InputLabel htmlFor="status" value="Status" />
+                                        <Listbox value={selectedStatus} onChange={setSelectedStatus}>
+                                            {({ open }) => (
+                                                <>
+                                                    <div className="mt-1 relative">
+                                                        <span className="block w-full rounded-md shadow-sm">
+                                                            <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                                <span className="block truncate">{selectedStatus.label}</span>
+                                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                </span>
+                                                            </Listbox.Button>
+                                                        </span>
+
+                                                        <Transition
+                                                            show={open}
+                                                            as={Fragment}
+                                                            leave="transition ease-in duration-100"
+                                                            leaveFrom="opacity-100"
+                                                            leaveTo="opacity-0"
+                                                        >
+                                                            <Listbox.Options
+                                                                static
+                                                                className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                                            >
+                                                                {status.map((st) => (
+                                                                    <Listbox.Option
+                                                                        key={st.value}
+                                                                        className={({ active }) =>
+                                                                            `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                            cursor-default select-none relative py-2 pl-3 pr-9`
+                                                                        }
+                                                                        value={st}
+                                                                    >
+                                                                        {({ selected, active }) => (
+                                                                            <>
+                                                                                <span
+                                                                                    className={`${selected ? 'font-semibold' : 'font-normal'}
+                                block truncate`}
+                                                                                >
+                                                                                    {st.label}
+                                                                                </span>
+
+                                                                                {selected ? (
+                                                                                    <span
+                                                                                        className={`${active ? 'text-main-600' : 'text-main-600'}
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                                    >
+                                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox.Option>
+                                                                ))}
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </Listbox>
+                                        <InputError message={errors.status} />
+                                    </div>
+                                    <div className="flex items-center justify-end mt-4">
+
+                                        <PrimaryButton
+                                            className="ms-4"
+                                            disabled={processing}
+                                        >
+                                            Create Quiz
+                                        </PrimaryButton>
                                     </div>
                                 </div>
                             </form>
