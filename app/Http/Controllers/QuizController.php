@@ -50,7 +50,7 @@ class QuizController extends Controller
 
         Quiz::create($validated);
 
-        return Redirect::route('panel')->with('success', 'Quiz has been created');
+        return redirect()->route('organizations.user.show', $validated['organization_id']);
     }
 
     /**

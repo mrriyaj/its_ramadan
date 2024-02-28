@@ -43,7 +43,7 @@ export default function Create({auth, organization}) {
                             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Create a new quiz</h2>
                         </div>
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit}>
+                            <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
 
                                 <div>
                                     <InputLabel

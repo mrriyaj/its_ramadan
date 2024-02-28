@@ -20,7 +20,6 @@ export default function Create({ auth, quiz }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data);
         post(route("rewards.user.store"), { onSuccess: () => reset() });
     }
 
