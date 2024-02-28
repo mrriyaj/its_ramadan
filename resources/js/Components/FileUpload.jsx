@@ -1,7 +1,5 @@
 import { useState } from "react";
-import TextInput from "./TextInput";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
-import { AiFillFileImage } from "react-icons/ai";
 import { useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "./PrimaryButton";
 
