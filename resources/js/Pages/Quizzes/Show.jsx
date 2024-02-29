@@ -2,7 +2,7 @@ import App from "@/Layouts/AppLayout";
 import { Head, usePage } from "@inertiajs/react";
 import Link from "@/Components/Link";
 
-export default function Show({ auth, quiz, rewards }) {
+export default function Show({ auth, quiz, rewards, questions  }) {
     const user = usePage().props.auth.user;
 
     return (
@@ -126,37 +126,71 @@ export default function Show({ auth, quiz, rewards }) {
                     </div>
 
                     <div className="mt-8">
-                    {quiz.created_by === user.id && (
-                        <div className="overflow-hidden rounded-lg bg-white shadow">
-                            <div className="p-6">
-                                <div className="flex items-center">
-                                    <div className="flex-shrink-0">
-                                        <img
-                                            className="w-10 h-10 rounded-full"
-                                            src="https://via.placeholder.com/150"
-                                            alt=""
+                        {quiz.created_by === user.id && (
+                            <div className="overflow-hidden rounded-lg bg-white shadow">
+                                <div className="p-6">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <img
+                                                className="w-10 h-10 rounded-full"
+                                                src="https://via.placeholder.com/150"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                Create a new question
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                Create a new question for this quiz
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <Link
+                                            href={`/questions/create/${quiz.id}`}
+                                            value="Create"
                                         />
                                     </div>
-                                    <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            Create a new question
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            Create a new question for this quiz
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-4">
-                                    <Link
-                                        href={`/questions/create/${quiz.id}`}
-                                        value="Create"
-                                    />
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
                         }
+                    </div>
+
+                    <div className="mt-8">
+                        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                            {questions.map((question) => (
+                                <div
+                                    key={question.id}
+                                    className="overflow-hidden rounded-lg bg-white shadow"
+                                >
+                                    <div className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <img
+                                                    className="w-10 h-10 rounded-full"
+                                                    src="https://via.placeholder.com/150"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-gray-900">
+                                                    {question.quiz_text}
+                                                </p>
+                                                <p className="text-sm text-gray-500">
+                                                    {question.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            ))
+                            }
                         </div>
+                    </div>
+
                 </div>
             </div>
         </App>
