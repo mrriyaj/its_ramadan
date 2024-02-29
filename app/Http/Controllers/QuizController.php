@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Organization;
 use App\Models\QuizReward;
+use App\Models\Question;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
@@ -59,10 +60,12 @@ class QuizController extends Controller
     public function show(Quiz $quiz)
     {
         $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
+        $questions = Question::where('quiz_id', $quiz->id)->get();
 
         return Inertia::render('Quizzes/Show', [
             'quiz' => $quiz,
-            'rewards' => $rewards
+            'rewards' => $rewards,
+            'questions' => $questions,
         ]);
     }
 

@@ -35,53 +35,21 @@ class Question extends Model
         'created_by',
     ];
 
-    public function quiz_image(): Attribute
+    /**
+     * Get the quiz image attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizImageAttribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function quiz_audio(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/audio/quiz/questions/' . $value),
-        );
-    }
-
-    public function quiz_video(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/video/quiz/questions/' . $value),
-        );
-    }
-
-    public function image_option1(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
-    }
-
-    public function image_option2(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
-    }
-
-    public function image_option3(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
-    }
-
-    public function image_option4(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
-    }
 
 }
+

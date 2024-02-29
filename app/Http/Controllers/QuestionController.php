@@ -38,7 +38,7 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
             'title' => 'required|max:255',
-            'question_number' => 'required|max:255',
+            'question_number' => 'required|max:255|unique:questions,question_number,NULL,id,quiz_id,' . $request->quiz_id,
             'quiz_text' => 'required|max:1024',
             'quiz_image' => 'nullable|image',
             'quiz_audio' => 'nullable|file',
@@ -61,7 +61,17 @@ class QuestionController extends Controller
             'created_by' => 'required|exists:users,id'
         ]);
 
-        Question::create($validated);
+        $questions = new Question();
+        $questions->fill($validated);
+
+        if ($request->hasFile('quiz_image')) {
+            $quiz_image = $request->file('quiz_image');
+            $quiz_image_name = $request->question_number . '-question-' . time() . '.' . $quiz_image->getClientOriginalExtension();
+            $quiz_image->storeAs('public/images/quiz/', $quiz_image_name);
+            $questions->quiz_image = $quiz_image_name;
+        }
+
+        $questions->save();
 
         return redirect()->route('quizzes.user.show', $request->quiz_id);
 
