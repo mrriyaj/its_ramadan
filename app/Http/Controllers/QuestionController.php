@@ -71,6 +71,48 @@ class QuestionController extends Controller
             $questions->quiz_image = $quiz_image_name;
         }
 
+        if ($request->hasFile('quiz_audio')) {
+            $quiz_audio = $request->file('quiz_audio');
+            $quiz_audio_name = $request->question_number . '-question-' . time() . '.' . $quiz_audio->getClientOriginalExtension();
+            $quiz_audio->storeAs('public/audio/quiz/', $quiz_audio_name);
+            $questions->quiz_audio = $quiz_audio_name;
+        }
+
+        if ($request->hasFile('quiz_video')) {
+            $quiz_video = $request->file('quiz_video');
+            $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
+            $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
+            $questions->quiz_video = $quiz_video_name;
+        }
+
+        if ($request->hasFile('image_option1')) {
+            $image_option1 = $request->file('image_option1');
+            $image_option1_name = $request->question_number . '-question-' . time() . '.' . $image_option1->getClientOriginalExtension();
+            $image_option1->storeAs('public/images/quiz/', $image_option1_name);
+            $questions->image_option1 = $image_option1_name;
+        }
+
+        if ($request->hasFile('image_option2')) {
+            $image_option2 = $request->file('image_option2');
+            $image_option2_name = $request->question_number . '-question-' . time() . '.' . $image_option2->getClientOriginalExtension();
+            $image_option2->storeAs('public/images/quiz/', $image_option2_name);
+            $questions->image_option2 = $image_option2_name;
+        }
+
+        if ($request->hasFile('image_option3')) {
+            $image_option3 = $request->file('image_option3');
+            $image_option3_name = $request->question_number . '-question-' . time() . '.' . $image_option3->getClientOriginalExtension();
+            $image_option3->storeAs('public/images/quiz/', $image_option3_name);
+            $questions->image_option3 = $image_option3_name;
+        }
+
+        if ($request->hasFile('image_option4')) {
+            $image_option4 = $request->file('image_option4');
+            $image_option4_name = $request->question_number . '-question-' . time() . '.' . $image_option4->getClientOriginalExtension();
+            $image_option4->storeAs('public/images/quiz/', $image_option4_name);
+            $questions->image_option4 = $image_option4_name;
+        }
+
         $questions->save();
 
         return redirect()->route('quizzes.user.show', $request->quiz_id);
@@ -82,7 +124,9 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return Inertia::render('Question/Show', [
+            'question' => $question
+        ]);
     }
 
     /**

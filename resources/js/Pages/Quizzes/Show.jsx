@@ -1,9 +1,25 @@
 import App from "@/Layouts/AppLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import Link from "@/Components/Link";
+import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function Show({ auth, quiz, rewards, questions  }) {
+
+export default function Show({ auth, quiz, rewards, questions, isRegistered }) {
     const user = usePage().props.auth.user;
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        quiz_id: quiz.id,
+        user_id: user.id,
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route("quiz-registrations.store"), {
+            onSuccess: () => {
+                reset();
+            },
+        });
+    }
 
     return (
         <App auth={auth}>
@@ -55,6 +71,23 @@ export default function Show({ auth, quiz, rewards, questions  }) {
                                         <p className="text-sm text-gray-500 ml-2">
                                             End Date
                                         </p>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        {isRegistered ? (
+                                            <p className="text-sm text-gray-500">
+                                                You are already registered for this quiz
+                                            </p>
+                                        ) : (
+                                            <form onSubmit={submit}>
+                                                <PrimaryButton
+                                                    className="ms-4"
+                                                    disabled={processing}
+                                                >
+                                                    Create Quiz
+                                                </PrimaryButton>
+                                            </form>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +203,7 @@ export default function Show({ auth, quiz, rewards, questions  }) {
                                             <div className="flex-shrink-0">
                                                 <img
                                                     className="w-10 h-10 rounded-full"
-                                                    src="https://via.placeholder.com/150"
+                                                    src={question.quiz_image}
                                                     alt=""
                                                 />
                                             </div>
@@ -182,6 +215,12 @@ export default function Show({ auth, quiz, rewards, questions  }) {
                                                     {question.description}
                                                 </p>
                                             </div>
+                                        </div>
+                                        <div className="mt-4">
+                                            <Link
+                                                href={`/questions/${question.id}`}
+                                                value="View"
+                                            />
                                         </div>
                                     </div>
                                 </div>

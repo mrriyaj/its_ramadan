@@ -8,6 +8,7 @@ use App\Models\Quiz;
 use App\Models\Organization;
 use App\Models\QuizReward;
 use App\Models\Question;
+use App\Models\QuizRegistrations;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
@@ -61,11 +62,22 @@ class QuizController extends Controller
     {
         $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
         $questions = Question::where('quiz_id', $quiz->id)->get();
+        $quizregistrations = QuizRegistrations::where('quiz_id', $quiz->id)->get();
+
+        $isRegistered = false;
+        if ($quizregistrations->contains('user_id', auth()->id())) {
+            $isRegistered = true;
+        }
+
+        if ($quiz->status === 'inactive') {
+            return Redirect::route('panel')->with('error', 'This quiz is not active');
+        }
 
         return Inertia::render('Quizzes/Show', [
             'quiz' => $quiz,
             'rewards' => $rewards,
             'questions' => $questions,
+            'isRegistered' => $isRegistered
         ]);
     }
 
