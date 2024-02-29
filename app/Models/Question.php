@@ -48,6 +48,97 @@ class Question extends Model
         }
 
         return null;
+
+    }
+
+    /**
+     * Get the quiz audio attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizAudioAttribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/audio/quiz/' . $value);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the quiz video attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizVideoAttribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/video/quiz/' . $value);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the image option1 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption1Attribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the image option2 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption2Attribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the image option3 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption3Attribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the image option4 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption4Attribute($value): ?string
+    {
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
 

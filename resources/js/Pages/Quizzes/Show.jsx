@@ -170,7 +170,7 @@ export default function Show({ auth, quiz, rewards, questions  }) {
                                             <div className="flex-shrink-0">
                                                 <img
                                                     className="w-10 h-10 rounded-full"
-                                                    src="https://via.placeholder.com/150"
+                                                    src={question.quiz_image}
                                                     alt=""
                                                 />
                                             </div>
@@ -183,6 +183,12 @@ export default function Show({ auth, quiz, rewards, questions  }) {
                                                 </p>
                                             </div>
                                         </div>
+                                        <div className="mt-4">
+                                            <Link
+                                                href={`/questions/${question.id}`}
+                                                value="View"
+                                            />
+                                            </div>
                                     </div>
                                 </div>
 

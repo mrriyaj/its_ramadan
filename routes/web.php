@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
             // Question Routes
             Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
             Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
+            Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
 
         });
 
