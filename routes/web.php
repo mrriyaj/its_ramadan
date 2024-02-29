@@ -13,6 +13,7 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizRewardController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizRegistrationsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -108,6 +109,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
             Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
             Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
+
+            // Quiz Registration Routes
+            Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
 
         });
 
