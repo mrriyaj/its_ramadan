@@ -12,7 +12,7 @@ class Question extends Model
     protected $fillable = [
         'quiz_id',
         'title',
-        'day',
+        'question_number',
         'quiz_text',
         'quiz_image',
         'quiz_audio',
@@ -35,67 +35,112 @@ class Question extends Model
         'created_by',
     ];
 
-    public function quiz_image(): Attribute
+    /**
+     * Get the quiz image attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizImageAttribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
+
     }
 
-    public function quiz_audio(): Attribute
+    /**
+     * Get the quiz audio attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizAudioAttribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/audio/quiz/questions/' . $value),
-        );
+        if ($value) {
+            return url('storage/audio/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function quiz_video(): Attribute
+    /**
+     * Get the quiz video attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getQuizVideoAttribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/video/quiz/questions/' . $value),
-        );
+        if ($value) {
+            return url('storage/video/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function image_option1(): Attribute
+    /**
+     * Get the image option1 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption1Attribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function image_option2(): Attribute
+    /**
+     * Get the image option2 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption2Attribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function image_option3(): Attribute
+    /**
+     * Get the image option3 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption3Attribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function image_option4(): Attribute
+    /**
+     * Get the image option4 attribute.
+     *
+     * @param  string|null  $value
+     * @return string|null
+     */
+    public function getImageOption4Attribute($value): ?string
     {
-        return Attribute::make(
-            get: fn ($value) => url('storage/images/quiz/questions/options/' . $value),
-        );
+        if ($value) {
+            return url('storage/images/quiz/' . $value);
+        }
+
+        return null;
     }
 
-    public function start_date(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('d-m-Y H:i:s', strtotime($value)),
-        );
-    }
-
-    public function end_date(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('d-m-Y H:i:s', strtotime($value)),
-        );
-    }
 
 }
+

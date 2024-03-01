@@ -20,7 +20,6 @@ export default function Create({ auth, quiz }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data);
         post(route("rewards.user.store"), { onSuccess: () => reset() });
     }
 
@@ -37,7 +36,7 @@ export default function Create({ auth, quiz }) {
                             <form onSubmit={submit}>
 
                                 <div>
-                                    <InputLabel forInput="name" value="Name" />
+                                    <InputLabel htmlFor="name" value="Name" />
                                     <TextInput
                                         id="name"
                                         type="text"
@@ -45,11 +44,11 @@ export default function Create({ auth, quiz }) {
                                         value={data.name}
                                         onChange={(e) => setData("name", e.target.value)}
                                     />
-                                    <InputError error={errors.name} />
+                                    <InputError message={errors.name} />
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="description" value="Description" />
+                                    <InputLabel htmlFor="description" value="Description" />
                                     <TextInput
                                         id="description"
                                         type="text"
@@ -57,11 +56,11 @@ export default function Create({ auth, quiz }) {
                                         value={data.description}
                                         onChange={(e) => setData("description", e.target.value)}
                                     />
-                                    <InputError error={errors.description} />
+                                    <InputError message={errors.description} />
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="quantity" value="Quantity" />
+                                    <InputLabel htmlFor="quantity" value="Quantity" />
                                     <TextInput
                                         id="quantity"
                                         type="number"
@@ -69,11 +68,11 @@ export default function Create({ auth, quiz }) {
                                         value={data.quantity}
                                         onChange={(e) => setData("quantity", e.target.value)}
                                     />
-                                    <InputError error={errors.quantity} />
+                                    <InputError message={errors.quantity} />
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="image" value="Image" />
+                                    <InputLabel htmlFor="image" value="Image" />
                                     <input
                                         type="file"
                                         id="image"
@@ -85,11 +84,11 @@ export default function Create({ auth, quiz }) {
                                         }
                                         required
                                     />
-                                    <InputError error={errors.image} />
+                                    <InputError message={errors.image} />
                                 </div>
 
                                 <div>
-                                    <InputLabel forInput="redeem_date" value="Redeem Date" />
+                                    <InputLabel htmlFor="redeem_date" value="Redeem Date" />
                                     <TextInput
                                         id="redeem_date"
                                         type="date"
@@ -97,7 +96,7 @@ export default function Create({ auth, quiz }) {
                                         value={data.redeem_date}
                                         onChange={(e) => setData("redeem_date", e.target.value)}
                                     />
-                                    <InputError error={errors.redeem_date} />
+                                    <InputError message={errors.redeem_date} />
                                 </div>
 
                                 <div className="flex items-center justify-end mt-4">

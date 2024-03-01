@@ -1,6 +1,8 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
-import { usePage , Head } from "@inertiajs/react";
+import { useForm, usePage, Head } from "@inertiajs/react";
+import HeaderSection from "@/Components/HeaderSection";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 import {
     CheckBadgeIcon,
@@ -17,14 +19,33 @@ import {
 
 import { TbWorldWww } from "react-icons/tb";
 
-export default function Show({ auth, organization, quizzes }) {
+export default function Show({ auth, organization, quizzes, followId }) {
     const user = usePage().props.auth.user;
     const URL = "https:// localhost:8000/";
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        user_id: user.id,
+        organization_id: organization.id,
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route("follows.follow"), {
+            onSuccess: () => {
+                reset();
+                window.location.reload();
+            },
+        });
+    }
 
     return (
         <App auth={auth}>
             <Head title="Show Organization" />
-
+            <HeaderSection
+                Header="Organization"
+                Title="Organization Details"
+                Description="View organization details and quizzes"
+            />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex h-full">
@@ -35,16 +56,16 @@ export default function Show({ auth, organization, quizzes }) {
                                     <div>
                                         <div>
                                             <img
-                                                className="h-32 w-full object-cover lg:h-48"
+                                                className="h-64 w-full object-cover lg:h-64"
                                                 src={organization.cover}
                                                 alt=""
                                             />
                                         </div>
                                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                            <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                                            <div className="-mt-12 sm:-mt-24 sm:flex sm:items-end sm:space-x-5">
                                                 <div className="flex">
                                                     <img
-                                                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                                                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-48 sm:w-48"
                                                         src={organization.logo}
                                                         alt=""
                                                     />
@@ -77,6 +98,34 @@ export default function Show({ auth, organization, quizzes }) {
                                                             href={`tel:${organization.number}`}
                                                             value="Call"
                                                         />
+                                                        <Link
+                                                            href={`https://wa.me/${organization.whatsapp}`}
+                                                            value="WhatsApp"
+                                                        />
+                                                        {followId ? (
+                                                            <Link
+                                                                className="pr-3 font-medium text-red-600 dark:text-red-500 hover:underline"
+                                                                method="delete"
+                                                                as="button"
+                                                                type="button"
+                                                                value="Unfollow"
+                                                                href={route(
+                                                                    "follows.unfollow",
+                                                                    {
+                                                                        id: followId,
+                                                                    }
+                                                                )}
+                                                            />
+                                                        ) : (
+                                                            <form onSubmit={submit}>
+                                                                <PrimaryButton
+                                                                    className="ms-4"
+                                                                    disabled={processing}
+                                                                >
+                                                                    Join To The Challenge
+                                                                </PrimaryButton>
+                                                            </form>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>

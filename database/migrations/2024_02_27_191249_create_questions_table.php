@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quiz_id')->constrained();
+            $table->foreignId('quiz_id')->constrained('quizzes');
             $table->string('title');
-            $table->int('day');
+            $table->string('question_number');
             $table->text('quiz_text');
             $table->string('quiz_image')->nullable();
             $table->string('quiz_audio')->nullable();
@@ -31,11 +31,11 @@ return new class extends Migration
             $table->enum('correct_answer', ['option1', 'option2', 'option3', 'option4']);
             $table->string('quiz_explanation')->nullable();
             $table->string('quiz_hint')->nullable();
-            $table->string('quiz_points')->default(1);
+            $table->string('quiz_points')->nullable();
             $table->enum ('status', ['active', 'inactive']);
-            $table->datetime('start_date');
-            $table->datetime('end_date');
-            $table->foreignId('crated_by')->constrained();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }

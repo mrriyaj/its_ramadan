@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizRegistrations;
+use App\Models\QuizAnswers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +24,6 @@ class QuestionController extends Controller
      */
     public function create(int $quizId)
     {
-
         $quiz = Quiz::findOrFail($quizId);
 
         return Inertia::render('Question/Create', [
@@ -39,7 +40,7 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
             'title' => 'required|max:255',
-            'day' => 'required|integer',
+            'question_number' => 'required|max:255|unique:questions,question_number,NULL,id,quiz_id,' . $request->quiz_id,
             'quiz_text' => 'required|max:1024',
             'quiz_image' => 'nullable|image',
             'quiz_audio' => 'nullable|file',
@@ -55,62 +56,68 @@ class QuestionController extends Controller
             'correct_answer' => 'required|in:option1,option2,option3,option4',
             'quiz_explanation' => 'nullable|max:1024',
             'quiz_hint' => 'nullable|max:1024',
-            'quiz_points' => 'required|integer',
+            'quiz_points' => 'nullable|max:255',
             'status' => 'required|in:active,inactive',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'created_by' => 'required|exists:users,id'
         ]);
 
-        $question = new Question();
-        $question->fill($validated);
+        $questions = new Question();
+        $questions->fill($validated);
 
         if ($request->hasFile('quiz_image')) {
-            $quizImage = $request->file('quiz_image');
-            $quizImage->storeAs('images/quiz/questions', $quizImage->hashName(), 'public');
-            $question->quiz_image = $quizImage->hashName();
+            $quiz_image = $request->file('quiz_image');
+            $quiz_image_name = $request->question_number . '-question-' . time() . '.' . $quiz_image->getClientOriginalExtension();
+            $quiz_image->storeAs('public/images/quiz/', $quiz_image_name);
+            $questions->quiz_image = $quiz_image_name;
         }
 
         if ($request->hasFile('quiz_audio')) {
-            $quizAudio = $request->file('quiz_audio');
-            $quizAudio->storeAs('audio/quiz/questions', $quizAudio->hashName(), 'public');
-            $question->quiz_audio = $quizAudio->hashName();
+            $quiz_audio = $request->file('quiz_audio');
+            $quiz_audio_name = $request->question_number . '-question-' . time() . '.' . $quiz_audio->getClientOriginalExtension();
+            $quiz_audio->storeAs('public/audio/quiz/', $quiz_audio_name);
+            $questions->quiz_audio = $quiz_audio_name;
         }
 
         if ($request->hasFile('quiz_video')) {
-            $quizVideo = $request->file('quiz_video');
-            $quizVideo->storeAs('video/quiz/questions', $quizVideo->hashName(), 'public');
-            $question->quiz_video = $quizVideo->hashName();
+            $quiz_video = $request->file('quiz_video');
+            $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
+            $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
+            $questions->quiz_video = $quiz_video_name;
         }
 
         if ($request->hasFile('image_option1')) {
-            $imageOption1 = $request->file('image_option1');
-            $imageOption1->storeAs('images/quiz/questions/options', $imageOption1->hashName(), 'public');
-            $question->image_option1 = $imageOption1->hashName();
+            $image_option1 = $request->file('image_option1');
+            $image_option1_name = $request->question_number . '-question-' . time() . '.' . $image_option1->getClientOriginalExtension();
+            $image_option1->storeAs('public/images/quiz/', $image_option1_name);
+            $questions->image_option1 = $image_option1_name;
         }
 
         if ($request->hasFile('image_option2')) {
-            $imageOption2 = $request->file('image_option2');
-            $imageOption2->storeAs('images/quiz/questions/options', $imageOption2->hashName(), 'public');
-            $question->image_option2 = $imageOption2->hashName();
+            $image_option2 = $request->file('image_option2');
+            $image_option2_name = $request->question_number . '-question-' . time() . '.' . $image_option2->getClientOriginalExtension();
+            $image_option2->storeAs('public/images/quiz/', $image_option2_name);
+            $questions->image_option2 = $image_option2_name;
         }
 
         if ($request->hasFile('image_option3')) {
-            $imageOption3 = $request->file('image_option3');
-            $imageOption3->storeAs('images/quiz/questions/options', $imageOption3->hashName(), 'public');
-            $question->image_option3 = $imageOption3->hashName();
+            $image_option3 = $request->file('image_option3');
+            $image_option3_name = $request->question_number . '-question-' . time() . '.' . $image_option3->getClientOriginalExtension();
+            $image_option3->storeAs('public/images/quiz/', $image_option3_name);
+            $questions->image_option3 = $image_option3_name;
         }
 
         if ($request->hasFile('image_option4')) {
-            $imageOption4 = $request->file('image_option4');
-            $imageOption4->storeAs('images/quiz/questions/options', $imageOption4->hashName(), 'public');
-            $question->image_option4 = $imageOption4->hashName();
+            $image_option4 = $request->file('image_option4');
+            $image_option4_name = $request->question_number . '-question-' . time() . '.' . $image_option4->getClientOriginalExtension();
+            $image_option4->storeAs('public/images/quiz/', $image_option4_name);
+            $questions->image_option4 = $image_option4_name;
         }
 
-        $question->save();
+        $questions->save();
 
-        return redirect()->route('quizzes.user.show', $validated['quiz_id']);
-
+        return redirect()->route('quizzes.user.show', $request->quiz_id);
     }
 
     /**
@@ -118,7 +125,67 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+
+        $user = auth()->user();
+
+        $quizRegistration = QuizRegistrations::where('quiz_id', $question->quiz_id)->where('user_id', $user->id)->first();
+
+        $check_quizAnswer = QuizAnswers::where('quiz_registration_id', $quizRegistration->id)
+            ->where('question_id', $question->id)
+            ->first();
+
+        if ($check_quizAnswer) {
+            return redirect()->back()->with('error', 'You have already answered this question');
+        }
+
+        // if (!$quizRegistration) {
+        //     return redirect()->back()->with('error', 'You are not enrolled in this quiz');
+        // }
+
+        // if ($question->status == 'inactive') {
+        //     return redirect()->back()->with('error', 'Question is inactive');
+        // }
+
+        // if ($question->start_date > now()) {
+        //     return redirect()->back()->with('error', 'Question is not started yet');
+        // }
+
+        // if ($question->end_date < now()) {
+        //     return redirect()->back()->with('error', 'Question is already ended');
+        // }
+
+        $options = [
+            [
+                'id' => 1,
+                'text' => $question->answer_option1,
+                'image' => $question->image_option1 ?? null,
+                'value' =>"option1"
+            ],
+            [
+                'id' => 2,
+                'text' => $question->answer_option2,
+                'image' => $question->image_option2 ?? null,
+                'value' => "option2"
+            ],
+            [
+                'id' => 3,
+                'text' => $question->answer_option3,
+                'image' => $question->image_option3 ?? null,
+                'value' => "option3"
+            ],
+            [
+                'id' => 4,
+                'text' => $question->answer_option4,
+                'image' => $question->image_option4 ?? null,
+                'value' => "option4"
+            ]
+        ];
+
+        return Inertia::render('Question/Show', [
+            'question' => $question,
+            'options' => $options,
+            'quizRegistration' => $quizRegistration
+        ]);
     }
 
     /**

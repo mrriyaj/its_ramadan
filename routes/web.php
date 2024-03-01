@@ -13,6 +13,9 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizRewardController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizRegistrationsController;
+use App\Http\Controllers\QuizAnswersController;
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -48,6 +51,10 @@ Route::middleware(['coming_soon'])->group(function () {
 
     Route::get('/about', function () {
         return Inertia::render('About');
+    });
+
+    Route::get('/test', function (){
+        return Inertia::render('test');
     });
 });
 
@@ -107,6 +114,17 @@ Route::middleware('auth')->group(function () {
             // Question Routes
             Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
             Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
+            Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
+
+            // Quiz Registration Routes
+            Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
+
+            // Quiz Answers Routes
+            Route::post('/quiz-answers', [QuizAnswersController::class, 'store'])->name('quiz-answers.store');
+
+            // Follow Routes
+            Route::post('/follows', [FollowController::class, 'follow'])->name('follows.follow');
+            Route::delete('/follows/{id}', [FollowController::class, 'unfollow'])->name('follows.unfollow');
 
         });
 

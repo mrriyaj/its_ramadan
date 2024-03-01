@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Quiz;
+use App\Models\Follow;
 use Inertia\Inertia;
 
 class OrganizationController extends Controller
@@ -44,11 +45,19 @@ class OrganizationController extends Controller
     public function show(string $id)
     {
         $organization = Organization::findOrFail($id);
+
         $quizzes = Quiz::where('organization_id', $id)->get();
+
+        // Check if the user is following and the status is 01
+        $follow = Follow::where('user_id', auth()->user()->id)
+                        ->where('organization_id', $id)
+                        ->where('status', '01')
+                        ->first();
 
         return Inertia::render('Organizations/Show', [
             'quizzes' => $quizzes,
-            'organization' => $organization
+            'organization' => $organization,
+            'followId' => $follow ? $follow->id : null
         ]);
     }
 
