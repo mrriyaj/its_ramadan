@@ -35,10 +35,9 @@ export default function Show({ auth, quiz, rewards, questions, isRegistered }) {
 
                             <Link
                                 className="text-white"
-                                href={route("organizations.index")}
-                            >
-                                Go Back
-                            </Link>
+                                href={route("organizations.user.index")}
+                                value="Go Back"
+                            />
                         </div>
                     </div>
 
@@ -84,7 +83,7 @@ export default function Show({ auth, quiz, rewards, questions, isRegistered }) {
                                                     className="ms-4"
                                                     disabled={processing}
                                                 >
-                                                    Create Quiz
+                                                    Join To The Challenge
                                                 </PrimaryButton>
                                             </form>
                                         )}
@@ -215,12 +214,18 @@ export default function Show({ auth, quiz, rewards, questions, isRegistered }) {
                                                     {question.description}
                                                 </p>
                                             </div>
+                                            <div className="ml-3">
+                                                {question.start_date}
+                                                {question.end_date}
+
+                                            </div>
                                         </div>
                                         <div className="mt-4">
                                             <Link
                                                 href={`/questions/${question.id}`}
-                                                value="View"
+                                                value="View Question"
                                             />
+
                                         </div>
                                     </div>
                                 </div>
