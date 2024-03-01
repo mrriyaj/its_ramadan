@@ -1,6 +1,6 @@
 export default function Index({}) {
     return (
-        <div className="min-h-full bg-white py-16 px-6 sm:py-24 md:flex md:justify-center md:items-center lg:px-8 flex justify-center items-center">
+        <div className="min-h-screen bg-white py-16 px-6 sm:py-24 md:flex md:justify-center md:items-center lg:px-8 flex justify-center items-center">
             <div className="mx-auto my-auto max-w-max">
                 <main className="sm:flex">
                     <p className="text-4xl font-bold tracking-tight text-main-600 sm:text-5xl">404</p>

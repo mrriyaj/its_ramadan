@@ -1,6 +1,7 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
-import { usePage , Head } from "@inertiajs/react";
+import { usePage, Head } from "@inertiajs/react";
+import HeaderSection from "@/Components/HeaderSection";
 
 import {
     CheckBadgeIcon,
@@ -24,7 +25,11 @@ export default function Show({ auth, organization, quizzes }) {
     return (
         <App auth={auth}>
             <Head title="Show Organization" />
-
+            <HeaderSection
+                Header="Organization"
+                Title="Organization Details"
+                Description="View organization details and quizzes"
+            />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex h-full">
@@ -35,16 +40,16 @@ export default function Show({ auth, organization, quizzes }) {
                                     <div>
                                         <div>
                                             <img
-                                                className="h-32 w-full object-cover lg:h-48"
+                                                className="h-64 w-full object-cover lg:h-64"
                                                 src={organization.cover}
                                                 alt=""
                                             />
                                         </div>
                                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                            <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                                            <div className="-mt-12 sm:-mt-24 sm:flex sm:items-end sm:space-x-5">
                                                 <div className="flex">
                                                     <img
-                                                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                                                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-48 sm:w-48"
                                                         src={organization.logo}
                                                         alt=""
                                                     />

@@ -12,8 +12,8 @@ export default function Authenticated({ auth, header, children }) {
     return (
         <>
         <Popover className="relative bg-main-default">
-            <div className="mx-auto max-w-7xl px-2">
-                <div className="flex items-center justify-between border-gray-100 py-2 md:justify-start md:space-x-10">
+            <div className="mx-auto max-w-7xl px-8">
+                <div className="flex items-center justify-between border-gray-100 py-6 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
                         <a href="/">
                                 <Logo className="w-48 fill-current" />
