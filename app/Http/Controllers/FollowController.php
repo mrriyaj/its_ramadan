@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Follow;
+use App\Models\User;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+
+class FollowController extends Controller
+{
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function follow(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'organization_id' => 'required|exists:organizations,id',
+        ]);
+
+        if (Follow::where('user_id', $request->user_id)->where('organization_id', $request->organization_id)->exists()) {
+            $follow = Follow::where('user_id', $request->user_id)->where('organization_id', $request->organization_id)->first();
+            if ($follow->status == 1) {
+                return response()->json(['message' => 'You are already following this organization']);
+            } else {
+                // Update the status to 1 (following)
+                $follow->status = 1;
+                $follow->save();
+                return response()->json(['message' => 'You are now following this organization']);
+            }
+        }
+
+        Follow::create([
+            'user_id' => $request->user_id,
+            'organization_id' => $request->organization_id,
+            'status' => 1,
+            'accepted' => 0,
+        ]);
+
+        return response()->json(['message' => 'You are now following this organization']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function unfollow(string $id)
+    {
+        $follow = Follow::findOrFail($id);
+        $follow->status = 0;
+        $follow->save();
+
+        return response()->json(['message' => 'You have unfollowed this organization']);
+    }
+}

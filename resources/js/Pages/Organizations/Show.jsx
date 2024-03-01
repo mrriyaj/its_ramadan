@@ -1,7 +1,8 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
-import { usePage, Head } from "@inertiajs/react";
+import { useForm, usePage, Head } from "@inertiajs/react";
 import HeaderSection from "@/Components/HeaderSection";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 import {
     CheckBadgeIcon,
@@ -18,9 +19,24 @@ import {
 
 import { TbWorldWww } from "react-icons/tb";
 
-export default function Show({ auth, organization, quizzes }) {
+export default function Show({ auth, organization, quizzes, followId }) {
     const user = usePage().props.auth.user;
     const URL = "https:// localhost:8000/";
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        user_id: user.id,
+        organization_id: organization.id,
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route("follows.follow"), {
+            onSuccess: () => {
+                reset();
+                window.location.reload();
+            },
+        });
+    }
 
     return (
         <App auth={auth}>
@@ -82,6 +98,34 @@ export default function Show({ auth, organization, quizzes }) {
                                                             href={`tel:${organization.number}`}
                                                             value="Call"
                                                         />
+                                                        <Link
+                                                            href={`https://wa.me/${organization.whatsapp}`}
+                                                            value="WhatsApp"
+                                                        />
+                                                        {followId ? (
+                                                            <Link
+                                                                className="pr-3 font-medium text-red-600 dark:text-red-500 hover:underline"
+                                                                method="delete"
+                                                                as="button"
+                                                                type="button"
+                                                                value="Unfollow"
+                                                                href={route(
+                                                                    "follows.unfollow",
+                                                                    {
+                                                                        id: followId,
+                                                                    }
+                                                                )}
+                                                            />
+                                                        ) : (
+                                                            <form onSubmit={submit}>
+                                                                <PrimaryButton
+                                                                    className="ms-4"
+                                                                    disabled={processing}
+                                                                >
+                                                                    Join To The Challenge
+                                                                </PrimaryButton>
+                                                            </form>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
