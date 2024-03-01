@@ -36,7 +36,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: itsramadan.com
+          server: merchi5.com
           username: itsftp@merchi5.com
           password: TvMTwiKJtnMd
           server-dir: /
