@@ -14,6 +14,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizRewardController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizRegistrationsController;
+use App\Http\Controllers\QuizAnswersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -49,6 +50,10 @@ Route::middleware(['coming_soon'])->group(function () {
 
     Route::get('/about', function () {
         return Inertia::render('About');
+    });
+
+    Route::get('/test', function (){
+        return Inertia::render('test');
     });
 });
 
@@ -112,6 +117,9 @@ Route::middleware('auth')->group(function () {
 
             // Quiz Registration Routes
             Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
+
+            // Quiz Answers Routes
+            Route::post('/quiz-answers', [QuizAnswersController::class, 'store'])->name('quiz-answers.store');
 
         });
 

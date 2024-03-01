@@ -28,7 +28,7 @@ class QuizRegistrationsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -39,7 +39,7 @@ class QuizRegistrationsController extends Controller
 
         QuizRegistrations::create($request->all());
 
-        return response()->json(['message' => 'Quiz enrollments stored successfully']);
+        return redirect()->route('quizzes.user.show', $validated['quiz_id']);
     }
 
     /**

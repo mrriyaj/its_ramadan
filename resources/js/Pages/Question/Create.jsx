@@ -24,9 +24,6 @@ export default function Create({ auth, quiz }) {
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [selectedStatus, setSelectedStatus] = useState(status[0]);
 
-    console.log(selectedOption);
-    console.log(selectedStatus);
-
     const { data, setData, post, processing, errors, reset } = useForm({
         quiz_id: quiz.id,
         title: "",

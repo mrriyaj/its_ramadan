@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizRegistrations;
+use App\Models\QuizAnswers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -116,7 +118,6 @@ class QuestionController extends Controller
         $questions->save();
 
         return redirect()->route('quizzes.user.show', $request->quiz_id);
-
     }
 
     /**
@@ -124,8 +125,66 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
+
+        $user = auth()->user();
+
+        $quizRegistration = QuizRegistrations::where('quiz_id', $question->quiz_id)->where('user_id', $user->id)->first();
+
+        $check_quizAnswer = QuizAnswers::where('quiz_registration_id', $quizRegistration->id)
+            ->where('question_id', $question->id)
+            ->first();
+
+        if ($check_quizAnswer) {
+            return redirect()->back()->with('error', 'You have already answered this question');
+        }
+
+        // if (!$quizRegistration) {
+        //     return redirect()->back()->with('error', 'You are not enrolled in this quiz');
+        // }
+
+        // if ($question->status == 'inactive') {
+        //     return redirect()->back()->with('error', 'Question is inactive');
+        // }
+
+        // if ($question->start_date > now()) {
+        //     return redirect()->back()->with('error', 'Question is not started yet');
+        // }
+
+        // if ($question->end_date < now()) {
+        //     return redirect()->back()->with('error', 'Question is already ended');
+        // }
+
+        $options = [
+            [
+                'id' => 1,
+                'text' => $question->answer_option1,
+                'image' => $question->image_option1 ?? null,
+                'value' =>"option1"
+            ],
+            [
+                'id' => 2,
+                'text' => $question->answer_option2,
+                'image' => $question->image_option2 ?? null,
+                'value' => "option2"
+            ],
+            [
+                'id' => 3,
+                'text' => $question->answer_option3,
+                'image' => $question->image_option3 ?? null,
+                'value' => "option3"
+            ],
+            [
+                'id' => 4,
+                'text' => $question->answer_option4,
+                'image' => $question->image_option4 ?? null,
+                'value' => "option4"
+            ]
+        ];
+
         return Inertia::render('Question/Show', [
-            'question' => $question
+            'question' => $question,
+            'options' => $options,
+            'quizRegistration' => $quizRegistration
         ]);
     }
 
