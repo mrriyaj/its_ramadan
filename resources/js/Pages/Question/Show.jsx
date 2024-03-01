@@ -1,9 +1,35 @@
 import App from "@/Layouts/AppLayout";
-import { Head, usePage } from "@inertiajs/react";
-import Link from "@/Components/Link";
+import { Head, usePage, useForm } from "@inertiajs/react";
+import { RadioGroup } from '@headlessui/react'
+import { useState, useEffect } from 'react'
+import CheckIcon from "@/Components/CheckIcon";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
 
-export default function Show({ auth, question }) {
+export default function Show({ auth, question, quizRegistration, options }) {
     const user = usePage().props.auth.user;
+
+    const [selectedOption, setSelectedOption] = useState(options[0]);
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        quiz_registration_id: quizRegistration.id,
+        question_id: question.id,
+        answer: selectedOption.value,
+    });
+
+    useEffect(() => {
+        setData({
+            quiz_registration_id: quizRegistration.id,
+            question_id: question.id,
+            answer: selectedOption.value,
+        });
+    }, [selectedOption]);
+
+    const submit = (e) => {
+        e.preventDefault();
+        console.log(data);
+        post(route('quiz-answers.store'));
+    }
 
     return (
         <App auth={auth}>
@@ -37,30 +63,6 @@ export default function Show({ auth, question }) {
                                 <p>{question.quiz_video}</p>
                             </div>
                             <div>
-                                <p className="font-bold">Answer Option 1:</p>
-                                <input type="radio" name="answerOption" value="1" />
-                                <label>{question.answer_option1}</label>
-                                <p className="font-bold">Image Option 1:</p>
-                                <p>{question.image_option1}</p>
-                                <p className="font-bold">Answer Option 2:</p>
-                                <input type="radio" name="answerOption" value="2" />
-                                <label>{question.answer_option2}</label>
-                                <p className="font-bold">Image Option 2:</p>
-                                <p>{question.image_option2}</p>
-                                <p className="font-bold">Answer Option 3:</p>
-                                <input type="radio" name="answerOption" value="3" />
-                                <label>{question.answer_option3}</label>
-                                <p className="font-bold">Image Option 3:</p>
-                                <p>{question.image_option3}</p>
-                                <p className="font-bold">Answer Option 4:</p>
-                                <input type="radio" name="answerOption" value="4" />
-                                <label>{question.answer_option4}</label>
-                                <p className="font-bold">Image Option 4:</p>
-                                <p>{question.image_option4}</p>
-                                <p className="font-bold">Correct Answer:</p>
-                                <p>{question.correct_answer}</p>
-                                <p className="font-bold">Quiz Explanation:</p>
-                                <p>{question.quiz_explanation}</p>
                                 <p className="font-bold">Quiz Hint:</p>
                                 <p>{question.quiz_hint}</p>
                                 <p className="font-bold">Quiz Points:</p>
@@ -76,6 +78,59 @@ export default function Show({ auth, question }) {
                     </div>
                 </div>
             </div>
+
+            <div className="py-12">
+                <form onSubmit={submit}>
+                    <div className="mb-4">
+                        <RadioGroup value={selectedOption} onChange={setSelectedOption}>
+                            <RadioGroup.Label className="sr-only">Options</RadioGroup.Label>
+                            <div className="space-y-2">
+                                {options.map((option) => (
+                                    <RadioGroup.Option
+                                        key={option.id}
+                                        value={option}
+                                        className={({ active, checked }) =>
+                                            `${active
+                                                ? 'ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300'
+                                                : ''
+                                            }
+                                            ${checked ? 'bg-sky-900/75 text-white' : 'bg-white'}
+                                            relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                                        }
+                                    >
+                                        {({ active, checked }) => (
+                                            <>
+                                                <div className="flex w-full items-center justify-between">
+                                                    <div className="flex items-center">
+                                                        <div className="text-sm">
+                                                            <RadioGroup.Label
+                                                                as="p"
+                                                                className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
+                                                                }`}
+                                                            >
+                                                                {option.text}
+                                                            </RadioGroup.Label>
+                                                        </div>
+                                                    </div>
+                                                    {checked && (
+                                                        <div className="flex-shrink-0 text-white">
+                                                            <CheckIcon className="w-6 h-6" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </>
+                                        )}
+                                    </RadioGroup.Option>
+                                ))}
+                            </div>
+                        </RadioGroup>
+                    </div>
+                    <PrimaryButton type="submit" disabled={processing}>
+                        Submit
+                    </PrimaryButton>
+                </form>
+            </div>
+
         </App>
     );
 }

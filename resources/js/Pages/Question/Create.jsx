@@ -6,7 +6,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 
 const options = [
     { value: "option1", label: "Option 1" },
@@ -23,8 +23,6 @@ const status = [
 export default function Create({ auth, quiz }) {
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [selectedStatus, setSelectedStatus] = useState(status[0]);
-
-
 
     const { data, setData, post, processing, errors, reset } = useForm({
         quiz_id: quiz.id,
@@ -46,14 +44,24 @@ export default function Create({ auth, quiz }) {
         quiz_explanation: "",
         quiz_hint: "",
         quiz_points: "",
-        status: "inactive",
+        status: selectedStatus.value,
         start_date: "",
         end_date: "",
         created_by: auth.user.id
     });
 
+    useEffect(() => {
+        setData((prevData) => ({
+            ...prevData,
+            correct_answer: selectedOption.value,
+            status: selectedStatus.value,
+        }));
+    }, [selectedOption, selectedStatus]);
+
+
     const submit = (e) => {
         e.preventDefault();
+        console.log(data);
         post(route("questions.user.store"), { onSuccess: () => reset() });
     }
 
