@@ -1,5 +1,6 @@
 import { Head } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
+import HeaderSection from "@/Components/HeaderSection";
 import {
     CheckBadgeIcon,
     EnvelopeIcon,
@@ -24,7 +25,11 @@ export default function Index({ auth, organizations }) {
     return (
         <App auth={auth}>
             <Head title="Welcome" />
-
+            <HeaderSection
+                Header="Organizations"
+                Title="Organizations Directory"
+                Description="Find and connect with organizations."
+            />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
