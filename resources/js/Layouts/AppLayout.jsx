@@ -77,8 +77,10 @@ export default function App({ children, auth }) {
                                                     {user.profile ? (
                                                         <img className="h-10 w-10 rounded-full" src={auth.user.profile} alt="logo" />
                                                     ) : (
-                                                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
-                                                            <span class="text-sm font-medium leading-none text-white">{auth.user.first_name}</span>
+                                                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500">
+                                                            <span class="text-sm font-medium leading-none text-white">{auth.user.first_name.substring(
+                                                                0,
+                                                                2)}</span>
                                                         </span>
                                                     )}
                                                 </span>
