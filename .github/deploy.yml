@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Install npm packages
         run: npm install
 
