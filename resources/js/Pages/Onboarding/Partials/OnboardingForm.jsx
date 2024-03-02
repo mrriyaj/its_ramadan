@@ -7,6 +7,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import DangerButton from "@/Components/DangerButton";
 import { Fragment, useEffect, useState } from "react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import TextInputWithPrefix from "@/Components/TextInputWithPrefix";
 
 export default function OnboardForm({
     mustVerifyEmail,
@@ -20,6 +21,44 @@ export default function OnboardForm({
         { value: "Other", label: "Other" },
     ];
 
+    const eduLevel = [
+        { value: "ol", label: "Ordinary Level" },
+        { value: "al", label: "Advanced Level" },
+        { value: "diploma", label: "Diploma" },
+        { value: "higher national diploma", label: "Higher National Diploma" },
+        { value: "undergraduate", label: "Undergraduate " },
+        { value: "postgraduate", label: "Postgraduate " },
+        { value: "others", label: "Others " },
+    ];
+
+    const districts = [
+        { value: "Ampara", label: "Ampara" },
+        { value: "Anuradhapura", label: "Anuradhapura" },
+        { value: "Badulla", label: "Badulla" },
+        { value: "Batticaloa", label: "Batticaloa" },
+        { value: "Colombo", label: "Colombo" },
+        { value: "Galle", label: "Galle" },
+        { value: "Gampaha", label: "Gampaha" },
+        { value: "Hambantota", label: "Hambantota" },
+        { value: "Jaffna", label: "Jaffna" },
+        { value: "Kalutara", label: "Kalutara" },
+        { value: "Kandy", label: "Kandy" },
+        { value: "Kegalle", label: "Kegalle" },
+        { value: "Kilinochchi", label: "Kilinochchi" },
+        { value: "Kurunegala", label: "Kurunegala" },
+        { value: "Mannar", label: "Mannar" },
+        { value: "Matale", label: "Matale" },
+        { value: "Matara", label: "Matara" },
+        { value: "Monaragala", label: "Monaragala" },
+        { value: "Mullaitivu", label: "Mullaitivu" },
+        { value: "Nuwara Eliya", label: "Nuwara Eliya" },
+        { value: "Polonnaruwa", label: "Polonnaruwa" },
+        { value: "Puttalam", label: "Puttalam" },
+        { value: "Ratnapura", label: "Ratnapura" },
+        { value: "Trincomalee", label: "Trincomalee" },
+        { value: "Vavuniya", label: "Vavuniya" },
+    ];
+
     const status = [
         { value: "active", label: "Active" },
         { value: "inactive", label: "Inactive" },
@@ -27,6 +66,8 @@ export default function OnboardForm({
 
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [selectedStatus, setSelectedStatus] = useState(status[0]);
+    const [selectedEduLevel, setSelectedEduLevel] = useState(eduLevel[0]);
+    const [selectedDistricts, setSelectedDistricts] = useState(districts[0]);
 
     useEffect(() => {
         setData((prevData) => ({
@@ -122,7 +163,7 @@ export default function OnboardForm({
                                 <>
                                     <div className="mt-1 relative">
                                         <span className="block w-full rounded-md shadow-sm">
-                                            <Listbox.Button className="relative w-full rounded-md border text-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                            <Listbox.Button className="relative w-full rounded-md border-gray-300 text-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
                                                 <span className="block truncate">
                                                     {selectedOption.label}
                                                 </span>
@@ -274,7 +315,7 @@ export default function OnboardForm({
                         <InputError className="mt-2" message={errors.city} />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <InputLabel htmlFor="district" value="District" />
                         <TextInput
                             id="district"
@@ -290,6 +331,100 @@ export default function OnboardForm({
                             className="mt-2"
                             message={errors.district}
                         />
+                    </div> */}
+
+                    <div>
+                        <InputLabel htmlFor="districts" value="Districts" />
+                        <Listbox
+                            value={selectedDistricts}
+                            onChange={setSelectedDistricts}
+                        >
+                            {({ open }) => (
+                                <>
+                                    <div className="mt-1 relative">
+                                        <span className="block w-full rounded-md shadow-sm">
+                                            <Listbox.Button className="relative w-full rounded-md border-gray-300 text-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedDistricts.label}
+                                                </span>
+                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </Listbox.Button>
+                                        </span>
+
+                                        <Transition
+                                            show={open}
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options
+                                                static
+                                                className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                            >
+                                                {districts.map((district) => (
+                                                    <Listbox.Option
+                                                        key={district.value}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
+                            cursor-default select-none relative py-2 pl-3 pr-9`
+                                                        }
+                                                        value={district}
+                                                    >
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
+                                                            <>
+                                                                <span
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
+                                block truncate`}
+                                                                >
+                                                                    {
+                                                                        district.label
+                                                                    }
+                                                                </span>
+
+                                                                {selected ? (
+                                                                    <span
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                    >
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </span>
+                                                                ) : null}
+                                                            </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                ))}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
+                                </>
+                            )}
+                        </Listbox>
                     </div>
 
                     <div>
@@ -328,20 +463,96 @@ export default function OnboardForm({
                             htmlFor="education_level"
                             value="Education Level"
                         />
-                        <TextInput
-                            id="education_level"
-                            className="mt-1 block w-full"
-                            value={data.education_level}
-                            onChange={(e) =>
-                                setData("education_level", e.target.value)
-                            }
-                            required
-                            autoComplete="education_level"
-                        />
-                        <InputError
-                            className="mt-2"
-                            message={errors.education_level}
-                        />
+                        <Listbox
+                            value={selectedEduLevel}
+                            onChange={setSelectedEduLevel}
+                        >
+                            {({ open }) => (
+                                <>
+                                    <div className="mt-1 relative">
+                                        <span className="block w-full rounded-md shadow-sm">
+                                            <Listbox.Button className="relative w-full rounded-md border-gray-300 text-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedEduLevel.label}
+                                                </span>
+                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </Listbox.Button>
+                                        </span>
+
+                                        <Transition
+                                            show={open}
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options
+                                                static
+                                                className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                            >
+                                                {eduLevel.map((eduLevel) => (
+                                                    <Listbox.Option
+                                                        key={eduLevel.value}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
+                            cursor-default select-none relative py-2 pl-3 pr-9`
+                                                        }
+                                                        value={eduLevel}
+                                                    >
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
+                                                            <>
+                                                                <span
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
+                                block truncate`}
+                                                                >
+                                                                    {
+                                                                        eduLevel.label
+                                                                    }
+                                                                </span>
+
+                                                                {selected ? (
+                                                                    <span
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                    >
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </span>
+                                                                ) : null}
+                                                            </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                ))}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
+                                </>
+                            )}
+                        </Listbox>
                     </div>
 
                     <div>
@@ -367,14 +578,16 @@ export default function OnboardForm({
 
                     <div>
                         <InputLabel htmlFor="phone" value="Phone Number" />
-                        <TextInput
+
+                        <TextInputWithPrefix
+                            prefix={`+94`}
                             id="phone"
-                            className="mt-1 block w-full"
                             value={data.phone}
                             onChange={(e) => setData("phone", e.target.value)}
                             required
                             autoComplete="phone"
                         />
+
                         <InputError className="mt-2" message={errors.phone} />
                     </div>
 
@@ -383,9 +596,10 @@ export default function OnboardForm({
                             htmlFor="whatsapp"
                             value="Whatsapp Number"
                         />
-                        <TextInput
+
+                        <TextInputWithPrefix
+                            prefix={`+94`}
                             id="whatsapp"
-                            className="mt-1 block w-full"
                             value={data.whatsapp}
                             onChange={(e) =>
                                 setData("whatsapp", e.target.value)
@@ -393,6 +607,7 @@ export default function OnboardForm({
                             required
                             autoComplete="whatsapp"
                         />
+
                         <InputError
                             className="mt-2"
                             message={errors.whatsapp}
