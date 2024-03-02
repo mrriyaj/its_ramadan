@@ -91,12 +91,12 @@ export default function App({ children, auth }) {
                                                     <Dropdown.Link
                                                         href={route("dashboard")}
                                                     >
-                                                        Admin
+                                                        Admin Dashboard
                                                     </Dropdown.Link>
                                                     <Dropdown.Link
                                                         href={route("panel")}
                                                     >
-                                                        Panel
+                                                        User Panel
                                                     </Dropdown.Link>
                                                     <Dropdown.Link
                                                         href={route("logout")}
@@ -111,7 +111,7 @@ export default function App({ children, auth }) {
                                                     <Dropdown.Link
                                                         href={route("panel")}
                                                     >
-                                                        Panel
+                                                        User Panel
                                                     </Dropdown.Link>
                                                     <Dropdown.Link
                                                         href={route("logout")}
