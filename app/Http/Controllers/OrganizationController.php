@@ -18,6 +18,23 @@ class OrganizationController extends Controller
     {
         $organizations = Organization::all();
 
+        foreach ($organizations as $organization) {
+            $followersCount = Follow::where('organization_id', $organization->id)
+                ->where('status', '01')
+                ->count();
+
+            $userFollowed = Follow::where('user_id', auth()->user()->id)
+                ->where('organization_id', $organization->id)
+                ->where('status', '01')
+                ->first();
+
+            $followId = $userFollowed ? $userFollowed->id : null;
+
+            $organization->followersCount = $followersCount;
+            $organization->userFollowed = $userFollowed;
+            $organization->followId = $followId;
+        }
+
         return Inertia::render('Organizations/Index', [
             'organizations' => $organizations
         ]);
