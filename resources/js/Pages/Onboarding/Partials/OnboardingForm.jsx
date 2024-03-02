@@ -3,21 +3,44 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm, usePage } from "@inertiajs/react";
-import { Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import DangerButton from "@/Components/DangerButton";
+import { Fragment, useEffect, useState } from "react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
 export default function OnboardForm({
     mustVerifyEmail,
-    status,
+
     className = "",
 }) {
     const user = usePage().props.auth.user;
+    const options = [
+        { value: "male", label: "Male" },
+        { value: "female", label: "Female" },
+        { value: "Other", label: "Other" },
+    ];
+
+    const status = [
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+    ];
+
+    const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [selectedStatus, setSelectedStatus] = useState(status[0]);
+
+    useEffect(() => {
+        setData((prevData) => ({
+            ...prevData,
+            correct_answer: selectedOption.value,
+            status: selectedStatus.value,
+        }));
+    }, [selectedOption, selectedStatus]);
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
             first_name: user.first_name,
             last_name: user.last_name,
-            gender: user.gender,
+            gender: selectedOption.value,
             dob: user.dob,
             address_line_1: user.address_line_1,
             address_line_2: user.address_line_2,
@@ -91,23 +114,96 @@ export default function OnboardForm({
 
                     <div>
                         <InputLabel htmlFor="gender" value="Gender" />
-
-                        <select
-                            id="gender"
-                            name="approval_type"
-                            value={data.gender}
-                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm "
-                            autoComplete="gender"
-                            required
-                            onChange={(e) => setData("gender", e.target.value)}
+                        <Listbox
+                            value={selectedOption}
+                            onChange={setSelectedOption}
                         >
-                            <option value="" disabled>
-                                Select Approval Type
-                            </option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <InputError className="mt-2" message={errors.gender} />
+                            {({ open }) => (
+                                <>
+                                    <div className="mt-1 relative">
+                                        <span className="block w-full rounded-md shadow-sm">
+                                            <Listbox.Button className="relative w-full rounded-md border text-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedOption.label}
+                                                </span>
+                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </Listbox.Button>
+                                        </span>
+
+                                        <Transition
+                                            show={open}
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options
+                                                static
+                                                className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                            >
+                                                {options.map((option) => (
+                                                    <Listbox.Option
+                                                        key={option.value}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
+                            cursor-default select-none relative py-2 pl-3 pr-9`
+                                                        }
+                                                        value={option}
+                                                    >
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
+                                                            <>
+                                                                <span
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
+                                block truncate`}
+                                                                >
+                                                                    {
+                                                                        option.label
+                                                                    }
+                                                                </span>
+
+                                                                {selected ? (
+                                                                    <span
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                    >
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </span>
+                                                                ) : null}
+                                                            </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                ))}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
+                                </>
+                            )}
+                        </Listbox>
                     </div>
 
                     <div>
