@@ -20,16 +20,40 @@ class ProviderController extends Controller
     {
         $SocialUser = Socialite::driver($provider)->user();
 
-        $user = User::updateOrCreate([
-            'provider_id' => $SocialUser->id,
-            'provider' => $provider
-        ], [
-            'first_name' => $SocialUser->name,
-            'email' => $SocialUser->email,
-            'profile' => $SocialUser->avatar,
-            'provider_token' => $SocialUser->token,
-            'email_verified_at' => now(),
-        ]);
+        $user = User::where('email', $SocialUser->email)->first();
+
+        if ($user) {
+            $user->update([
+                'provider_id' => $SocialUser->id,
+                'provider' => $provider,
+                'profile' => $SocialUser->avatar,
+            ]);
+        } else {
+            $user = User::create([
+                'first_name' => $SocialUser->name,
+                'email' => $SocialUser->email,
+                'profile' => $SocialUser->avatar,
+                'provider_token' => $SocialUser->token,
+                'email_verified_at' => now(),
+            ]);
+        }
+
+        // $SocialUser = Socialite::driver($provider)->user();
+
+        // $user = User::updateOrCreate([
+        //     'provider_id' => $SocialUser->id,
+        //     'provider' => $provider
+        // ], [
+        //     'first_name' => $SocialUser->name,
+        //     'email' => $SocialUser->email,
+        //     'profile' => $SocialUser->avatar,
+        //     'provider_token' => $SocialUser->token,
+        //     'email_verified_at' => now(),
+        // ]);
+
+
+
+
 
         Auth::login($user);
 
