@@ -52,7 +52,7 @@ class QuizController extends Controller
 
         Quiz::create($validated);
 
-        return redirect()->route('organizations.user.show', $validated['organization_id']);
+        return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
     }
 
     /**
