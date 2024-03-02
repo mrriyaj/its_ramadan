@@ -44,6 +44,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile'
     ];
 
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => substr($value, 2),
+            set: fn($value) => "94{$value}",
+        );
+    }
+
+    protected function whatsapp(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => substr($value, 2),
+            set: fn($value) => "94{$value}",
+        );
+    }
+
+
+
+
     // protected function profile(): Attribute
     // {
     //     return Attribute::make(
