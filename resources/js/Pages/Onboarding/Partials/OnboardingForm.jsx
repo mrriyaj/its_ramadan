@@ -86,10 +86,10 @@ export default function OnboardForm({
             address_line_1: user.address_line_1,
             address_line_2: user.address_line_2,
             city: user.city,
-            district: user.district,
+            district: selectedDistricts.value,
             country: user.country,
             postal_code: user.postal_code,
-            education_level: user.education_level,
+            education_level: selectedEduLevel.value,
             institute_name: user.institute_name,
             phone: user.phone,
             whatsapp: user.whatsapp,
@@ -314,24 +314,6 @@ export default function OnboardForm({
                         />
                         <InputError className="mt-2" message={errors.city} />
                     </div>
-
-                    {/* <div>
-                        <InputLabel htmlFor="district" value="District" />
-                        <TextInput
-                            id="district"
-                            className="mt-1 block w-full"
-                            value={data.district}
-                            onChange={(e) =>
-                                setData("district", e.target.value)
-                            }
-                            required
-                            autoComplete="district"
-                        />
-                        <InputError
-                            className="mt-2"
-                            message={errors.district}
-                        />
-                    </div> */}
 
                     <div>
                         <InputLabel htmlFor="districts" value="Districts" />
