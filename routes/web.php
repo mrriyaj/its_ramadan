@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizRegistrationsController;
 use App\Http\Controllers\QuizAnswersController;
 use App\Http\Controllers\FollowController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -74,13 +76,9 @@ Route::middleware('auth')->group(function () {
             // Route::get('/profile', [ProfileImageController::class, 'show'])->name('file.upload');
             Route::post('/admin/profile', [AdminProfileImageController::class, 'store'])->name('file.upload.store');
 
-            Route::get('/dashboard', function () {
-                return Inertia::render('Dashboard');
-            })->middleware(['auth', 'verified'])->name('dashboard');
-
-            Route::get('/', function () {
-                return Inertia::render('Dashboard');
-            })->middleware(['auth', 'verified'])->name('dashboard');
+            // Dashboard Route
+            Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+            Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
             // User Routes
             Route::resource('/users', AdminUserController::class);

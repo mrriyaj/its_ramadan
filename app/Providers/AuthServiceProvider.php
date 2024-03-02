@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\Models\User;
 use App\Policies\UserPolicy;
+use App\Policies\DashboardPolicy;
 use Illuminate\Support\Facades\Gate;
 
 // use Illuminate\Support\Facades\Gate;
@@ -26,32 +27,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $this->defineUserPolicies();
-
-        /* define a admin user role */
-        Gate::define('isSuperAdmin', function ($user) {
-            return $user->role == 'superadmin';
-        });
-
-        /* define a admin user role */
-        Gate::define('isOrgAdmin', function ($user) {
-            return $user->role == 'orgadmin';
-        });
-
-        /* define a admin user role */
-        Gate::define('isAdmin', function ($user) {
-            return $user->role == 'admin';
-        });
-
-        /* define a manager user role */
-        Gate::define('isManager', function ($user) {
-            return $user->role == 'manager';
-        });
-
-        /* define a user role */
-        Gate::define('isUser', function ($user) {
-            return $user->role == 'user';
-        });
+        $this->defineDashboardPolicies();
 }
+
+    /**
+     * Define dashboard-related policies.
+     */
+    private function defineDashboardPolicies(): void
+    {
+        Gate::define('view_dashboard', [DashboardPolicy::class, 'view']);
+    }
 
     /**
      * Define user-related policies.
