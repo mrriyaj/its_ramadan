@@ -203,7 +203,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                 </dd>
                                             </div>
 
-
                                             <div className="sm:col-span-2">
                                                     <div className="-mt-px flex divide-x divide-gray-200">
                                                         {organization.instagram ? (
@@ -292,9 +291,9 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                     </div>
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="mt-8">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="bg-gray-100">
+                <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                    <div className="lg:text-center">
                         {organization.owner === user.id && (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
                                 <div className="p-6">
@@ -325,6 +324,13 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                             </div>
                         )
                         }
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
                         {quizzes.length === 0 && (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
                                 <div className="p-6">
@@ -383,7 +389,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                         ))}
                     </div>
                 </div>
-            </div>
 
         </App>
     );
