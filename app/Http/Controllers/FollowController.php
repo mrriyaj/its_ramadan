@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follow;
-use App\Models\User;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
@@ -23,12 +23,12 @@ class FollowController extends Controller
         if (Follow::where('user_id', $request->user_id)->where('organization_id', $request->organization_id)->exists()) {
             $follow = Follow::where('user_id', $request->user_id)->where('organization_id', $request->organization_id)->first();
             if ($follow->status == 1) {
-                return response()->json(['message' => 'You are already following this organization']);
+                return redirect()->back()->with('error', 'You are already following this organization');
             } else {
                 // Update the status to 1 (following)
                 $follow->status = 1;
                 $follow->save();
-                return response()->json(['message' => 'You are now following this organization']);
+                return redirect()->back()->with('success', 'You are now following this organization');
             }
         }
 
@@ -39,7 +39,7 @@ class FollowController extends Controller
             'accepted' => 0,
         ]);
 
-        return response()->json(['message' => 'You are now following this organization']);
+        return redirect()->back()->with('success', 'You are now following this organization');
     }
 
     /**
@@ -51,6 +51,6 @@ class FollowController extends Controller
         $follow->status = 0;
         $follow->save();
 
-        return response()->json(['message' => 'You have unfollowed this organization']);
+        return redirect()->back()->with('success', 'You have unfollowed this organization');
     }
 }
