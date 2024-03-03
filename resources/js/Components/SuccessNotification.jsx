@@ -23,7 +23,7 @@ export default function SuccessNotification({ props }) {
 
     return (
         <>
-            {(flash.success || flash.delete || flash.update) && (
+            {(flash.success || flash.delete || flash.update || flash.error) && (
                 <div
                     aria-live="assertive"
                     className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50"
@@ -56,6 +56,10 @@ export default function SuccessNotification({ props }) {
                                                     flash.update
                                                         ? "text-blue-400"
                                                         : ""
+                                                } ${
+                                                    flash.error
+                                                        ? "text-red-400"
+                                                        : ""
                                                 }`}
                                                 aria-hidden="true"
                                             />
@@ -66,11 +70,13 @@ export default function SuccessNotification({ props }) {
                                                 {flash.success && "Success"}
                                                 {flash.delete && "Delete"}
                                                 {flash.update && "Update"}
+                                                {flash.error && "Error"}
                                             </p>
                                             <p className=" text-sm text-gray-500">
                                                 {flash.update}
                                                 {flash.delete}
                                                 {flash.success}
+                                                {flash.error}
                                             </p>
                                         </div>
 
