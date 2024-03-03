@@ -7,6 +7,8 @@ import {
     EnvelopeIcon,
     UserGroupIcon,
     GlobeAltIcon,
+    UserPlusIcon,
+    UserMinusIcon,
 } from "@heroicons/react/20/solid";
 
 
@@ -22,7 +24,7 @@ import {
 import Link from "@/Components/Link";
 import SuccessNotification from "@/Components/SuccessNotification";
 
-export default function Index({ auth, organizations}) {
+export default function Index({ auth, organizations }) {
     const user = usePage().props.auth.user;
     const { flash } = usePage().props;
     const [showSuccessNotification, setShowSuccessNotification] = useState(false);
@@ -121,10 +123,10 @@ export default function Index({ auth, organizations}) {
                                                 )}
 
                                                 <div className="flex gap-4 justify-center mb-2">
-                                                <Link
-                                                    className="justify-center"
-                                                    value="View"
-                                                    href={`/organizations/${organization.id}`}
+                                                    <Link
+                                                        className="justify-center"
+                                                        value="View"
+                                                        href={`/organizations/${organization.id}`}
                                                     />
                                                     {organization.userFollowed ? (
                                                         <Link
