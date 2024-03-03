@@ -1,4 +1,5 @@
 import { Head, usePage } from "@inertiajs/react";
+import React, { useEffect, useState } from "react";
 import App from "@/Layouts/AppLayout";
 import HeaderSection from "@/Components/HeaderSection";
 import {
@@ -6,6 +7,8 @@ import {
     EnvelopeIcon,
     UserGroupIcon,
     GlobeAltIcon,
+    UserPlusIcon,
+    UserMinusIcon,
 } from "@heroicons/react/20/solid";
 
 
@@ -19,14 +22,30 @@ import {
 } from "react-icons/fa";
 
 import Link from "@/Components/Link";
+import SuccessNotification from "@/Components/SuccessNotification";
 
 export default function Index({ auth, organizations }) {
     const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
+    const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
-    console.log(organizations);
+    useEffect(() => {
+        if (flash && flash.success) {
+            setShowSuccessNotification(true);
+
+            const timeoutId = setTimeout(() => {
+                setShowSuccessNotification(false);
+            }, 5000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [flash]);
 
     return (
         <App auth={auth}>
+            {showSuccessNotification &&
+                <SuccessNotification />
+            }
             <Head title="Welcome" />
             <HeaderSection
                 Header="Organizations"
@@ -67,7 +86,7 @@ export default function Index({ auth, organizations }) {
                                                     alt={`${organization.name} - logo`}
                                                 />
                                                 <h3 className="mt-6 text-lg font-medium text-gray-900 mx-auto">
-                                                    <div className="flex gap-2 items-center">
+                                                    <div className="flex gap-2 items-center mb-3">
                                                         {organization.name}
                                                         {organization.is_verified ? (
                                                             <span className="text-main-500">
@@ -79,11 +98,8 @@ export default function Index({ auth, organizations }) {
                                                         ) : null}
                                                     </div>
                                                 </h3>
-                                                <p className="text-gray-500 mb-4">
-                                                    {organization.description}
-                                                </p>
 
-                                                <div className="flex gap-4 justify-center mb-2">
+                                                <div className="flex gap-4 justify-center mb-1">
                                                     <span className="text-gray-500">
                                                         <UserGroupIcon className="h-5 w-5"
                                                             aria-hidden="true" />
@@ -95,7 +111,7 @@ export default function Index({ auth, organizations }) {
                                                 </div>
 
                                                 {organization.website && (
-                                                    <div className="flex gap-4 justify-center mb-2">
+                                                    <div className="flex gap-4 justify-center mb-3">
                                                         <span className="text-gray-500">
                                                             <GlobeAltIcon className="h-5 w-5"
                                                                 aria-hidden="true" />
@@ -107,10 +123,10 @@ export default function Index({ auth, organizations }) {
                                                 )}
 
                                                 <div className="flex gap-4 justify-center mb-2">
-                                                <Link
-                                                    className="justify-center"
-                                                    value="View"
-                                                    href={`/organizations/${organization.id}`}
+                                                    <Link
+                                                        className="justify-center"
+                                                        value="View"
+                                                        href={`/organizations/${organization.id}`}
                                                     />
                                                     {organization.userFollowed ? (
                                                         <Link
