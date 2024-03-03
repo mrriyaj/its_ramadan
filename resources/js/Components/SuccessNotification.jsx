@@ -1,26 +1,29 @@
-import { Fragment, useState, useEffect } from 'react'
-import { Transition } from '@headlessui/react'
-import { CheckCircleIcon } from '@heroicons/react/24/outline'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import { Fragment, useState, useEffect } from "react";
+import { Transition } from "@headlessui/react";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { usePage } from "@inertiajs/react";
 
-
-export default function SuccessNotification({ props, onClose }) {
+export default function SuccessNotification({ props }) {
     const { flash } = usePage().props;
 
-    const [show, setShow] = useState(true)
+    const onClose = () => {
+        setShow(false);
+    };
+
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
-        }, 5000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [onClose]);
 
     return (
         <>
-            {flash.success && (
+            {(flash.success || flash.delete || flash.update || flash.error) && (
                 <div
                     aria-live="assertive"
                     className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50"
@@ -40,26 +43,58 @@ export default function SuccessNotification({ props, onClose }) {
                                 <div className="p-4">
                                     <div className="flex items-start">
                                         <div className="flex-shrink-0">
-                                            <CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true" />
+                                            <CheckCircleIcon
+                                                className={`h-6 w-6 ${
+                                                    flash.success
+                                                        ? "text-green-400"
+                                                        : ""
+                                                } ${
+                                                    flash.delete
+                                                        ? "text-red-400"
+                                                        : ""
+                                                } ${
+                                                    flash.update
+                                                        ? "text-blue-400"
+                                                        : ""
+                                                } ${
+                                                    flash.error
+                                                        ? "text-red-400"
+                                                        : ""
+                                                }`}
+                                                aria-hidden="true"
+                                            />
                                         </div>
 
-
-                                        <div className="ml-3 w-0 flex-1 pt-0.5">
-                                            <p className="text-sm font-medium text-gray-900">Success</p>
-                                            <p className="mt-1 text-sm text-gray-500"> {flash.success}</p>
+                                        <div className="ml-3 w-0 flex-1">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                {flash.success && "Success"}
+                                                {flash.delete && "Delete"}
+                                                {flash.update && "Update"}
+                                                {flash.error && "Error"}
+                                            </p>
+                                            <p className=" text-sm text-gray-500">
+                                                {flash.update}
+                                                {flash.delete}
+                                                {flash.success}
+                                                {flash.error}
+                                            </p>
                                         </div>
-
 
                                         <div className="ml-4 flex flex-shrink-0">
                                             <button
                                                 type="button"
                                                 className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                                 onClick={() => {
-                                                    setShow(false)
+                                                    setShow(false);
                                                 }}
                                             >
-                                                <span className="sr-only">Close</span>
-                                                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                                                <span className="sr-only">
+                                                    Close
+                                                </span>
+                                                <XMarkIcon
+                                                    className="h-5 w-5"
+                                                    aria-hidden="true"
+                                                />
                                             </button>
                                         </div>
                                     </div>
@@ -69,6 +104,7 @@ export default function SuccessNotification({ props, onClose }) {
                     </div>
                 </div>
             )}
+            ;
         </>
-    )
+    );
 }
