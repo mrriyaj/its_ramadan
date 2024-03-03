@@ -2,11 +2,12 @@ import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
 import { useForm, usePage, Head } from "@inertiajs/react";
 import HeaderSection from "@/Components/HeaderSection";
-import PrimaryButton from "@/Components/PrimaryButton";
 
 import {
     CheckBadgeIcon,
+    UserGroupIcon,
 } from "@heroicons/react/20/solid";
+
 import {
     FaEnvelope,
     FaFacebook,
@@ -19,24 +20,8 @@ import {
 
 import { TbWorldWww } from "react-icons/tb";
 
-export default function Show({ auth, organization, quizzes, followId }) {
+export default function Show({ auth, organization, quizzes, followId, followersCount }) {
     const user = usePage().props.auth.user;
-    const URL = "https:// localhost:8000/";
-
-    const { data, setData, post, processing, errors, reset } = useForm({
-        user_id: user.id,
-        organization_id: organization.id,
-    });
-
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("follows.follow"), {
-            onSuccess: () => {
-                reset();
-                window.location.reload();
-            },
-        });
-    }
 
     return (
         <App auth={auth}>
@@ -90,18 +75,10 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                         </h1>
                                                     </div>
                                                     <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                                        <Link
-                                                            href={`mailto:${organization.email}`}
-                                                            value="Message"
-                                                        />
-                                                        <Link
-                                                            href={`tel:${organization.number}`}
-                                                            value="Call"
-                                                        />
-                                                        <Link
-                                                            href={`https://wa.me/${organization.whatsapp}`}
-                                                            value="WhatsApp"
-                                                        />
+                                                        <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                                                            <UserGroupIcon className="h-5 w-5 mr-2" />
+                                                            {followersCount} Followers
+                                                        </span>
                                                         {followId ? (
                                                             <Link
                                                                 className="pr-3 font-medium text-red-600 dark:text-red-500 hover:underline"
@@ -117,15 +94,32 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                                 )}
                                                             />
                                                         ) : (
-                                                            <form onSubmit={submit}>
-                                                                <PrimaryButton
-                                                                    className="ms-4"
-                                                                    disabled={processing}
-                                                                >
-                                                                    Join To The Challenge
-                                                                </PrimaryButton>
-                                                            </form>
+                                                            <Link
+                                                                className="pr-3 font-medium text-main-600 dark:text-main-500 hover:underline"
+                                                                method="post"
+                                                                as="button"
+                                                                type="button"
+                                                                value="Follow"
+                                                                href={route(
+                                                                    "follows.follow",
+                                                                    {
+                                                                        organization_id: organization.id,
+                                                                        user_id: user.id,
+                                                                    }
+                                                                )}
+                                                            />
                                                         )}
+                                                        {organization.whatsapp_group ? (
+                                                            <a
+                                                                className="inline-flex items-center px-4 py-2 bg-main-default dark:bg-second-default border border-transparent rounded-md font-semibold text-xs text-white dark:text-second-800 uppercase tracking-widest hover:bg-second-700 dark:hover:bg-white focus:bg-second-700 dark:focus:bg-white active:bg-second-900 dark:active:bg-second-300 focus:outline-none focus:ring-2 focus:ring-main-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+                                                                value="Join WhatsApp Group"
+                                                                href={organization.whatsapp_group}
+                                                                target="_blank" // Add this attribute
+                                                                rel="noopener noreferrer" // Add this attribute for security reasons
+                                                            >
+                                                                Join WhatsApp Group
+                                                            </a>
+                                                        ) : null}
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,9 +142,9 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                         </div>
                                     </div>
                                     <div className="px-4 py-5 sm:px-6">
-                                        {/* <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                        <h3 className="text-lg font-medium leading-6 text-gray-900">
                                             Organization Information
-                                        </h3> */}
+                                        </h3>
                                     </div>
                                     <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                                         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
@@ -160,19 +154,6 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                 </dt>
                                                 <dd className="mt-1 text-sm text-gray-900">
                                                     {organization.name}
-                                                </dd>
-                                            </div>
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">
-                                                    Organization URL
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    <a
-                                                        href="{URL}/{organization.slug}"
-                                                    >
-                                                        {URL}
-                                                        {organization.slug}
-                                                    </a>
                                                 </dd>
                                             </div>
 
@@ -194,71 +175,7 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                 </dd>
                                             </div>
                                             <div className="sm:col-span-2">
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    {" "}
                                                     <div className="-mt-px flex divide-x divide-gray-200">
-                                                        {organization.number ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={`tel:${organization.number}`}
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaMobileAlt
-                                                                        size={
-                                                                            18
-                                                                        }
-                                                                    />
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
-
-                                                        {organization.email ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={`mailto:${organization.email}`}
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaEnvelope
-                                                                        size={
-                                                                            18
-                                                                        }
-                                                                    />
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
-
-                                                        {organization.website ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={
-                                                                        organization.website
-                                                                    }
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <TbWorldWww
-                                                                        size={
-                                                                            18
-                                                                        }
-                                                                    />
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
-
-                                                        {organization.whatsapp ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={`https://wa.me/${organization.whatsapp}`}
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaWhatsapp
-                                                                        size={
-                                                                            18
-                                                                        }
-                                                                    />
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
-
                                                         {organization.instagram ? (
                                                             <div className="-ml-px flex w-0 flex-1">
                                                                 <a
@@ -271,8 +188,11 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                                         size={
                                                                             18
                                                                         }
-                                                                    />
-                                                                </a>
+                                                                    className="h-5 w-5 mr-3"
+                                                                />
+                                                                Instagram
+                                                            </a>
+
                                                             </div>
                                                         ) : null}
 
@@ -288,7 +208,9 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                                         size={
                                                                             18
                                                                         }
-                                                                    />
+                                                                    className="h-5 w-5 mr-3"
+                                                                />
+                                                                Facebook
                                                                 </a>
                                                             </div>
                                                         ) : null}
@@ -305,7 +227,9 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                                         size={
                                                                             18
                                                                         }
-                                                                    />
+                                                                    className="h-5 w-5 mr-3"
+                                                                />
+                                                                LinkedIn
                                                                 </a>
                                                             </div>
                                                         ) : null}
@@ -322,12 +246,13 @@ export default function Show({ auth, organization, quizzes, followId }) {
                                                                         size={
                                                                             18
                                                                         }
-                                                                    />
+                                                                    className="h-5 w-5 mr-3"
+                                                                />
+                                                                Twitter
                                                                 </a>
                                                             </div>
                                                         ) : null}
                                                     </div>
-                                                </dd>
                                             </div>
                                         </dl>
                                     </div>
