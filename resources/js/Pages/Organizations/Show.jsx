@@ -31,7 +31,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                 Title="Organization Details"
                 Description="View organization details and quizzes"
             />
-            <div className="py-12">
+            <div className="py-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex h-full">
                         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -204,84 +204,102 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                             </div>
 
                                             <div className="sm:col-span-2">
-                                                    <div className="-mt-px flex divide-x divide-gray-200">
-                                                        {organization.instagram ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={
-                                                                        organization.instagram
+                                                <div className="-mt-px flex divide-x divide-gray-200">
+                                                    {organization.instagram ? (
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <a
+                                                                href={
+                                                                    organization.instagram
+                                                                }
+                                                                className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                                                            >
+                                                                <FaInstagram
+                                                                    size={
+                                                                        18
                                                                     }
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaInstagram
-                                                                        size={
-                                                                            18
-                                                                        }
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Instagram
                                                             </a>
 
-                                                            </div>
-                                                        ) : null}
+                                                        </div>
+                                                    ) : null}
 
-                                                        {organization.facebook ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={
-                                                                        organization.facebook
+                                                    {organization.facebook ? (
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <a
+                                                                href={
+                                                                    organization.facebook
+                                                                }
+                                                                className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                                                            >
+                                                                <FaFacebook
+                                                                    size={
+                                                                        18
                                                                     }
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaFacebook
-                                                                        size={
-                                                                            18
-                                                                        }
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Facebook
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
+                                                            </a>
+                                                        </div>
+                                                    ) : null}
 
-                                                        {organization.linkedin ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={
-                                                                        organization.linkedin
+                                                    {organization.linkedin ? (
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <a
+                                                                href={
+                                                                    organization.linkedin
+                                                                }
+                                                                className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                                                            >
+                                                                <FaLinkedin
+                                                                    size={
+                                                                        18
                                                                     }
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaLinkedin
-                                                                        size={
-                                                                            18
-                                                                        }
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 LinkedIn
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
+                                                            </a>
+                                                        </div>
+                                                    ) : null}
 
-                                                        {organization.twitter ? (
-                                                            <div className="-ml-px flex w-0 flex-1">
-                                                                <a
-                                                                    href={
-                                                                        organization.twitter
+                                                    {organization.twitter ? (
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <a
+                                                                href={
+                                                                    organization.twitter
+                                                                }
+                                                                className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                                                            >
+                                                                <FaTwitter
+                                                                    size={
+                                                                        18
                                                                     }
-                                                                    className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                                                                >
-                                                                    <FaTwitter
-                                                                        size={
-                                                                            18
-                                                                        }
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Twitter
-                                                                </a>
-                                                            </div>
-                                                        ) : null}
-                                                    </div>
+                                                            </a>
+                                                        </div>
+                                                    ) : null}
+
+                                                    {organization.youtube ? (
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <a
+                                                                href={
+                                                                    organization.youtube
+                                                                }
+                                                                className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                                                            >
+                                                                <TbWorldWww
+                                                                    size={18}
+                                                                    className="h-5 w-5 mr-3"
+                                                                />
+                                                                YouTube
+                                                            </a>
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+
                                             </div>
                                         </dl>
                                     </div>
@@ -291,104 +309,104 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                     </div>
                 </div>
             </div>
-            <div className="bg-gray-100">
-                <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                    <div className="lg:text-center">
-                        {organization.owner === user.id && (
-                            <div className="overflow-hidden rounded-lg bg-white shadow">
-                                <div className="p-6">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <img
-                                                className="w-10 h-10 rounded-full"
-                                                src="https://via.placeholder.com/150"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">
-                                                Create a new quiz
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                Create a new quiz for this organization
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="mt-4">
-                                        <Link
-                                            href={`/quizzes/create/${organization.id}`}
-                                            value="Create"
+
+            <div className="max-w-7xl mx-auto py-12 px-2 sm:px-2 lg:px-8">
+                <div className="lg:text-center">
+                    {organization.owner === user.id && (
+                        <div className="overflow-hidden rounded-lg bg-white shadow">
+                            <div className="p-6">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <img
+                                            className="w-10 h-10 rounded-full"
+                                            src="https://via.placeholder.com/150"
+                                            alt=""
                                         />
                                     </div>
+                                    <div className="ml-3">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            Create a Quiz
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            Create a quiz for this organization
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4">
+                                    <Link
+                                        href={`/quizzes/create/${organization.id}`}
+                                        value="Create"
+                                    />
                                 </div>
                             </div>
-                        )
-                        }
-                    </div>
+                        </div>
+                    )
+                    }
                 </div>
             </div>
 
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 
-                        {quizzes.length === 0 && (
-                            <div className="overflow-hidden rounded-lg bg-white shadow">
-                                <div className="p-6">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <img
-                                                className="w-10 h-10 rounded-full"
-                                                src="https://via.placeholder.com/150"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">
-                                                No quiz found
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                No quiz found for this organization
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                        }
-                        {quizzes.map((quiz) => (
-                            <div
-                                key={quiz.id}
-                                className="overflow-hidden rounded-lg bg-white shadow"
-                            >
-                                <div className="p-6">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <img
-                                                className="w-10 h-10 rounded-full"
-                                                src={quiz.cover}
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">
-                                                {quiz.title}
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                {quiz.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="mt-4">
-                                        <Link
-                                            href={`/quizzes/${quiz.id}`}
-                                            value="View"
+                    {quizzes.length === 0 && (
+                        <div className="overflow-hidden rounded-lg bg-white shadow">
+                            <div className="p-6">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <img
+                                            className="w-10 h-10 rounded-full"
+                                            src="https://via.placeholder.com/150"
+                                            alt=""
                                         />
                                     </div>
+                                    <div className="ml-3">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            No quiz found
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            No quiz found for this organization
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    )
+                    }
+                    {quizzes.map((quiz) => (
+                        <div
+                            key={quiz.id}
+                            className="overflow-hidden rounded-lg bg-white shadow"
+                        >
+                            <div className="p-6">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <img
+                                            className="w-10 h-10 rounded-full"
+                                            src={quiz.cover}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            {quiz.title}
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            {quiz.description}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <Link
+                                        href={`/quizzes/${quiz.id}`}
+                                        value="View"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
 
         </App>
     );

@@ -21,6 +21,7 @@ export default function Create({auth, organization}) {
         organization_id: organization.id,
         title: "",
         description: "",
+        image: "",
         start_date: "",
         end_date: "",
         approval_type: selected.value,
@@ -125,6 +126,39 @@ export default function Create({auth, organization}) {
                                     />
                                 </div>
 
+                                <div>
+                                    <InputLabel
+                                        htmlFor="image"
+                                        value="Quiz Image"
+                                    />
+
+                                    <input
+                                        id="image"
+                                        name="image"
+                                        type="file"
+                                        className="mt-1 block w-full"
+                                        autoComplete="image"
+                                        isFocused={true}
+                                        onChange={(e) =>
+                                            setData("image", e.target.files[0])
+                                        }
+                                        required
+                                    />
+
+                                    <InputError
+                                        message={errors.image}
+                                        className="mt-2"
+                                    />
+
+                                    {data.image && (
+                                        <img
+                                            src={URL.createObjectURL(data.image)}
+                                            alt="Quiz Image"
+                                            className="mt-2 w-20 h-20 object-cover rounded-lg"
+                                        />
+                                    )}
+
+                                </div>
                                 <div>
                                     <InputLabel
                                         htmlFor="start_date"
