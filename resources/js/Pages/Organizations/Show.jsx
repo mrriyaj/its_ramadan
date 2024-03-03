@@ -148,14 +148,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                     </div>
                                     <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                                         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                                            <div className="sm:col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">
-                                                    Organization name
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    {organization.name}
-                                                </dd>
-                                            </div>
 
                                             <div className="sm:col-span-1">
                                                 <dt className="text-sm font-medium text-gray-500">
@@ -174,6 +166,44 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                     {`${organization.address_line_1}, ${organization.address_line_2}, ${organization.district}, ${organization.country}, ${organization.postal_code}`}
                                                 </dd>
                                             </div>
+
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">
+                                                    Email
+                                                </dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {organization.email}
+                                                </dd>
+                                            </div>
+
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">
+                                                    Phone Number
+                                                </dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {organization.number}
+                                                </dd>
+                                            </div>
+
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">
+                                                    Website
+                                                </dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {organization.website}
+                                                </dd>
+                                            </div>
+
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">
+                                                    WhatsApp Number
+                                                </dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {organization.whatsapp}
+                                                </dd>
+                                            </div>
+
+
                                             <div className="sm:col-span-2">
                                                     <div className="-mt-px flex divide-x divide-gray-200">
                                                         {organization.instagram ? (
