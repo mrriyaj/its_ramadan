@@ -22,11 +22,10 @@ import {
 import Link from "@/Components/Link";
 import SuccessNotification from "@/Components/SuccessNotification";
 
-export default function Index({ auth, organizations }) {
+export default function Index({ auth, organizations}) {
     const user = usePage().props.auth.user;
     const { flash } = usePage().props;
-    const [showSuccessNotification, setShowSuccessNotification] =
-        useState(false);
+    const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
     useEffect(() => {
         if (flash && flash.success) {
@@ -42,7 +41,9 @@ export default function Index({ auth, organizations }) {
 
     return (
         <App auth={auth}>
-            {showSuccessNotification && <SuccessNotification />}
+            {showSuccessNotification &&
+                <SuccessNotification />
+            }
             <Head title="Welcome" />
             <HeaderSection
                 Header="Organizations"
