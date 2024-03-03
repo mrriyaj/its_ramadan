@@ -4,7 +4,7 @@ import Logo from "@/Components/Logo";
 import { Link, usePage } from "@inertiajs/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Dropdown from "@/Components/Dropdown";
-import SuccessNotification from "@/Components/SuccessNotification";
+import Notification from "@/Components/Notification";
 
 export default function Authenticated({ auth, header, children }) {
     const user = usePage().props.auth.user;
@@ -71,9 +71,12 @@ export default function Authenticated({ auth, header, children }) {
                                                     />
                                                 ) : (
                                                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500">
-                                                            <span class="text-sm font-medium leading-none text-white">{user.first_name.substring(
+                                                        <span class="text-sm font-medium leading-none text-white">
+                                                            {user.first_name.substring(
                                                                 0,
-                                                                2)}</span>
+                                                                2
+                                                            )}
+                                                        </span>
                                                     </span>
                                                 )}
                                             </span>
@@ -178,7 +181,7 @@ export default function Authenticated({ auth, header, children }) {
                 </header>
             )}
             <div className="min-h-screen bg-main-default">
-                <SuccessNotification />
+                <Notification />
                 <main>{children}</main>
             </div>
         </>
