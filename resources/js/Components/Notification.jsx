@@ -4,7 +4,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { usePage } from "@inertiajs/react";
 
-export default function SuccessNotification({ props }) {
+export default function Notification({ props }) {
     const { flash } = usePage().props;
 
     const onClose = () => {
