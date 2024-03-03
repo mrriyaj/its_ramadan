@@ -32,7 +32,7 @@ class OrganizationController extends Controller
     {
         $users = User::all();
 
-        return Inertia::render('Admin/Organizations/Create',[
+        return Inertia::render('Admin/Organizations/Create', [
             'users' => $users
         ]);
     }
@@ -156,7 +156,7 @@ class OrganizationController extends Controller
 
         $organization->save();
 
-        return Redirect::route('organizations.index')->with('success', 'Organization has been updated')->withErrors(['success' => 'Organization has been updated']);
+        return Redirect::route('organizations.index')->with('update', 'Organization has been updated');
     }
 
     /**
@@ -178,6 +178,6 @@ class OrganizationController extends Controller
 
         $organization->delete();
 
-        return Redirect::route('organizations.index')->with('success', 'Organization has been deleted');
+        return Redirect::route('organizations.index')->with('delete', 'Organization has been deleted');
     }
 }

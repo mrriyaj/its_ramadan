@@ -63,6 +63,10 @@ class OrganizationController extends Controller
     {
         $organization = Organization::findOrFail($id);
 
+        $followersCount = Follow::where('organization_id', $id)
+            ->where('status', '01')
+            ->count();
+
         $quizzes = Quiz::where('organization_id', $id)->get();
 
         // Check if the user is following and the status is 01
@@ -74,6 +78,7 @@ class OrganizationController extends Controller
         return Inertia::render('Organizations/Show', [
             'quizzes' => $quizzes,
             'organization' => $organization,
+            'followersCount' => $followersCount,
             'followId' => $follow ? $follow->id : null
         ]);
     }

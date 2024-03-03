@@ -43,6 +43,7 @@ class QuizController extends Controller
             'organization_id' => 'required|exists:organizations,id',
             'title' => 'required|max:255',
             'description' => 'required|max:1024',
+            'image' => 'nullable|image',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'approval_type' => 'required|in:auto,manual',
@@ -50,7 +51,17 @@ class QuizController extends Controller
             'created_by' => 'required|exists:users,id'
         ]);
 
-        Quiz::create($validated);
+        $quiz = new Quiz();
+        $quiz->fill($validated);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $request->name . '-image-' . time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images/org/', $imageName);
+            $quiz->image = $imageName;
+        }
+
+        $quiz->save();
 
         return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
     }

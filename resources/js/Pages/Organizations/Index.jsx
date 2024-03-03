@@ -1,4 +1,5 @@
 import { Head, usePage } from "@inertiajs/react";
+import React, { useEffect, useState } from "react";
 import App from "@/Layouts/AppLayout";
 import HeaderSection from "@/Components/HeaderSection";
 import {
@@ -6,8 +7,9 @@ import {
     EnvelopeIcon,
     UserGroupIcon,
     GlobeAltIcon,
+    UserPlusIcon,
+    UserMinusIcon,
 } from "@heroicons/react/20/solid";
-
 
 import {
     FaFacebook,
@@ -19,14 +21,29 @@ import {
 } from "react-icons/fa";
 
 import Link from "@/Components/Link";
+import Notification from "@/Components/Notification";
 
 export default function Index({ auth, organizations }) {
     const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
+    const [showSuccessNotification, setShowSuccessNotification] =
+        useState(false);
 
-    console.log(organizations);
+    useEffect(() => {
+        if (flash && flash.success) {
+            setShowSuccessNotification(true);
+
+            const timeoutId = setTimeout(() => {
+                setShowSuccessNotification(false);
+            }, 5000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [flash]);
 
     return (
         <App auth={auth}>
+            {showSuccessNotification && <Notification />}
             <Head title="Welcome" />
             <HeaderSection
                 Header="Organizations"
@@ -67,7 +84,7 @@ export default function Index({ auth, organizations }) {
                                                     alt={`${organization.name} - logo`}
                                                 />
                                                 <h3 className="mt-6 text-lg font-medium text-gray-900 mx-auto">
-                                                    <div className="flex gap-2 items-center">
+                                                    <div className="flex gap-2 items-center mb-3">
                                                         {organization.name}
                                                         {organization.is_verified ? (
                                                             <span className="text-main-500">
@@ -79,38 +96,43 @@ export default function Index({ auth, organizations }) {
                                                         ) : null}
                                                     </div>
                                                 </h3>
-                                                <p className="text-gray-500 mb-4">
-                                                    {organization.description}
-                                                </p>
 
-                                                <div className="flex gap-4 justify-center mb-2">
+                                                <div className="flex gap-4 justify-center mb-1">
                                                     <span className="text-gray-500">
-                                                        <UserGroupIcon className="h-5 w-5"
-                                                            aria-hidden="true" />
+                                                        <UserGroupIcon
+                                                            className="h-5 w-5"
+                                                            aria-hidden="true"
+                                                        />
                                                     </span>
-                                                    {organization.followersCount}
+                                                    {
+                                                        organization.followersCount
+                                                    }
                                                     <span className="text-gray-500">
                                                         Followers
                                                     </span>
                                                 </div>
 
                                                 {organization.website && (
-                                                    <div className="flex gap-4 justify-center mb-2">
+                                                    <div className="flex gap-4 justify-center mb-3">
                                                         <span className="text-gray-500">
-                                                            <GlobeAltIcon className="h-5 w-5"
-                                                                aria-hidden="true" />
+                                                            <GlobeAltIcon
+                                                                className="h-5 w-5"
+                                                                aria-hidden="true"
+                                                            />
                                                         </span>
                                                         <span className="text-gray-500">
-                                                            {organization.website}
+                                                            {
+                                                                organization.website
+                                                            }
                                                         </span>
                                                     </div>
                                                 )}
 
                                                 <div className="flex gap-4 justify-center mb-2">
-                                                <Link
-                                                    className="justify-center"
-                                                    value="View"
-                                                    href={`/organizations/${organization.id}`}
+                                                    <Link
+                                                        className="justify-center"
+                                                        value="View"
+                                                        href={`/organizations/${organization.id}`}
                                                     />
                                                     {organization.userFollowed ? (
                                                         <Link
@@ -122,7 +144,9 @@ export default function Index({ auth, organizations }) {
                                                             href={route(
                                                                 "follows.unfollow",
                                                                 {
-                                                                    id: organization.userFollowed.id,
+                                                                    id: organization
+                                                                        .userFollowed
+                                                                        .id,
                                                                 }
                                                             )}
                                                         />
@@ -136,8 +160,10 @@ export default function Index({ auth, organizations }) {
                                                             href={route(
                                                                 "follows.follow",
                                                                 {
-                                                                    organization_id: organization.id,
-                                                                    user_id: user.id,
+                                                                    organization_id:
+                                                                        organization.id,
+                                                                    user_id:
+                                                                        user.id,
                                                                 }
                                                             )}
                                                         />
@@ -147,48 +173,101 @@ export default function Index({ auth, organizations }) {
                                                 <div className="flex gap-4 justify-center mt-4">
                                                     {organization.facebook && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.facebook} target="_blank" rel="noopener noreferrer">
-                                                                <FaFacebook className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.facebook
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaFacebook
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                     {organization.twitter && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.twitter} target="_blank" rel="noopener noreferrer">
-                                                                <FaTwitter className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.twitter
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaTwitter
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                     {organization.instagram && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.instagram} target="_blank" rel="noopener noreferrer">
-                                                                <FaInstagram className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.instagram
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaInstagram
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                     {organization.linkedin && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.linkedin} target="_blank" rel="noopener noreferrer">
-                                                                <FaLinkedin className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.linkedin
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaLinkedin
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                     {organization.whatsapp && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.whatsapp} target="_blank" rel="noopener noreferrer">
-                                                                <FaWhatsapp className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.whatsapp
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaWhatsapp
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                     {organization.youtube && (
                                                         <span className="text-gray-500">
-                                                            <a href={organization.youtube} target="_blank" rel="noopener noreferrer">
-                                                                <FaYoutube className="h-5 w-5" aria-hidden="true" />
+                                                            <a
+                                                                href={
+                                                                    organization.youtube
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <FaYoutube
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </a>
                                                         </span>
                                                     )}
                                                 </div>
-
                                             </div>
                                         </li>
                                     ))
