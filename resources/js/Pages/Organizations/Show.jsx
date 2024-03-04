@@ -50,7 +50,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                             <div className="-mt-12 sm:-mt-24 sm:flex sm:items-end sm:space-x-5">
                                                 <div className="flex">
                                                     <img
-                                                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-48 sm:w-48"
+                                                        className="h-24 w-24 rounded-lg ring-4 ring-white sm:h-48 sm:w-48"
                                                         src={organization.logo}
                                                         alt=""
                                                     />
@@ -312,7 +312,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
 
             <div className="max-w-7xl mx-auto py-12 px-2 sm:px-2 lg:px-8">
                 <div className="lg:text-center">
-                    {organization.owner === user.id && (
+                    {organization.owner === user.id && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
                                 <div className="flex items-center">
@@ -346,8 +346,8 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="max-w-7xl mx-auto pb-12 px-6 sm:px-2 lg:px-8">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-1">
 
                     {quizzes.length === 0 && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
@@ -378,29 +378,34 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                             key={quiz.id}
                             className="overflow-hidden rounded-lg bg-white shadow"
                         >
-                            <div className="p-6">
-                                <div className="flex items-center">
-                                    <div className="flex-shrink-0">
-                                        <img
-                                            className="w-10 h-10 rounded-full"
-                                            src={quiz.cover}
-                                            alt=""
-                                        />
+                            <div className="lg:text-center">
+                                <div className="p-6">
+                                    <div className="grid lg:grid-cols-2 md:grid-cols-2  items-center justify-center">
+                                        <div className="">
+                                            <img
+                                                className="w-64 h-64 rounded-lg"
+                                                src={quiz.image}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="">
+                                            <p className="text-3xl font-medium text-gray-900 p-4">
+                                                {quiz.title}
+                                            </p>
+                                            <p className="text-sm text-gray-500 pl-4">
+                                                {quiz.description}
+                                            </p>
+                                            <div className="p-4">
+                                            <p className="font-medium">Starting Date: {quiz.start_date}</p>
+                                            <p className="font-medium">Ending Date: {quiz.end_date}</p>
+                                            </div>
+                                                <Link
+                                                    className="p-4"
+                                                    href={`/quizzes/${quiz.id}`}
+                                                    value="View"
+                                                />
+                                        </div>
                                     </div>
-                                    <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            {quiz.title}
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            {quiz.description}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-4">
-                                    <Link
-                                        href={`/quizzes/${quiz.id}`}
-                                        value="View"
-                                    />
                                 </div>
                             </div>
                         </div>
