@@ -3,10 +3,7 @@ import Link from "@/Components/Link";
 import { useForm, usePage, Head } from "@inertiajs/react";
 import HeaderSection from "@/Components/HeaderSection";
 
-import {
-    CheckBadgeIcon,
-    UserGroupIcon,
-} from "@heroicons/react/20/solid";
+import { CheckBadgeIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 import {
     FaEnvelope,
@@ -20,7 +17,13 @@ import {
 
 import { TbWorldWww } from "react-icons/tb";
 
-export default function Show({ auth, organization, quizzes, followId, followersCount }) {
+export default function Show({
+    auth,
+    organization,
+    quizzes,
+    followId,
+    followersCount,
+}) {
     const user = usePage().props.auth.user;
 
     return (
@@ -77,7 +80,8 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                     <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                                                         <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
                                                             <UserGroupIcon className="h-5 w-5 mr-2" />
-                                                            {followersCount} Followers
+                                                            {followersCount}{" "}
+                                                            Followers
                                                         </span>
                                                         {followId ? (
                                                             <Link
@@ -103,8 +107,10 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                                 href={route(
                                                                     "follows.follow",
                                                                     {
-                                                                        organization_id: organization.id,
-                                                                        user_id: user.id,
+                                                                        organization_id:
+                                                                            organization.id,
+                                                                        user_id:
+                                                                            user.id,
                                                                     }
                                                                 )}
                                                             />
@@ -113,11 +119,14 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                             <a
                                                                 className="inline-flex items-center px-4 py-2 bg-main-default dark:bg-second-default border border-transparent rounded-md font-semibold text-xs text-white dark:text-second-800 uppercase tracking-widest hover:bg-second-700 dark:hover:bg-white focus:bg-second-700 dark:focus:bg-white active:bg-second-900 dark:active:bg-second-300 focus:outline-none focus:ring-2 focus:ring-main-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                                                                 value="Join WhatsApp Group"
-                                                                href={organization.whatsapp_group}
+                                                                href={
+                                                                    organization.whatsapp_group
+                                                                }
                                                                 target="_blank" // Add this attribute
                                                                 rel="noopener noreferrer" // Add this attribute for security reasons
                                                             >
-                                                                Join WhatsApp Group
+                                                                Join WhatsApp
+                                                                Group
                                                             </a>
                                                         ) : null}
                                                     </div>
@@ -148,7 +157,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                     </div>
                                     <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                                         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-
                                             <div className="sm:col-span-1">
                                                 <dt className="text-sm font-medium text-gray-500">
                                                     Description
@@ -214,14 +222,11 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                                 className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                                                             >
                                                                 <FaInstagram
-                                                                    size={
-                                                                        18
-                                                                    }
+                                                                    size={18}
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Instagram
                                                             </a>
-
                                                         </div>
                                                     ) : null}
 
@@ -234,9 +239,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                                 className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                                                             >
                                                                 <FaFacebook
-                                                                    size={
-                                                                        18
-                                                                    }
+                                                                    size={18}
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Facebook
@@ -253,9 +256,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                                 className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                                                             >
                                                                 <FaLinkedin
-                                                                    size={
-                                                                        18
-                                                                    }
+                                                                    size={18}
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 LinkedIn
@@ -272,9 +273,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                                 className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                                                             >
                                                                 <FaTwitter
-                                                                    size={
-                                                                        18
-                                                                    }
+                                                                    size={18}
                                                                     className="h-5 w-5 mr-3"
                                                                 />
                                                                 Twitter
@@ -299,7 +298,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                                         </div>
                                                     ) : null}
                                                 </div>
-
                                             </div>
                                         </dl>
                                     </div>
@@ -341,14 +339,12 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                 </div>
                             </div>
                         </div>
-                    )
-                    }
+                    )}
                 </div>
             </div>
 
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-
                     {quizzes.length === 0 && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
@@ -371,8 +367,7 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                                 </div>
                             </div>
                         </div>
-                    )
-                    }
+                    )}
                     {quizzes.map((quiz) => (
                         <div
                             key={quiz.id}
@@ -407,7 +402,6 @@ export default function Show({ auth, organization, quizzes, followId, followersC
                     ))}
                 </div>
             </div>
-
         </App>
     );
 }

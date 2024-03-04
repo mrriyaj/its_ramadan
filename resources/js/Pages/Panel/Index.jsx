@@ -17,7 +17,7 @@ export default function Index({ auth, organizations }) {
                                     </div>
                                     <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                                         <p className="text-sm font-medium text-gray-600">Welcome back,</p>
-                                        <p className="text-xl font-bold text-gray-900 sm:text-2xl">{auth.user.first_name}</p>
+                                        <p className="text-xl font-bold t *:    ext-gray-900 sm:text-2xl">{auth.user.first_name}</p>
                                         <p className="text-sm font-medium text-gray-600">{auth.user.email}</p>
                                     </div>
                                 </div>
