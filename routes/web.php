@@ -59,6 +59,9 @@ Route::middleware(['coming_soon'])->group(function () {
         return Inertia::render('Blog');
     });
 
+    Route::get('/privacy-policy', function () {
+        return Inertia::render('PrivacyPolicy');
+    });
 });
 
 Route::middleware('auth')->group(function () {
@@ -93,39 +96,39 @@ Route::middleware('auth')->group(function () {
     });
 
     // User Routes
-        Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
-            // Panel
-            Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+    Route::group(['middleware' => 'onboarding', 'coming_soon'], function () {
+        // Panel
+        Route::get('/panel', [PanelController::class, 'index'])->name('panel');
 
-            // Organization Routes
-            Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
-            Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
+        // Organization Routes
+        Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
+        Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
 
-            // Quiz Routes
-            Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
-            Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
-            Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.user.show');
+        // Quiz Routes
+        Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
+        Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
+        Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.user.show');
 
-            // Quiz Reward Routes
-            Route::get('/reward/create/{quizId}', [QuizRewardController::class, 'create'])->name('rewards.user.create');
-            Route::post('/reward', [QuizRewardController::class, 'store'])->name('rewards.user.store');
+        // Quiz Reward Routes
+        Route::get('/reward/create/{quizId}', [QuizRewardController::class, 'create'])->name('rewards.user.create');
+        Route::post('/reward', [QuizRewardController::class, 'store'])->name('rewards.user.store');
 
-            // Question Routes
-            Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
-            Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
-            Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
+        // Question Routes
+        Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
+        Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
+        Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
 
-            // Quiz Registration Routes
-            Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
+        // Quiz Registration Routes
+        Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
 
-            // Quiz Answers Routes
-            Route::post('/quiz-answers', [QuizAnswersController::class, 'store'])->name('quiz-answers.store');
+        // Quiz Answers Routes
+        Route::post('/quiz-answers', [QuizAnswersController::class, 'store'])->name('quiz-answers.store');
 
-            // Follow Routes
-            Route::post('/follows', [FollowController::class, 'follow'])->name('follows.follow');
-            Route::delete('/follows/{id}', [FollowController::class, 'unfollow'])->name('follows.unfollow');
+        // Follow Routes
+        Route::post('/follows', [FollowController::class, 'follow'])->name('follows.follow');
+        Route::delete('/follows/{id}', [FollowController::class, 'unfollow'])->name('follows.unfollow');
 
-        });
+    });
 
 });
 
