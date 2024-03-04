@@ -71,9 +71,9 @@ class OrganizationController extends Controller
 
         // Check if the user is following and the status is 01
         $follow = Follow::where('user_id', auth()->user()->id)
-                        ->where('organization_id', $id)
-                        ->where('status', '01')
-                        ->first();
+            ->where('organization_id', $id)
+            ->where('status', '01')
+            ->first();
 
         return Inertia::render('Organizations/Show', [
             'quizzes' => $quizzes,
