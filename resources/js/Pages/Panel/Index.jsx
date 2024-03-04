@@ -1,11 +1,12 @@
 import App from "@/Layouts/AppLayout";
-import { usePage } from "@inertiajs/react";
+import { usePage, Head } from "@inertiajs/react";
 
 export default function Index({ auth, organizations }) {
     const user = usePage().props.auth.user;
 
     return (
         <App auth={auth}>
+            <Head title="Panel" />
             <div className="min-h-screen relative mt-10">
                 <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">
                     <div className="overflow-hidden rounded-lg bg-white shadow">

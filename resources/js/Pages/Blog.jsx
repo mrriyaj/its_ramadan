@@ -1,12 +1,10 @@
 import { Head } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
-import ContactForm from "@/Components/ContactForm";
 
-export default function Contact({ auth }) {
+export default function Blog({ auth }) {
     return (
         <App auth={auth}>
-            <Head title="Contact" />
-            {/* <ContactForm /> */}
+            <Head title="Blog" />
             <div className="min-h-screen relative mt-10">
                 <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">
                     <div className="overflow-hidden rounded-lg bg-white shadow">
