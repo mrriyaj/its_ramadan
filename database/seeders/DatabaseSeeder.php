@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Quiz;
+use App\Models\QuizReward;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             OrganizationSeeder::class,
+            UserSeeder::class,
+            OrganizationSeeder::class,
+            // QuizzesSeeder::class,
+            QuestionSeeder::class,
+            Quiz_rewardSeeder::class,
         ]);
 
         //\App\Models\User::factory(10)->create();
