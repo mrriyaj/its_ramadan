@@ -6,6 +6,7 @@ use App\Models\Follow;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class FollowController extends Controller
 {
@@ -15,6 +16,7 @@ class FollowController extends Controller
      */
     public function follow(Request $request)
     {
+        if (Gate::allows('follow_organization')) {
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'organization_id' => 'required|exists:organizations,id',
@@ -40,6 +42,9 @@ class FollowController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'You are now following this organization');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
@@ -47,10 +52,14 @@ class FollowController extends Controller
      */
     public function unfollow(string $id)
     {
-        $follow = Follow::findOrFail($id);
-        $follow->status = 0;
-        $follow->save();
+        if (Gate::allows('unfollow_organization')) {
+            $follow = Follow::findOrFail($id);
+            $follow->status = 0;
+            $follow->save();
 
-        return redirect()->back()->with('success', 'You have unfollowed this organization');
+            return redirect()->back()->with('success', 'You have unfollowed this organization');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -12,65 +13,93 @@ class QuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quiz::all();
-        return Inertia::render('Admin/Quizzes/Index',[
-            'quizzes' => $quizzes
-        ]);
+        if (Gate::allows('view_any_quiz')) {
+            $quizzes = Quiz::all();
+            return Inertia::render('Admin/Quizzes/Index', [
+                'quizzes' => $quizzes
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Quizzes/Create');
+        if (Gate::allows('create_quiz')) {
+            return Inertia::render('Admin/Quizzes/Create');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required|max:255',
-            'description' => 'required|max:1024',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'approval_type' => 'required|in:auto,manual'
-        ]);
+        if (Gate::allows('create_quiz')) {
+            $validated = $request->validate([
+                'organization_id' => 'required|exists:organizations,id',
+                'title' => 'required|max:255',
+                'description' => 'required|max:1024',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'approval_type' => 'required|in:auto,manual'
+            ]);
 
-        Quiz::create($validated);
+            Quiz::create($validated);
 
-        return Redirect::route('quizzes.index')->with('success', 'Quiz has been created');
+            return Redirect::route('quizzes.index')->with('success', 'Quiz has been created');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function show(Quiz $quiz)
     {
-        return Inertia::render('Admin/Quizzes/Show',[
-            'quiz'=>$quiz
-        ]);
+        if (Gate::allows('view_quiz')) {
+            return Inertia::render('Admin/Quizzes/Show', [
+                'quiz' => $quiz
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function edit(Quiz $quiz)
     {
-        return Inertia::render('Admin/Quizzes/Edit',[
-            'quiz' =>$quiz
-        ]);
+        if (Gate::allows('update_quiz')) {
+            return Inertia::render('Admin/Quizzes/Edit', [
+                'quiz' => $quiz
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function update(Request $request, Quiz $quiz)
     {
-        $validated = $request->validate([
-            // 'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required|max:255',
-            'description' => 'required|max:1024',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'approval_type' => 'required|in:automatic,manual'
-        ]);
+        if (Gate::allows('update_quiz')) {
+            $validated = $request->validate([
+                // 'organization_id' => 'required|exists:organizations,id',
+                'title' => 'required|max:255',
+                'description' => 'required|max:1024',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'approval_type' => 'required|in:automatic,manual'
+            ]);
 
-        $quiz->update($validated);
-        return Redirect::route('quizzes.index')->with('success', 'Quiz has been Updated');
+            $quiz->update($validated);
+            return Redirect::route('quizzes.index')->with('success', 'Quiz has been Updated');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     public function destroy(Quiz $quiz)
     {
-        $quiz->delete();
-        return response()->json(['message', 'Quiz has been deleted']);
+        if (Gate::allows('delete_quiz')) {
+            $quiz->delete();
+            return Redirect::route('quizzes.index')->with('success', 'Quiz has been deleted');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 }

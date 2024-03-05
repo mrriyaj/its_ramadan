@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\QuizReward;
 use App\Models\Question;
 use App\Models\QuizRegistrations;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
@@ -27,11 +28,15 @@ class QuizController extends Controller
      */
     public function create(int $organizationId)
     {
+        if (Gate::allows('create_quiz')) {
         $organization = Organization::findOrFail($organizationId);
 
         return Inertia::render('Quizzes/Create', [
             'organization' => $organization
         ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
@@ -39,31 +44,35 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required|max:255',
-            'description' => 'required|max:1024',
-            'image' => 'nullable|image',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'approval_type' => 'required|in:auto,manual',
-            'status' => 'required|in:active,inactive',
-            'created_by' => 'required|exists:users,id'
-        ]);
+        if (Gate::allows('create_quiz')) {
+            $validated = $request->validate([
+                'organization_id' => 'required|exists:organizations,id',
+                'title' => 'required|max:255',
+                'description' => 'required|max:1024',
+                'image' => 'nullable|image',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'approval_type' => 'required|in:auto,manual',
+                'status' => 'required|in:active,inactive',
+                'created_by' => 'required|exists:users,id'
+            ]);
 
-        $quiz = new Quiz();
-        $quiz->fill($validated);
+            $quiz = new Quiz();
+            $quiz->fill($validated);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = $request->name . '-image-' . time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/images/org/', $imageName);
-            $quiz->image = $imageName;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = $request->name . '-image-' . time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/images/org/', $imageName);
+                $quiz->image = $imageName;
+            }
+
+            $quiz->save();
+
+            return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
+        } else {
+            abort(403, 'Unauthorized Action');
         }
-
-        $quiz->save();
-
-        return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
     }
 
     /**
@@ -71,25 +80,29 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
-        $questions = Question::where('quiz_id', $quiz->id)->get();
-        $quizregistrations = QuizRegistrations::where('quiz_id', $quiz->id)->get();
+        if (Gate::allows('view_quiz')) {
+            $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
+            $questions = Question::where('quiz_id', $quiz->id)->get();
+            $quizregistrations = QuizRegistrations::where('quiz_id', $quiz->id)->get();
 
-        $isRegistered = false;
-        if ($quizregistrations->contains('user_id', auth()->id())) {
-            $isRegistered = true;
+            $isRegistered = false;
+            if ($quizregistrations->contains('user_id', auth()->id())) {
+                $isRegistered = true;
+            }
+
+            if ($quiz->status === 'inactive') {
+                return Redirect::route('panel')->with('error', 'This quiz is not active');
+            }
+
+            return Inertia::render('Quizzes/Show', [
+                'quiz' => $quiz,
+                'rewards' => $rewards,
+                'questions' => $questions,
+                'isRegistered' => $isRegistered
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
         }
-
-        if ($quiz->status === 'inactive') {
-            return Redirect::route('panel')->with('error', 'This quiz is not active');
-        }
-
-        return Inertia::render('Quizzes/Show', [
-            'quiz' => $quiz,
-            'rewards' => $rewards,
-            'questions' => $questions,
-            'isRegistered' => $isRegistered
-        ]);
     }
 
     /**
