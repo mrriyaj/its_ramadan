@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Quiz;
 use App\Models\Follow;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class OrganizationController extends Controller
@@ -16,6 +17,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
+        if (Gate::allows('view_any_organization')) {
         $organizations = Organization::all();
 
         foreach ($organizations as $organization) {
@@ -38,6 +40,9 @@ class OrganizationController extends Controller
         return Inertia::render('Organizations/Index', [
             'organizations' => $organizations
         ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
@@ -61,6 +66,7 @@ class OrganizationController extends Controller
      */
     public function show(string $id)
     {
+        if (Gate::allows('view_any_organization')) {
         $organization = Organization::findOrFail($id);
 
         $followersCount = Follow::where('organization_id', $id)
@@ -81,6 +87,9 @@ class OrganizationController extends Controller
             'followersCount' => $followersCount,
             'followId' => $follow ? $follow->id : null
         ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
