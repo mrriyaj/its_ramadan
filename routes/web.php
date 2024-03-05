@@ -17,7 +17,6 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizRegistrationsController;
 use App\Http\Controllers\QuizAnswersController;
 use App\Http\Controllers\FollowController;
-use App\Http\Controllers\QuranController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,7 +36,6 @@ use Inertia\Inertia;
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
-Route::get('/quran', [QuranController::class, 'index'])->name('quran');
 
 
 
