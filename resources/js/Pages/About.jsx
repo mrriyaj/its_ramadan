@@ -1,10 +1,16 @@
 import { Head } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
+import HeaderSection from "@/Components/HeaderSection";
 
 export default function About({ auth }) {
     return (
         <App auth={auth}>
             <Head title="About" />
+            <HeaderSection
+                Header="About"
+                Title="About Us"
+                Description="We are a non-profit organization dedicated to helping the less fortunate."
+            />
             <div className="min-h-screen relative mt-10">
                 <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">
                     <div className="overflow-hidden rounded-lg bg-white shadow">
