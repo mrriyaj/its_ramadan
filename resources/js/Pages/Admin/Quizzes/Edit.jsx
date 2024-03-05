@@ -14,7 +14,7 @@ export default function Edit({ auth, quiz }) {
         end_date: quiz.end_date || "",
         approval_type: quiz.approval_type || "",
     });
-   
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -86,7 +86,7 @@ export default function Edit({ auth, quiz }) {
                                         className="mt-2"
                                     />
                                 </div>
-                        
+
                                 <div>
                                     <InputLabel
                                         htmlFor="start_date"
@@ -161,7 +161,7 @@ export default function Edit({ auth, quiz }) {
                                         <option value="" disabled>
                                             Select Approval Type
                                         </option>
-                                        <option value="automatic">Automatic</option>
+                                        <option value="auto">Auto</option>
                                         <option value="manual">Manual</option>
                                     </select>
 

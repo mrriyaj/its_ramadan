@@ -55,8 +55,8 @@ Route::middleware(['coming_soon'])->group(function () {
         return Inertia::render('About');
     });
 
-    Route::get('/test', function () {
-        return Inertia::render('test');
+    Route::get('/blog', function () {
+        return Inertia::render('Blog');
     });
 
     Route::get('/privacy-policy', function () {
