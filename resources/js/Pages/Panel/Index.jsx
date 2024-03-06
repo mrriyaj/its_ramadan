@@ -18,7 +18,7 @@ export default function Index({ auth, organizations }) {
                                     </div>
                                     <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                                         <p className="text-sm font-medium text-gray-600">Welcome back,</p>
-                                        <p className="text-xl font-bold text-gray-900 sm:text-2xl">{auth.user.first_name}</p>
+                                        <p className="text-xl font-bold t *:    ext-gray-900 sm:text-2xl">{auth.user.first_name}</p>
                                         <p className="text-sm font-medium text-gray-600">{auth.user.email}</p>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@ export default function Index({ auth, organizations }) {
                     </div>
                     <div className="mt-8">
                         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                            {/* {user.role === 'superadmin' || user.role === 'admin' ?
+                            {user.role === 'superadmin' || user.role === 'admin' ?
                                 <div className="overflow-hidden rounded-lg bg-white shadow">
                                     <div className="p-6">
                                         <div className="flex items-center">
@@ -48,7 +48,7 @@ export default function Index({ auth, organizations }) {
                                             </div>
                                         </div>
                                     </div>
-                                </div> : null} */}
+                                </div> : null}
 
                             {organizations.length === 0 && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') &&
                                 <div className="overflow-hidden rounded-lg bg-white shadow">

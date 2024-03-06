@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuizReward;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class QuizRewardController extends Controller
@@ -22,11 +23,15 @@ class QuizRewardController extends Controller
      */
     public function create(int $quizId)
     {
+        if (Gate::allows('create_quiz_reward')) {
         $quiz = Quiz::findOrFail($quizId);
 
         return Inertia::render('QuizRewards/Create', [
             'quiz' => $quiz
         ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
@@ -34,6 +39,7 @@ class QuizRewardController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::allows('create_quiz_reward')) {
         $validated = $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
             'name' => 'required|max:255',
@@ -58,6 +64,9 @@ class QuizRewardController extends Controller
         $quizReward->save();
 
         return redirect()->route('quizzes.user.show', $validated['quiz_id']);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**

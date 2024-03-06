@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class OnboardingController extends Controller
@@ -14,6 +15,7 @@ class OnboardingController extends Controller
      */
     public function update(ProfileUpdateRequest $request)
     {
+        if (Gate::allows('update_onboarding')) {
         $user = $request->user();
         $user->fill($request->validated());
 
@@ -36,5 +38,8 @@ class OnboardingController extends Controller
         $user->save();
 
         return redirect('/panel');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 }

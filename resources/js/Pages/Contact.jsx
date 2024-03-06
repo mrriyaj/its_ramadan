@@ -1,11 +1,17 @@
 import { Head } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
 import ContactForm from "@/Components/ContactForm";
+import HeaderSection from "@/Components/HeaderSection";
 
 export default function Contact({ auth }) {
     return (
         <App auth={auth}>
             <Head title="Contact" />
+            <HeaderSection
+                Header="Contact"
+                Title="Contact Us"
+                Description="We'd love to hear from you."
+            />
             {/* <ContactForm /> */}
             <div className="min-h-screen relative mt-10">
                 <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">

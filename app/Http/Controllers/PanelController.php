@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 
@@ -16,12 +17,15 @@ class PanelController extends Controller
      */
     public function index(Auth $auth)
     {
+        if (Gate::allows('view_panel')) {
+            $organizations = Organization::where('owner', $auth::id())->get();
 
-        $organizations = Organization::where('owner', $auth::id())->get();
-
-        return Inertia::render('Panel/Index', [
-            'organizations' => $organizations
-        ]);
+            return Inertia::render('Panel/Index', [
+                'organizations' => $organizations
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 
     /**
