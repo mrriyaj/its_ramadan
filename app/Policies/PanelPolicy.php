@@ -14,7 +14,7 @@ class PanelPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin() || $user->isSuperadmin() || $user->isOrgAdmin();
+        return $user->isAdmin() || $user->isSuperadmin() || $user->isOrgAdmin() || $user->isUser();
     }
 
     /**
@@ -22,7 +22,7 @@ class PanelPolicy
      */
     public function view(User $user)
     {
-        return $user->isAdmin() || $user->isSuperadmin() || $user->isOrgAdmin();
+        return $user->isAdmin() || $user->isSuperadmin() || $user->isOrgAdmin() || $user->isUser();
     }
 
 }
