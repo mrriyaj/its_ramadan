@@ -363,7 +363,7 @@ export default function Show({
                                             </div>
                                             <Link
                                                 className="mt-5"
-                                                href={`/quizzes/create?organization_id=${organization.id}`}
+                                                href={`/quizzes/create/${organization.id}`}
                                                 value="Create Quiz"
                                             />
                                         </div>

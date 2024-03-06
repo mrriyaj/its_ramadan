@@ -69,7 +69,7 @@ class QuizController extends Controller
 
             $quiz->save();
 
-            return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
+            return redirect()->route('organizations.user.show', $request->organization_id)->with('success', 'Quiz has been added');
         } else {
             abort(403, 'Unauthorized Action');
         }

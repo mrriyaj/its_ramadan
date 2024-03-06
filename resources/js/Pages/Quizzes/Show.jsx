@@ -81,7 +81,7 @@ export default function Show({
                         {/* bg-[url('/image/bg.jpg')] bg-contain bg-no-repeat bg-right */}
                         <div>
                             <img
-                                src={organization.logo}
+                                src={quiz.image}
                                 alt="img"
                                 className="bg-cover sm:w-60 sm:h-60 w-full h-auto rounded-md"
                             />
@@ -127,7 +127,23 @@ export default function Show({
                                     </span>
                                 </div>
                             </div>
-                            <PrimaryButton>Join the Challenge</PrimaryButton>
+
+                            <div className="flex items-center">
+                                {isRegistered ? (
+                                    <p className="text-sm text-gray-500">
+                                        You are already registered for this quiz
+                                    </p>
+                                ) : (
+                                    <form onSubmit={submit}>
+                                        <PrimaryButton
+                                            className="ms-4"
+                                            disabled={processing}
+                                        >
+                                            Join To The Challenge
+                                        </PrimaryButton>
+                                    </form>
+                                )}
+                            </div>
                         </div>
                         {/* 
                         <div className="">
