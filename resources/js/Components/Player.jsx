@@ -40,7 +40,7 @@ const Player = ({ audioUrl = "http://220.247.227.6:8000/Tnsstream" }) => {
     };
 
     return (
-        <div className="mx-auto max-w-7xl py-5 px-6 lg:py-5 lg:px-8 ">
+        <div className="mx-auto max-w-7xl  px-6  lg:px-8 ">
             <div className="rounded-lg bg-main-900 px-6 py-6 md:py-12 md:px-12 lg:py-16 lg:px-16">
                 <audio
                     ref={audioRef}
