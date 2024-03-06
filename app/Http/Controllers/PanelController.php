@@ -17,10 +17,10 @@ class PanelController extends Controller
      */
     public function index(Auth $auth)
     {
-
         if (Gate::allows('view_panel')) {
-            $organizations = Organization::all();
-            return Inertia::render('Admin/Organizations/Index', [
+            $organizations = Organization::where('owner', $auth::id())->get();
+
+            return Inertia::render('Panel/Index', [
                 'organizations' => $organizations
             ]);
         } else {
