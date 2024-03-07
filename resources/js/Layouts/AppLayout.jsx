@@ -5,6 +5,7 @@ import { Link, usePage } from "@inertiajs/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Footer from "@/Components/Footer";
 import Dropdown from "@/Components/Dropdown";
+import Notification from "@/Components/Notification";
 
 export default function App({ children, auth }) {
     const user = usePage().props.auth.user;
@@ -146,6 +147,7 @@ export default function App({ children, auth }) {
                         </div>
                     </div>
                 </div>
+                <Notification />
                 <main>{children}</main>
                 <Transition
                     as={Fragment}
