@@ -420,10 +420,10 @@ export default function Show({
                                         <div className="flex">
                                             <div>
                                                 <p className="text-xs">
-                                                    Question
+                                                    Title
                                                 </p>
                                                 <span className="text-xl font-bold">
-                                                    {question.quiz_text}
+                                                    {question.title}
                                                 </span>
                                             </div>
                                         </div>
@@ -446,19 +446,29 @@ export default function Show({
                                             </div>
                                         </div>
                                     </div>
-                                    {question.status === "active" && (
-                                        <div className="">
-                                            <Link
-                                                className="w-full justify-center rounded-none"
-                                                href={`/questions/${question.id}`}
-                                                value="Answer Now"
-                                            />
-                                        </div>
-                                    ) || (
+                                    {isRegistered ? (
+                                        <>
+                                            {question.status === "active" && (
+                                                <div className="">
+                                                    <Link
+                                                        className="w-full justify-center rounded-none"
+                                                        href={`/questions/${question.id}`}
+                                                        value="Answer Now"
+                                                    />
+                                                </div>
+                                            ) || (
+                                                    <p className="text-center text-red-500">
+                                                        Question is not active
+                                                    </p>
+                                                )}
+                                        </>
+                                    ) : (
                                         <p className="text-center text-red-500">
-                                            Question is not active
+                                            You are not registered for this quiz
                                         </p>
-                                    )}
+                                    )
+                                    }
+
                                 </div>
                             ))}
                         </div>
