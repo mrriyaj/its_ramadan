@@ -164,7 +164,7 @@ export default function Create({ auth, quiz }) {
                                                             <>
                                                                 <div className="mt-1 relative">
                                                                     <span className="block w-full rounded-md shadow-sm">
-                                                                        <Listbox.Button className="relative w-full  text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                                        <Listbox.Button className="relative w-full  dark:text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
                                                                             <span className="block truncate">
                                                                                 {
                                                                                     selectedQuestionsNo.label
@@ -205,10 +205,9 @@ export default function Create({ auth, quiz }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${
-                                                                                                active
-                                                                                                    ? "text-main-900 bg-main-100"
-                                                                                                    : "text-gray-900 dark:text-gray-100"
+                                                                                            `${active
+                                                                                                ? "text-main-900 bg-main-100"
+                                                                                                : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -222,11 +221,10 @@ export default function Create({ auth, quiz }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${
-                                                                                                        selected
-                                                                                                            ? "font-semibold"
-                                                                                                            : "font-normal"
-                                                                                                    }
+                                                                                                    className={`${selected
+                                                                                                        ? "font-semibold"
+                                                                                                        : "font-normal"
+                                                                                                        }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -236,11 +234,10 @@ export default function Create({ auth, quiz }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${
-                                                                                                            active
-                                                                                                                ? "text-main-600"
-                                                                                                                : "text-main-600"
-                                                                                                        }
+                                                                                                        className={`${active
+                                                                                                            ? "text-main-600"
+                                                                                                            : "text-main-600"
+                                                                                                            }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon
@@ -623,7 +620,7 @@ export default function Create({ auth, quiz }) {
                                                             <>
                                                                 <div className="mt-1 relative">
                                                                     <span className="block w-full rounded-md shadow-sm">
-                                                                        <Listbox.Button className="relative w-full  text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                                        <Listbox.Button className="relative w-full  dark:text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
                                                                             <span className="block truncate">
                                                                                 {
                                                                                     selectedOption.label
@@ -664,10 +661,9 @@ export default function Create({ auth, quiz }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${
-                                                                                                active
-                                                                                                    ? "text-main-900 bg-main-100"
-                                                                                                    : "text-gray-900 dark:text-gray-100"
+                                                                                            `${active
+                                                                                                ? "text-main-900 bg-main-100"
+                                                                                                : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -681,11 +677,10 @@ export default function Create({ auth, quiz }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${
-                                                                                                        selected
-                                                                                                            ? "font-semibold"
-                                                                                                            : "font-normal"
-                                                                                                    }
+                                                                                                    className={`${selected
+                                                                                                        ? "font-semibold"
+                                                                                                        : "font-normal"
+                                                                                                        }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -695,11 +690,10 @@ export default function Create({ auth, quiz }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${
-                                                                                                            active
-                                                                                                                ? "text-main-600"
-                                                                                                                : "text-main-600"
-                                                                                                        }
+                                                                                                        className={`${active
+                                                                                                            ? "text-main-600"
+                                                                                                            : "text-main-600"
+                                                                                                            }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon
@@ -885,7 +879,7 @@ export default function Create({ auth, quiz }) {
                                                             <>
                                                                 <div className="mt-1 relative">
                                                                     <span className="block w-full rounded-md shadow-sm">
-                                                                        <Listbox.Button className="relative w-full  text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                                        <Listbox.Button className="relative w-full  dark:text-white rounded-md border-none  bg-white dark:bg-gray-900 pl-3 pr-10 py-3  text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
                                                                             <span className="block truncate">
                                                                                 {
                                                                                     selectedStatus.label
@@ -926,10 +920,9 @@ export default function Create({ auth, quiz }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${
-                                                                                                active
-                                                                                                    ? "text-main-900 bg-main-100"
-                                                                                                    : "text-gray-900 dark:text-gray-100"
+                                                                                            `${active
+                                                                                                ? "text-main-900 bg-main-100"
+                                                                                                : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -943,11 +936,10 @@ export default function Create({ auth, quiz }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${
-                                                                                                        selected
-                                                                                                            ? "font-semibold"
-                                                                                                            : "font-normal"
-                                                                                                    }
+                                                                                                    className={`${selected
+                                                                                                        ? "font-semibold"
+                                                                                                        : "font-normal"
+                                                                                                        }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -957,11 +949,10 @@ export default function Create({ auth, quiz }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${
-                                                                                                            active
-                                                                                                                ? "text-main-600"
-                                                                                                                : "text-main-600"
-                                                                                                        }
+                                                                                                        className={`${active
+                                                                                                            ? "text-main-600"
+                                                                                                            : "text-main-600"
+                                                                                                            }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon

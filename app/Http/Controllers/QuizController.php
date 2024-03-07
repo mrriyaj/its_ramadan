@@ -92,7 +92,7 @@ class QuizController extends Controller
             }
 
             if ($quiz->status === 'inactive') {
-                return Redirect::route('panel')->with('error', 'This quiz is not active');
+                return redirect()->back()->with('error', 'Quiz is not active');
             }
 
             return Inertia::render('Quizzes/Show', [

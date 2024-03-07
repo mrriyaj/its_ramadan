@@ -95,8 +95,6 @@ export default function OnboardForm({
         }));
     }, [selectedGender, selectedEduLevel, selectedDistrict]);
 
-    console.log(selectedGender, selectedEduLevel, selectedDistrict);
-
     const submit = (e) => {
         e.preventDefault();
         patch(route("onboarding.update"));

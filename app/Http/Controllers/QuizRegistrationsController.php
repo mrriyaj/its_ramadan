@@ -34,12 +34,12 @@ class QuizRegistrationsController extends Controller
         ]);
 
         if (QuizRegistrations::where('quiz_id', $request->quiz_id)->where('user_id', $request->user_id)->exists()) {
-            return response()->json(['message' => 'User already enrolled in this quiz']);
+            return  redirect()->back()->with('error', 'You have already registered for this quiz.');
         }
 
         QuizRegistrations::create($request->all());
 
-        return redirect()->route('quizzes.user.show', $validated['quiz_id']);
+        return redirect()->route('quizzes.user.show', $validated['quiz_id'])->with('success', 'You have successfully registered for the quiz.');
     }
 
     /**

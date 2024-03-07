@@ -71,7 +71,10 @@ export default function Show({
                                 </div>
                             </div>
 
-                            <PrimaryButton>View Organization</PrimaryButton>
+                            <Link
+                                href={`/organizations/${organization.id}`}
+                                value="View Organization"
+                            />
                         </div>
 
                         <div></div>
@@ -145,7 +148,7 @@ export default function Show({
                                 )}
                             </div>
                         </div>
-                        {/* 
+                        {/*
                         <div className="">
                             <h1 className="text-xl font-semibold  my-5">
                                 Rewards From Organization
@@ -354,7 +357,7 @@ export default function Show({
                         Questions From Organization
                     </h1>
                     <div className="mt-8">
-                        {quiz.created_by === user.id && (
+                        {quiz.created_by === user.id &&  (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
                                 <div className="p-6">
                                     <div className="flex items-center">
@@ -417,10 +420,10 @@ export default function Show({
                                         <div className="flex">
                                             <div>
                                                 <p className="text-xs">
-                                                    Question
+                                                    Title
                                                 </p>
                                                 <span className="text-xl font-bold">
-                                                    {question.quiz_text}
+                                                    {question.title}
                                                 </span>
                                             </div>
                                         </div>
@@ -443,13 +446,29 @@ export default function Show({
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="">
-                                        <Link
-                                            className="w-full justify-center rounded-none"
-                                            href={`/questions/${question.id}`}
-                                            value="Answer Now"
-                                        />
-                                    </div>
+                                    {isRegistered ? (
+                                        <>
+                                            {question.status === "active" && (
+                                                <div className="">
+                                                    <Link
+                                                        className="w-full justify-center rounded-none"
+                                                        href={`/questions/${question.id}`}
+                                                        value="Answer Now"
+                                                    />
+                                                </div>
+                                            ) || (
+                                                    <p className="text-center text-red-500">
+                                                        Question is not active
+                                                    </p>
+                                                )}
+                                        </>
+                                    ) : (
+                                        <p className="text-center text-red-500">
+                                            You are not registered for this quiz
+                                        </p>
+                                    )
+                                    }
+
                                 </div>
                             ))}
                         </div>

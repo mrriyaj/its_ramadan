@@ -1,8 +1,9 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
 import { useForm, usePage, Head } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 import HeaderSection from "@/Components/HeaderSection";
-
+import Notification from "@/Components/Notification";
 import { CheckBadgeIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 import {
@@ -25,9 +26,25 @@ export default function Show({
     followersCount,
 }) {
     const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
+    const [showSuccessNotification, setShowSuccessNotification] =
+        useState(false);
+
+    useEffect(() => {
+        if (flash && flash.success) {
+            setShowSuccessNotification(true);
+
+            const timeoutId = setTimeout(() => {
+                setShowSuccessNotification(false);
+            }, 5000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [flash]);
 
     return (
         <App auth={auth}>
+            {showSuccessNotification && <Notification />}
             <Head title="Show Organization" />
             <HeaderSection
                 Header="Organization"
@@ -107,10 +124,9 @@ export default function Show({
                                                                 href={route(
                                                                     "follows.follow",
                                                                     {
-                                                                        organization_id:
-                                                                            organization.id,
-                                                                        user_id:
-                                                                            user.id,
+
+                                                                        organization_id: organization.id,
+                                                                        user_id: user.id,
                                                                     }
                                                                 )}
                                                             />
@@ -310,7 +326,7 @@ export default function Show({
 
             <div className="max-w-7xl mx-auto py-12 px-6 sm:px-6 lg:px-8">
                 <div className="">
-                    {quizzes.length >= 1 && (
+                    {quizzes.length >= 1 && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
                                 <div className="flex items-center">
@@ -429,11 +445,18 @@ export default function Show({
                                                     Ending Date: {quiz.end_date}
                                                 </p>
                                             </div>
-                                            <Link
-                                                className=""
-                                                href={`/quizzes/${quiz.id}`}
-                                                value="View"
-                                            />
+                                            {quiz.status === "active" ? (
+                                                <Link
+                                                    className=""
+                                                    href={`/quizzes/${quiz.id}`}
+                                                    value="View"
+                                                />
+                                            ) : (
+                                                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                                    Inactive
+                                                </span>
+                                            )
+                                            }
                                         </div>
                                     </div>
                                 </div>
