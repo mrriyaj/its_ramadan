@@ -17,6 +17,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizRegistrationsController;
 use App\Http\Controllers\QuizAnswersController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\PageController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,12 +42,9 @@ Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming
 
 // Route with "coming soon" middleware
 Route::middleware(['coming_soon'])->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Home', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-        ]);
-    });
+
+    Route::get('/', [PageController::class, 'Home'])->name('home');
+
     Route::get('/contact', function () {
         return Inertia::render('Contact');
     })->name('contact');
@@ -61,6 +59,10 @@ Route::middleware(['coming_soon'])->group(function () {
 
     Route::get('/privacy-policy', function () {
         return Inertia::render('PrivacyPolicy');
+    });
+
+    Route::get('/quran', function () {
+        return Inertia::render('Quran/Index');
     });
 });
 
