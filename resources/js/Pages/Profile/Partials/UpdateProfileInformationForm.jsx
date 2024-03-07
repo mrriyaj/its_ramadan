@@ -6,6 +6,7 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import ProfileImage from "@/Pages/Profile/Partials/ProfileImage";
 import FileUpload from "@/Components/FileUpload";
+import TextInputWithPrefix from "@/Components/TextInputWithPrefix";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -289,9 +290,9 @@ export default function UpdateProfileInformation({
                     <div>
                         <InputLabel htmlFor="phone" value="Phone Number" />
 
-                        <TextInput
+                        <TextInputWithPrefix
+                            prefix="+94"
                             id="phone"
-                            className="mt-1 block w-full"
                             value={data.phone}
                             onChange={(e) => setData("phone", e.target.value)}
                             autoComplete="phone"
@@ -305,9 +306,9 @@ export default function UpdateProfileInformation({
                             value="Whatsapp Number"
                         />
 
-                        <TextInput
+                        <TextInputWithPrefix
+                            prefix="+94"
                             id="whatsapp"
-                            className="mt-1 block w-full"
                             value={data.whatsapp}
                             onChange={(e) =>
                                 setData("whatsapp", e.target.value)
