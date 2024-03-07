@@ -60,6 +60,10 @@ Route::middleware(['coming_soon'])->group(function () {
     Route::get('/privacy-policy', function () {
         return Inertia::render('PrivacyPolicy');
     });
+
+    Route::get('/quran', function () {
+        return Inertia::render('Quran/Index');
+    });
 });
 
 Route::middleware('auth')->group(function () {
