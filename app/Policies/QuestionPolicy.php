@@ -21,7 +21,7 @@ class QuestionPolicy
      */
     public function view(User $user)
     {
-        return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
+        return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager() || $user->isUser();
     }
 
     /**
