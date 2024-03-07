@@ -2,6 +2,7 @@ import App from "@/Layouts/AppLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
 import Link from "@/Components/Link";
 import PrimaryButton from "@/Components/PrimaryButton";
+import RemainingTime from "@/Components/RemainingTime";
 
 export default function Show({
     auth,
@@ -423,7 +424,7 @@ export default function Show({
                                             </div>
                                         </div>
                                         <div className="flex justify-between">
-                                            <div>
+                                            {/* <div>
                                                 <p className="text-xs">
                                                     Start Date
                                                 </p>
@@ -437,6 +438,18 @@ export default function Show({
                                                 </p>
                                                 <p className="font-bold text-sm">
                                                     {question.end_date}
+                                                </p>
+                                            </div> */}
+                                            <div>
+                                                <p className="text-xs">
+                                                    Remaining Time
+                                                </p>
+                                                <p className="font-bold text-sm">
+                                                    <RemainingTime
+                                                        qEndDate={
+                                                            question.end_date
+                                                        }
+                                                    />
                                                 </p>
                                             </div>
                                         </div>
