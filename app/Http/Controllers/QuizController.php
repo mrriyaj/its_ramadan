@@ -29,11 +29,11 @@ class QuizController extends Controller
     public function create(int $organizationId)
     {
         if (Gate::allows('create_quiz')) {
-        $organization = Organization::findOrFail($organizationId);
+            $organization = Organization::findOrFail($organizationId);
 
-        return Inertia::render('Quizzes/Create', [
-            'organization' => $organization
-        ]);
+            return Inertia::render('Quizzes/Create', [
+                'organization' => $organization
+            ]);
         } else {
             abort(403, 'Unauthorized Action');
         }
@@ -69,7 +69,7 @@ class QuizController extends Controller
 
             $quiz->save();
 
-            return redirect()->route('organizations.show', $request->organization_id)->with('success', 'Category has been added');
+            return redirect()->route('organizations.user.show', $request->organization_id)->with('success', 'Quiz has been added');
         } else {
             abort(403, 'Unauthorized Action');
         }
@@ -84,6 +84,7 @@ class QuizController extends Controller
             $rewards = QuizReward::where('quiz_id', $quiz->id)->get();
             $questions = Question::where('quiz_id', $quiz->id)->get();
             $quizregistrations = QuizRegistrations::where('quiz_id', $quiz->id)->get();
+            $organization = Organization::findOrFail($quiz->organization_id);
 
             $isRegistered = false;
             if ($quizregistrations->contains('user_id', auth()->id())) {
@@ -98,7 +99,9 @@ class QuizController extends Controller
                 'quiz' => $quiz,
                 'rewards' => $rewards,
                 'questions' => $questions,
-                'isRegistered' => $isRegistered
+                'isRegistered' => $isRegistered,
+                'organization' => $organization
+
             ]);
         } else {
             abort(403, 'Unauthorized Action');

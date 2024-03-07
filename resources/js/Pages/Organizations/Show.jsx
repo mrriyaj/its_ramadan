@@ -35,7 +35,7 @@ export default function Show({
                 Description="View organization details and quizzes"
             />
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
                     <div className="flex h-full">
                         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
                             <div className="relative z-0 flex flex-1 overflow-hidden">
@@ -308,9 +308,9 @@ export default function Show({
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto py-12 px-2 sm:px-2 lg:px-8">
-                <div className="lg:text-center">
-                    {organization.owner === user.id && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') && (
+            <div className="max-w-7xl mx-auto py-12 px-6 sm:px-6 lg:px-8">
+                <div className="">
+                    {quizzes.length >= 1 && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
                                 <div className="flex items-center">
@@ -323,29 +323,59 @@ export default function Show({
                                     </div>
                                     <div className="ml-3">
                                         <p className="text-sm font-medium text-gray-900">
-                                            Create a Quiz
+                                            Your organization already has quiz
                                         </p>
                                         <p className="text-sm text-gray-500">
-                                            Create a quiz for this organization
+                                            You can add a maximum of 1 quiz per
+                                            organization
                                         </p>
                                     </div>
-                                </div>
-
-                                <div className="mt-4">
-                                    <Link
-                                        href={`/quizzes/create/${organization.id}`}
-                                        value="Create"
-                                    />
                                 </div>
                             </div>
                         </div>
                     )}
+
+                    {quizzes.length === 0 && (
+                        <>
+                            {organization.owner === user.id &&
+                                (user.role === "superadmin" ||
+                                    user.role === "admin" ||
+                                    user.role === "orgadmin") && (
+                                    <div className="overflow-hidden rounded-lg bg-white shadow">
+                                        <div className="p-6">
+                                            <div className="flex ">
+                                                <div className="flex-shrink-0">
+                                                    <img
+                                                        className="w-10 h-10 rounded-full"
+                                                        src="https://via.placeholder.com/150"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <div className="ml-3">
+                                                    <p className="text-sm font-medium text-gray-900">
+                                                        Create a Quiz
+                                                    </p>
+                                                    <p className="text-sm text-gray-500">
+                                                        Create a quiz for this
+                                                        organization
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <Link
+                                                className="mt-5"
+                                                href={`/quizzes/create/${organization.id}`}
+                                                value="Create Quiz"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                        </>
+                    )}
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto pb-12 px-6 sm:px-2 lg:px-8">
+            <div className="max-w-7xl mx-auto pb-12 px-6 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-1">
-
                     {quizzes.length === 0 && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
@@ -374,32 +404,36 @@ export default function Show({
                             key={quiz.id}
                             className="overflow-hidden rounded-lg bg-white shadow"
                         >
-                            <div className="lg:text-center">
+                            <div>
                                 <div className="p-6">
-                                    <div className="grid lg:grid-cols-2 md:grid-cols-2  items-center justify-center">
-                                        <div className="">
-                                            <img
-                                                className="w-64 h-64 rounded-lg"
-                                                src={quiz.image}
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className="">
-                                            <p className="text-3xl font-medium text-gray-900 p-4">
+                                    <div className="sm:flex sm:gap-10 sm:items-center ">
+                                        <img
+                                            className="w-64 h-64 rounded-lg"
+                                            src={quiz.image}
+                                            alt=""
+                                        />
+
+                                        <div>
+                                            <p className="text-3xl font-medium text-gray-900 my-2">
                                                 {quiz.title}
                                             </p>
-                                            <p className="text-sm text-gray-500 pl-4">
+                                            <p className="text-sm text-gray-500 ">
                                                 {quiz.description}
                                             </p>
-                                            <div className="p-4">
-                                            <p className="font-medium">Starting Date: {quiz.start_date}</p>
-                                            <p className="font-medium">Ending Date: {quiz.end_date}</p>
+                                            <div className="my-5">
+                                                <p className="font-medium">
+                                                    Starting Date:{" "}
+                                                    {quiz.start_date}
+                                                </p>
+                                                <p className="font-medium">
+                                                    Ending Date: {quiz.end_date}
+                                                </p>
                                             </div>
-                                                <Link
-                                                    className="p-4"
-                                                    href={`/quizzes/${quiz.id}`}
-                                                    value="View"
-                                                />
+                                            <Link
+                                                className=""
+                                                href={`/quizzes/${quiz.id}`}
+                                                value="View"
+                                            />
                                         </div>
                                     </div>
                                 </div>

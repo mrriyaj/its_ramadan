@@ -524,7 +524,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("facebook", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
@@ -550,7 +549,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("instagram", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
@@ -576,7 +574,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("twitter", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
@@ -602,7 +599,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("website", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
@@ -628,7 +624,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("youtube", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
@@ -654,7 +649,6 @@ export default function Create({ auth, users }) {
                                         onChange={(e) =>
                                             setData("linkedin", e.target.value)
                                         }
-                                        required
                                     />
 
                                     <InputError
