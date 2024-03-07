@@ -118,6 +118,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
         Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
 
+        Route::get('/questions/edit/{question}', [QuestionController::class, 'edit'])->name('questions.user.edit');
+
+        Route::post('/questions/edit/{question}', [QuestionController::class, 'update'])->name('questions.user.update');
+
         // Quiz Registration Routes
         Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');
 

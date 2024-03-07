@@ -53,7 +53,7 @@ const questionsNo = [
     { value: "30", label: "30" },
 ];
 
-export default function Create({ auth, quiz }) {
+export default function Edit({ auth, quiz, question }) {
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [selectedStatus, setSelectedStatus] = useState(status[0]);
     const [selectedQuestionsNo, setSelectedQuestionsNo] = useState(
@@ -62,27 +62,28 @@ export default function Create({ auth, quiz }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         quiz_id: quiz.id,
-        title: "",
+
+        title: question.title,
         question_number: selectedQuestionsNo.value,
-        quiz_text: "",
-        quiz_image: "",
-        quiz_audio: "",
-        quiz_video: "",
-        answer_option1: "",
-        image_option1: "",
-        answer_option2: "",
-        image_option2: "",
-        answer_option3: "",
-        image_option3: "",
-        answer_option4: "",
-        image_option4: "",
+        quiz_text: question.quiz_text,
+        quiz_image: question.quiz_image,
+        quiz_audio: question.quiz_audio,
+        quiz_video: question.quiz_video,
+        answer_option1: question.answer_option1,
+        image_option1: question.image_option1,
+        answer_option2: question.answer_option2,
+        image_option2: question.image_option2,
+        answer_option3: question.answer_option3,
+        image_option3: question.image_option3,
+        answer_option4: question.answer_option4,
+        image_option4: question.image_option4,
         correct_answer: selectedOption.value,
-        quiz_explanation: "",
-        quiz_hint: "",
-        quiz_points: "",
+        quiz_explanation: question.quiz_explanation,
+        quiz_hint: question.quiz_hint,
+        quiz_points: question.quiz_points,
         status: selectedStatus.value,
-        start_date: "",
-        end_date: "",
+        start_date: question.start_date,
+        end_date: question.end_date,
         created_by: auth.user.id,
     });
 
@@ -91,24 +92,26 @@ export default function Create({ auth, quiz }) {
             ...prevData,
             correct_answer: selectedOption.value,
             status: selectedStatus.value,
-            question_number: selectedQuestionsNo.value,
+            question_number: question.question_number,
         }));
     }, [selectedOption, selectedStatus, selectedQuestionsNo]);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("questions.user.store"), { onSuccess: () => reset() });
+        post(route("questions.user.update", { question: question.id }), {
+            onSuccess: () => reset(),
+        });
     };
 
     return (
         <App auth={auth}>
-            <Head title="Create a new question" />
+            <Head title="Update Question" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
-                                Create a new question
+                                Update Question
                             </h2>
 
                             <form
@@ -152,6 +155,7 @@ export default function Create({ auth, quiz }) {
                                                     />
 
                                                     <Listbox
+                                                        // disabled
                                                         value={
                                                             selectedQuestionsNo
                                                         }
@@ -292,8 +296,8 @@ export default function Create({ auth, quiz }) {
                                                     />
                                                 </div>
                                             </div>
-
-                                            {/* <div className="sm:col-span-2">
+                                            {/* 
+                                            <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_image"
@@ -304,6 +308,7 @@ export default function Create({ auth, quiz }) {
                                                         type="file"
                                                         name="quiz_image"
                                                         className="mt-1 block w-full"
+                                                        // value={data.quiz_image}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "quiz_image",
@@ -318,9 +323,9 @@ export default function Create({ auth, quiz }) {
                                                         }
                                                     />
                                                 </div>
-                                            </div> */}
+                                            </div>
 
-                                            {/* <div className="sm:col-span-2">
+                                            <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_audio"
@@ -345,9 +350,9 @@ export default function Create({ auth, quiz }) {
                                                         }
                                                     />
                                                 </div>
-                                            </div> */}
+                                            </div>
 
-                                            {/* <div className="sm:col-span-2">
+                                            <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_video"
@@ -994,7 +999,7 @@ export default function Create({ auth, quiz }) {
                                         className="ms-4"
                                         disabled={processing}
                                     >
-                                        Create Quiz
+                                        Update Question
                                     </PrimaryButton>
                                 </div>
                             </form>
