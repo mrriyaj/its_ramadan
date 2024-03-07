@@ -73,16 +73,7 @@ export default function Contact({ auth }) {
             </div> */}
 
             <div className="max-w-5xl mx-auto">
-                <div className="space-y-24">
-                    <div className="text-center my-20">
-                        <h1 className=" text-2xl sm:text-5xl text-white font-bold">
-                            Talk to Our Support Team
-                        </h1>
-                        <p className="text-center my-5 text-gray-200">
-                            Got questions? Our support team is here to assist
-                            you.
-                        </p>
-                    </div>
+                <div className="mt-20">
                     <div className="grid sm:grid-cols-3 grid-cols-1 gap-12 items-center p-6">
                         {contact.map((contact) => (
                             <div
@@ -108,54 +99,65 @@ export default function Contact({ auth }) {
                         ))}
                     </div>
 
-                    <div className="px-6 md:flex gap-10">
-                        <div className="md:w-1/2 flex  w-full">
-                            s
-                            <img src="/image/contact-us.svg" />
+                    <div>
+                        <div className="text-center my-20">
+                            <h1 className=" text-2xl sm:text-5xl text-white font-bold">
+                                Talk to Our Support Team
+                            </h1>
+                            <p className="text-center my-5 text-gray-200">
+                                Got questions? Our support team is here to
+                                assist you.
+                            </p>
                         </div>
-                        <div className="md:w-1/2">
-                            <form>
-                                <div className="flex flex-col mb-4">
-                                    <label
-                                        htmlFor="name"
-                                        className="text-white text-lg mb-2"
-                                    >
-                                        Name
-                                    </label>
-                                    <TextInput
-                                        id="name"
-                                        name="name"
-                                        className="bg-gray-800 rounded-md py-2 px-4"
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-4">
-                                    <label
-                                        htmlFor="email"
-                                        className="text-white text-lg mb-2"
-                                    >
-                                        Email
-                                    </label>
-                                    <TextInput
-                                        id="email"
-                                        name="email"
-                                        className="bg-gray-800 rounded-md py-2 px-4"
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-4">
-                                    <label
-                                        htmlFor="message"
-                                        className="text-white text-lg mb-2"
-                                    >
-                                        Message
-                                    </label>
-                                    <textarea
-                                        name="message"
-                                        id="message"
-                                        className="bg-gray-900 rounded-md py-2 px-4"
-                                    ></textarea>
-                                </div>
-                                <PrimaryButton value="Send Message"></PrimaryButton>
-                            </form>
+                        <div className="px-6 md:flex gap-10">
+                            <div className="md:w-1/2 flex  w-full">
+                                s
+                                <img src="/image/contact-us.svg" />
+                            </div>
+                            <div className="md:w-1/2">
+                                <form>
+                                    <div className="flex flex-col mb-4">
+                                        <label
+                                            htmlFor="name"
+                                            className="text-white text-lg mb-2"
+                                        >
+                                            Name
+                                        </label>
+                                        <TextInput
+                                            id="name"
+                                            name="name"
+                                            className="bg-gray-800 rounded-md py-2 px-4"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label
+                                            htmlFor="email"
+                                            className="text-white text-lg mb-2"
+                                        >
+                                            Email
+                                        </label>
+                                        <TextInput
+                                            id="email"
+                                            name="email"
+                                            className="bg-gray-800 rounded-md py-2 px-4"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label
+                                            htmlFor="message"
+                                            className="text-white text-lg mb-2"
+                                        >
+                                            Message
+                                        </label>
+                                        <textarea
+                                            name="message"
+                                            id="message"
+                                            className="bg-gray-900 rounded-md py-2 px-4"
+                                        ></textarea>
+                                    </div>
+                                    <PrimaryButton value="Send Message"></PrimaryButton>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
