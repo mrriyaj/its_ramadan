@@ -6,6 +6,7 @@ import { FaEnvelope, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import Link from "@/Components/Link";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/Link";
+import image from "../../../public/image/Contact-us.svg";
 
 export default function Contact({ auth }) {
     const contact = [
@@ -111,7 +112,7 @@ export default function Contact({ auth }) {
                         </div>
                         <div className="px-6 md:flex gap-10">
                             <div className="md:w-1/2 flex  w-full">
-                                <img src="../image/contact-us.svg" />
+                                <img src={image} />
                             </div>
                             <div className="md:w-1/2">
                                 <form>
