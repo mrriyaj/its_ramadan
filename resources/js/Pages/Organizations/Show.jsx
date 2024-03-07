@@ -1,8 +1,9 @@
 import App from "@/Layouts/AppLayout";
 import Link from "@/Components/Link";
 import { useForm, usePage, Head } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 import HeaderSection from "@/Components/HeaderSection";
-
+import Notification from "@/Components/Notification";
 import { CheckBadgeIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 import {
@@ -25,9 +26,25 @@ export default function Show({
     followersCount,
 }) {
     const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
+    const [showSuccessNotification, setShowSuccessNotification] =
+        useState(false);
+
+    useEffect(() => {
+        if (flash && flash.success) {
+            setShowSuccessNotification(true);
+
+            const timeoutId = setTimeout(() => {
+                setShowSuccessNotification(false);
+            }, 5000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [flash]);
 
     return (
         <App auth={auth}>
+            {showSuccessNotification && <Notification />}
             <Head title="Show Organization" />
             <HeaderSection
                 Header="Organization"
@@ -107,6 +124,7 @@ export default function Show({
                                                                 href={route(
                                                                     "follows.follow",
                                                                     {
+
                                                                         organization_id: organization.id,
                                                                         user_id: user.id,
                                                                     }

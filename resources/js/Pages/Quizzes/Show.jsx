@@ -71,7 +71,10 @@ export default function Show({
                                 </div>
                             </div>
 
-                            <PrimaryButton>View Organization</PrimaryButton>
+                            <Link
+                                href={`/organizations/${organization.id}`}
+                                value="View Organization"
+                            />
                         </div>
 
                         <div></div>
@@ -145,7 +148,7 @@ export default function Show({
                                 )}
                             </div>
                         </div>
-                        {/* 
+                        {/*
                         <div className="">
                             <h1 className="text-xl font-semibold  my-5">
                                 Rewards From Organization
