@@ -76,7 +76,7 @@ export default function Hero() {
                             </span>
                         </a>
                     </div>
-                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] font-ramadhan-karim">
+                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
                         Ramadan <br />
                         <span className="text-second-500">Kareem</span>
                     </h1>
