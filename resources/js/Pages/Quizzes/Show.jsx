@@ -357,7 +357,7 @@ export default function Show({
                         Questions From Organization
                     </h1>
                     <div className="mt-8">
-                        {quiz.created_by === user.id && (
+                        {quiz.created_by === user.id &&  (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
                                 <div className="p-6">
                                     <div className="flex items-center">
