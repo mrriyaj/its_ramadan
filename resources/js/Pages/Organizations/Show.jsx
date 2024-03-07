@@ -107,10 +107,8 @@ export default function Show({
                                                                 href={route(
                                                                     "follows.follow",
                                                                     {
-                                                                        organization_id:
-                                                                            organization.id,
-                                                                        user_id:
-                                                                            user.id,
+                                                                        organization_id: organization.id,
+                                                                        user_id: user.id,
                                                                     }
                                                                 )}
                                                             />
