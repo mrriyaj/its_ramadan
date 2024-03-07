@@ -23,7 +23,7 @@ export default function Edit({ organization, auth, users }) {
           .includes(query.toLowerCase().replace(/\s+/g, ''))
           )
 
-    
+
 
   const { data, setData, patch, processing, errors, reset } = useForm({
     slug: organization.slug,
