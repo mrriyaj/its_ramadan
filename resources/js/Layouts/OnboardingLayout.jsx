@@ -1,4 +1,5 @@
 import Logo from "@/Components/Logo";
+import Notification from "@/Components/Notification";
 import { Link } from "@inertiajs/react";
 
 const OnboardingLayout = ({ children }) => {
@@ -10,7 +11,10 @@ const OnboardingLayout = ({ children }) => {
                 </Link>
             </div>
 
-            <main className="w-full">{children}</main>
+            <main className="w-full">
+                <Notification />
+                {children}
+            </main>
         </div>
     );
 };
