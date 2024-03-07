@@ -138,10 +138,7 @@ export default function Show({
                                     </p>
                                 ) : (
                                     <form onSubmit={submit}>
-                                        <PrimaryButton
-                                            className="ms-4"
-                                            disabled={processing}
-                                        >
+                                        <PrimaryButton disabled={processing}>
                                             Join To The Challenge
                                         </PrimaryButton>
                                     </form>
@@ -357,7 +354,7 @@ export default function Show({
                         Questions From Organization
                     </h1>
                     <div className="mt-8">
-                        {quiz.created_by === user.id &&  (
+                        {quiz.created_by === user.id && (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
                                 <div className="p-6">
                                     <div className="flex items-center">
@@ -419,9 +416,7 @@ export default function Show({
                                         </div>
                                         <div className="flex">
                                             <div>
-                                                <p className="text-xs">
-                                                    Title
-                                                </p>
+                                                <p className="text-xs">Title</p>
                                                 <span className="text-xl font-bold">
                                                     {question.title}
                                                 </span>
@@ -448,7 +443,7 @@ export default function Show({
                                     </div>
                                     {isRegistered ? (
                                         <>
-                                            {question.status === "active" && (
+                                            {(question.status === "active" && (
                                                 <div className="">
                                                     <Link
                                                         className="w-full justify-center rounded-none"
@@ -456,19 +451,17 @@ export default function Show({
                                                         value="Answer Now"
                                                     />
                                                 </div>
-                                            ) || (
-                                                    <p className="text-center text-red-500">
-                                                        Question is not active
-                                                    </p>
-                                                )}
+                                            )) || (
+                                                <p className="text-center text-red-500 my-4">
+                                                    Question is not active
+                                                </p>
+                                            )}
                                         </>
                                     ) : (
-                                        <p className="text-center text-red-500">
+                                        <p className="text-center text-red-500 my-4">
                                             You are not registered for this quiz
                                         </p>
-                                    )
-                                    }
-
+                                    )}
                                 </div>
                             ))}
                         </div>
