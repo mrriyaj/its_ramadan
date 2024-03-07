@@ -2,65 +2,8 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 export default function Hero() {
     return (
-        <div className="relative isolate overflow-hidden bg-main-default">
-            <svg
-                className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-                aria-hidden="true"
-            >
-                <defs>
-                    <pattern
-                        id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
-                        width={50}
-                        height={50}
-                        x="50%"
-                        y={-1}
-                        patternUnits="userSpaceOnUse"
-                    >
-                        <path d="M.5 200V.5H200" fill="none" />
-                    </pattern>
-                </defs>
-                <svg
-                    x="50%"
-                    y={-1}
-                    className="overflow-visible fill-main-800/20"
-                >
-                    <path
-                        d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-                        strokeWidth={0}
-                    />
-                </svg>
-                <rect
-                    width="100%"
-                    height="100%"
-                    strokeWidth={0}
-                    fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
-                />
-            </svg>
-            <svg
-                viewBox="0 0 1108 632"
-                aria-hidden="true"
-                className="absolute top-10 left-[calc(50%-4rem)] -z-10 w-[69.25rem] max-w-none transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
-            >
-                <path
-                    fill="url(#175c433f-44f6-4d59-93f0-c5c51ad5566d)"
-                    fillOpacity=".2"
-                    d="M235.233 402.609 57.541 321.573.83 631.05l234.404-228.441 320.018 145.945c-65.036-115.261-134.286-322.756 109.01-230.655C968.382 433.026 1031 651.247 1092.23 459.36c48.98-153.51-34.51-321.107-82.37-385.717L810.952 324.222 648.261.088 235.233 402.609Z"
-                />
-                <defs>
-                    <linearGradient
-                        id="175c433f-44f6-4d59-93f0-c5c51ad5566d"
-                        x1="1220.59"
-                        x2="-85.053"
-                        y1="432.766"
-                        y2="638.714"
-                        gradientUnits="userSpaceOnUse"
-                    >
-                        <stop stopColor="#fec200" />
-                        <stop offset={1} stopColor="#ffffea" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:py-40 lg:px-8">
+        <div className="relative isolate overflow-hidden">
+            <div className="mx-auto max-w-7xl px-6 pt-4 pb-24 sm:pb-32 lg:flex lg:py-32 lg:px-8">
                 <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
                     <div className="mt-12 sm:mt-16 lg:mt-8">
                         <a href="#" className="inline-flex space-x-6">
@@ -68,7 +11,7 @@ export default function Hero() {
                                 What's new
                             </span>
                             <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-main-300">
-                                <span>Just shipped v1.0</span>
+                                <span>Just shipped v0.2(Beta)</span>
                                 <ChevronRightIcon
                                     className="h-5 w-5 text-main-500"
                                     aria-hidden="true"
@@ -76,21 +19,20 @@ export default function Hero() {
                             </span>
                         </a>
                     </div>
-                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
+                    <h1 className="mt-10 text-4xl font-bold font-ramadhan-karim tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
                         Ramadan <br />
-                        <span className="text-second-500">Kareem</span>
+                        <span className="text-second-500 font-ramadhan-karim">Kareem</span>
                     </h1>
-
                     <p className="mt-6 text-lg leading-8 text-main-300">
-                        Happy Ramadan!! in the holy monthof Ramada, May your
+                        Happy Ramadan!! in the holy month of Ramadan, May your
                         heart be filled with peace, harmony and joy.
                     </p>
                     <div className="mt-10 flex items-center gap-x-6">
                         <a
-                            href="#"
+                            href="/organizations"
                             className="rounded-md bg-second-500 px-8 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-second-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-second-400"
                         >
-                            Explore
+                            Organizations
                         </a>
                         <a
                             href="#"
@@ -103,11 +45,10 @@ export default function Hero() {
                 <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
                     <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
                         <img
-                            src="/image/hero-img.png"
-                            alt="App screenshot"
+                            src="/image/image.png"
+                            alt="screenshot"
                             width={2432}
                             height={1442}
-                            // className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
                             className="w-[32rem] rounded-md bg-cover bg-no-repeat bg-center "
                         />
                     </div>
