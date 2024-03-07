@@ -111,8 +111,7 @@ export default function Contact({ auth }) {
                         </div>
                         <div className="px-6 md:flex gap-10">
                             <div className="md:w-1/2 flex  w-full">
-                                s
-                                <img src="/image/contact-us.svg" />
+                                <img src="../image/contact-us.svg" />
                             </div>
                             <div className="md:w-1/2">
                                 <form>
