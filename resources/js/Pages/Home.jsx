@@ -6,6 +6,7 @@ import TodayQuiz from "@/Components/TodayQuiz";
 import Player from "@/Components/Player";
 
 export default function Home({ auth, organizations }) {
+
     return (
         <App auth={auth}>
             <div className="bg-[url('/image/Vector.png')]">
