@@ -446,13 +446,19 @@ export default function Show({
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="">
-                                        <Link
-                                            className="w-full justify-center rounded-none"
-                                            href={`/questions/${question.id}`}
-                                            value="Answer Now"
-                                        />
-                                    </div>
+                                    {question.status === "active" && (
+                                        <div className="">
+                                            <Link
+                                                className="w-full justify-center rounded-none"
+                                                href={`/questions/${question.id}`}
+                                                value="Answer Now"
+                                            />
+                                        </div>
+                                    ) || (
+                                        <p className="text-center text-red-500">
+                                            Question is not active
+                                        </p>
+                                    )}
                                 </div>
                             ))}
                         </div>

@@ -445,11 +445,18 @@ export default function Show({
                                                     Ending Date: {quiz.end_date}
                                                 </p>
                                             </div>
-                                            <Link
-                                                className=""
-                                                href={`/quizzes/${quiz.id}`}
-                                                value="View"
-                                            />
+                                            {quiz.status === "active" ? (
+                                                <Link
+                                                    className=""
+                                                    href={`/quizzes/${quiz.id}`}
+                                                    value="View"
+                                                />
+                                            ) : (
+                                                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                                    Inactive
+                                                </span>
+                                            )
+                                            }
                                         </div>
                                     </div>
                                 </div>
