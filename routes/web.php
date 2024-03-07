@@ -38,6 +38,7 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
 
+// Define other routes first...
 
 
 // Route with "coming soon" middleware
@@ -64,7 +65,15 @@ Route::middleware(['coming_soon'])->group(function () {
     Route::get('/quran', function () {
         return Inertia::render('Quran/Index');
     });
+
+    Route::get('org/{slug}', [OrganizationController::class, 'slug'])->name('organization.slug');
+
+
+
+
 });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::patch('/onboarding', [OnboardingController::class, 'update'])->name('onboarding.update');
@@ -105,6 +114,7 @@ Route::middleware('auth')->group(function () {
         // Organization Routes
         Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
         Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
+
 
         // Quiz Routes
         Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
