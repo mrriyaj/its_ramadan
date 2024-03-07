@@ -104,7 +104,6 @@ export default function Notification({ props }) {
                     </div>
                 </div>
             )}
-            ;
         </>
     );
 }
