@@ -326,7 +326,7 @@ export default function Show({
 
             <div className="max-w-7xl mx-auto py-12 px-6 sm:px-6 lg:px-8">
                 <div className="">
-                    {quizzes.length >= 1 && (
+                    {quizzes.length >= 1 && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') && (
                         <div className="overflow-hidden rounded-lg bg-white shadow">
                             <div className="p-6">
                                 <div className="flex items-center">
