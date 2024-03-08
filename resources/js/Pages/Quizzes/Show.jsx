@@ -444,13 +444,13 @@ export default function Show({
                                                 <p className="text-xs">
                                                     Remaining Time
                                                 </p>
-                                                <p className="font-bold text-sm">
+                                                <div className="font-bold text-sm">
                                                     <RemainingTime
                                                         qEndDate={
                                                             question.end_date
                                                         }
                                                     />
-                                                </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
