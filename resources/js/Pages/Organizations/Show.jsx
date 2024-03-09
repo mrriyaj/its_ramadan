@@ -96,7 +96,7 @@ export default function Show({
                                                         </h1>
                                                     </div>
                                                     <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                                        <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                                                        <span className="inline-flex items-center px-3 sm:py-0.5 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
                                                             <UserGroupIcon className="h-5 w-5 mr-2" />
                                                             {followersCount}{" "}
                                                             Followers
