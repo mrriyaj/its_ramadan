@@ -395,25 +395,34 @@ export default function Show({
                                     className="overflow-hidden rounded-lg bg-white shadow"
                                 >
                                     <div className="p-6 space-y-2">
-                                        <div className="items-center flex">
-                                            <div className="flex-shrink-0">
-                                                {/* <img
+                                        <div className="items-center flex justify-between">
+                                            {/* <img
                                                     className="w-20 h-20 rounded-md "
                                                     src={question.quiz_image}
                                                     alt=""
                                                 /> */}
 
-                                                <div>
-                                                    <p className="text-xs">
-                                                        Question No
-                                                    </p>
-                                                    <span className="text-2xl font-bold">
-                                                        {
-                                                            question.question_number
-                                                        }
-                                                    </span>
-                                                </div>
+                                            <div>
+                                                <p className="text-xs">
+                                                    Question No
+                                                </p>
+                                                <span className="text-2xl font-bold">
+                                                    {question.question_number}
+                                                </span>
                                             </div>
+
+                                            {questions.created_by === user.id ||
+                                                ((user.role === "superadmin" ||
+                                                    user.role === "admin" ||
+                                                    user.role ===
+                                                        "orgadmin") && (
+                                                    <div>
+                                                        <Link
+                                                            value="Edit"
+                                                            href={`/questions/edit/${question.id}`}
+                                                        />
+                                                    </div>
+                                                ))}
                                         </div>
                                         <div className="flex">
                                             <div>
@@ -424,22 +433,6 @@ export default function Show({
                                             </div>
                                         </div>
                                         <div className="flex justify-between">
-                                            {/* <div>
-                                                <p className="text-xs">
-                                                    Start Date
-                                                </p>
-                                                <p className="font-bold text-sm">
-                                                    {question.start_date}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p className="text-xs">
-                                                    End Date
-                                                </p>
-                                                <p className="font-bold text-sm">
-                                                    {question.end_date}
-                                                </p>
-                                            </div> */}
                                             <div>
                                                 <p className="text-xs">
                                                     Remaining Time
