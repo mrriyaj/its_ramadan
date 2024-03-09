@@ -61,9 +61,9 @@ export default function Show({
                                     <div>
                                         <div>
                                             <img
-                                                className="h-64 w-full object-cover lg:h-64"
+                                                className="w-full object-cover h-64 sm:h-96"
                                                 src={organization.cover}
-                                                alt=""
+                                                alt={`${organization.name}Organization cover Image`}
                                             />
                                         </div>
                                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -124,9 +124,10 @@ export default function Show({
                                                                 href={route(
                                                                     "follows.follow",
                                                                     {
-
-                                                                        organization_id: organization.id,
-                                                                        user_id: user.id,
+                                                                        organization_id:
+                                                                            organization.id,
+                                                                        user_id:
+                                                                            user.id,
                                                                     }
                                                                 )}
                                                             />
@@ -326,30 +327,34 @@ export default function Show({
 
             <div className="max-w-7xl mx-auto py-12 px-6 sm:px-6 lg:px-8">
                 <div className="">
-                    {quizzes.length >= 1 && (user.role === 'superadmin' || user.role === 'admin' || user.role === 'orgadmin') && (
-                        <div className="overflow-hidden rounded-lg bg-white shadow">
-                            <div className="p-6">
-                                <div className="flex items-center">
-                                    <div className="flex-shrink-0">
-                                        <img
-                                            className="w-10 h-10 rounded-full"
-                                            src="https://via.placeholder.com/150"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            Your organization already has quiz
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            You can add a maximum of 1 quiz per
-                                            organization
-                                        </p>
+                    {quizzes.length >= 1 &&
+                        (user.role === "superadmin" ||
+                            user.role === "admin" ||
+                            user.role === "orgadmin") && (
+                            <div className="overflow-hidden rounded-lg bg-white shadow">
+                                <div className="p-6">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <img
+                                                className="w-10 h-10 rounded-full"
+                                                src="https://via.placeholder.com/150"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                Your organization already has
+                                                quiz
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                You can add a maximum of 1 quiz
+                                                per organization
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
                     {quizzes.length === 0 && (
                         <>
@@ -455,8 +460,7 @@ export default function Show({
                                                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
                                                     Inactive
                                                 </span>
-                                            )
-                                            }
+                                            )}
                                         </div>
                                     </div>
                                 </div>
