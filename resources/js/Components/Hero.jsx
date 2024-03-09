@@ -54,7 +54,7 @@ export default function Hero() {
                             <animated.div style={fadeAnimation} className="flex flex-col">
                                 <h1 className="text-6xl font-bold text-white mb-4">Ramadan <div className="bg-second-default">Countdown</div></h1>
                                 <p className="text-lg text-white mb-8">The holy month of Ramadan is coming soon. Let's prepare for it.</p>
-                            <div className="lg:text-4xl md:text-4xl sm:text-3xl font-bold text-second-default m-1">
+                            <div className="text-4xl font-bold text-second-default m-1">
                                     <div className="flex items-center justify-center gap-4">
                                     <div className="flex flex-col items-center gap-1">
                                         <span>{countdown.days}</span>
