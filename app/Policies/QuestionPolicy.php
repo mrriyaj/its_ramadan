@@ -31,4 +31,9 @@ class QuestionPolicy
     {
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }
+
+    public function update(User $user)
+    {
+        return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
+    }
 }
