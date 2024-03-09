@@ -63,7 +63,7 @@ class QuestionController extends Controller
                 'correct_answer' => 'required|in:option1,option2,option3,option4',
                 'quiz_explanation' => 'nullable|max:1024',
                 'quiz_hint' => 'nullable|max:1024',
-                'quiz_points' => 'nullable|max:255',
+                'quiz_points' => 'nullable|max:255|numeric',
                 'status' => 'required|in:active,inactive',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
