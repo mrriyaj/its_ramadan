@@ -47,7 +47,7 @@ class QuizAnswersController extends Controller
 
         if ($check_already_answered) {
 
-            return redirect()->with('error', 'You have already answered this question');
+            return redirect()->back()->with('error', 'You have already answered this question');
 
         }
 
@@ -69,14 +69,14 @@ class QuizAnswersController extends Controller
 
         if ($check_quizAnswer) {
 
-            return redirect()->with('error', 'Quiz answers already saved');
+            return redirect()->back()->with('error', 'Quiz answers already saved');
 
         } else {
             $quizAnswer->save();
 
         }
 
-        return redirect()->with('success', 'Quiz answers saved successfully');
+        return redirect()->back()->with('success', 'Quiz answers saved successfully');
     }
 
     /**
