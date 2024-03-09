@@ -14,6 +14,6 @@ class DashboardPolicy
      */
     public function view(User $user)
     {
-        return $user->isAdmin() || $user->isSuperadmin();
+        return $user->isAdmin() || $user->isSuperadmin()|| $user->isOrgAdmin();
     }
 }
