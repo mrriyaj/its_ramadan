@@ -68,36 +68,36 @@ export default function Hero() {
                                 prepare for it.
                             </p>
                             <div className="text-4xl font-bold text-second-default m-1">
-                                <div className="flex items-center  gap-10 bg-second-default p-10 rounded-lg justify-between">
+                                <div className="flex items-center  gap-5 bg-second-default p-4 sm:p-10 rounded-lg justify-between">
                                     <div className="flex flex-col items-center gap-1">
-                                        <span className="text-6xl text-white">
+                                        <span className="text-3xl sm:text-6xl text-white">
                                             {countdown.days}
                                         </span>
-                                        <span className="text-2xl text-white">
+                                        <span className=" text-lg sm:text-xl text-white">
                                             Days
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center  gap-1 text-white">
-                                        <span className="text-6xl text-white">
+                                        <span className="text-3xl sm:text-6xl text-white">
                                             {countdown.hours}
                                         </span>
-                                        <span className="text-2xl text-white">
+                                        <span className="text-lg sm:text-xl text-white">
                                             Hours
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center gap-1 text-white">
-                                        <span className="text-6xl text-white">
+                                        <span className="text-3xl sm:text-6xl text-white">
                                             {countdown.minutes}
                                         </span>
-                                        <span className="text-2xl text-white">
+                                        <span className="text-lg sm:text-xl text-white">
                                             Minutes
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center gap-1 text-white">
-                                        <span className="text-6xl text-white">
+                                        <span className="text-3xl sm:text-6xl text-white">
                                             {countdown.seconds}
                                         </span>
-                                        <span className="text-2xl text-white">
+                                        <span className="text-lg sm:text-xl text-white">
                                             Seconds
                                         </span>
                                     </div>
