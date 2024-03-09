@@ -77,11 +77,10 @@ export default function Edit({ organization, auth, users }) {
                                     <InputLabel htmlFor="slug" value="Slug" />
 
                                     <TextInputWithPrefix
-                                        prefix="https://itsramadan.com/"
+                                        prefix="https://itsramadan.com/org/"
                                         id="slug"
                                         name="slug"
                                         value={data.slug}
-                                        className="mt-1 block w-full"
                                         autoComplete="slug"
                                         isFocused={true}
                                         onChange={(e) =>

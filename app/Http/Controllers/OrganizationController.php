@@ -18,28 +18,28 @@ class OrganizationController extends Controller
     public function index()
     {
         if (Gate::allows('view_any_organization')) {
-        $organizations = Organization::all();
+            $organizations = Organization::all();
 
-        foreach ($organizations as $organization) {
-            $followersCount = Follow::where('organization_id', $organization->id)
-                ->where('status', '01')
-                ->count();
+            foreach ($organizations as $organization) {
+                $followersCount = Follow::where('organization_id', $organization->id)
+                    ->where('status', '01')
+                    ->count();
 
-            $userFollowed = Follow::where('user_id', auth()->user()->id)
-                ->where('organization_id', $organization->id)
-                ->where('status', '01')
-                ->first();
+                $userFollowed = Follow::where('user_id', auth()->user()->id)
+                    ->where('organization_id', $organization->id)
+                    ->where('status', '01')
+                    ->first();
 
-            $followId = $userFollowed ? $userFollowed->id : null;
+                $followId = $userFollowed ? $userFollowed->id : null;
 
-            $organization->followersCount = $followersCount;
-            $organization->userFollowed = $userFollowed;
-            $organization->followId = $followId;
-        }
+                $organization->followersCount = $followersCount;
+                $organization->userFollowed = $userFollowed;
+                $organization->followId = $followId;
+            }
 
-        return Inertia::render('Organizations/Index', [
-            'organizations' => $organizations
-        ]);
+            return Inertia::render('Organizations/Index', [
+                'organizations' => $organizations
+            ]);
         } else {
             abort(403, 'Unauthorized Action');
         }
@@ -66,29 +66,73 @@ class OrganizationController extends Controller
      */
     public function show(string $id)
     {
+        if (!$organization = Organization::where('id', $id)->first()) {
+            return redirect('/organizations')->with('error', 'Organization not exist!');
+        }
+
         if (Gate::allows('view_any_organization')) {
-        $organization = Organization::findOrFail($id);
+            $organization = Organization::findOrFail($id);
 
-        $followersCount = Follow::where('organization_id', $id)
-            ->where('status', '01')
-            ->count();
+            $followersCount = Follow::where('organization_id', $id)
+                ->where('status', '01')
+                ->count();
 
-        $quizzes = Quiz::where('organization_id', $id)->get();
+            $quizzes = Quiz::where('organization_id', $id)->get();
 
-        // Check if the user is following and the status is 01
-        $follow = Follow::where('user_id', auth()->user()->id)
-            ->where('organization_id', $id)
-            ->where('status', '01')
-            ->first();
+            // Check if the user is following and the status is 01
+            $follow = Follow::where('user_id', auth()->user()->id)
+                ->where('organization_id', $id)
+                ->where('status', '01')
+                ->first();
 
-        return Inertia::render('Organizations/Show', [
-            'quizzes' => $quizzes,
-            'organization' => $organization,
-            'followersCount' => $followersCount,
-            'followId' => $follow ? $follow->id : null
-        ]);
+            return Inertia::render('Organizations/Show', [
+                'quizzes' => $quizzes,
+                'organization' => $organization,
+                'followersCount' => $followersCount,
+                'followId' => $follow ? $follow->id : null
+            ]);
         } else {
-            abort(403, 'Unauthorized Action');
+            return redirect('/login')->with('error', 'You need to login to view this page');
+        }
+    }
+
+
+
+
+
+    public function slug(string $slug)
+    {
+        if (Gate::allows('view_any_organization')) {
+
+            if (!$organization = Organization::where('slug', $slug)->first()) {
+                return redirect('/organizations')->with('error', 'Organization not exist!');
+            }
+
+            $organization = Organization::where('slug', $slug)->first();
+
+
+
+            $followersCount = Follow::where('organization_id', $organization->id)
+                ->where('status', '01')
+                ->count();
+
+            $quizzes = Quiz::where('organization_id', $organization->id)->get();
+
+            // Check if the user is following and the status is 01
+            $follow = Follow::where('user_id', auth()->user()->id)
+                ->where('organization_id', $organization->id)
+                ->where('status', '01')
+                ->first();
+
+            return Inertia::render('Organizations/Show', [
+                'quizzes' => $quizzes,
+                'organization' => $organization,
+                'followersCount' => $followersCount,
+                'followId' => $follow ? $follow->id : null
+            ]);
+        } else {
+
+            return redirect('/login')->with('error', 'You need to login to view this page');
         }
     }
 
