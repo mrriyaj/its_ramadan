@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import Link from "@/Components/Link";
 
-const RemainingTime = ({ qEndDate }) => {
+const RemainingTime = ({ qEndDate, useType, href }) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date(qEndDate));
 
@@ -53,13 +54,41 @@ const RemainingTime = ({ qEndDate }) => {
     };
 
     return (
-        <div>
-            {startDate.getTime() < endDate.getTime() ? (
-                <div>{calculateDuration()}</div>
-            ) : (
-                <div>Time up</div>
+        <>
+            {useType === "Time" && (
+                <div>
+                    {startDate.getTime() < endDate.getTime() ? (
+                        <div>{calculateDuration()}</div>
+                    ) : (
+                        <div className="text-red-500 text-2xl">
+                            Time up for this question
+                        </div>
+                    )}
+                </div>
             )}
-        </div>
+
+            {useType === "Button" && (
+                <div>
+                    {startDate.getTime() < endDate.getTime() ? (
+                        <div>
+                            <Link
+                                className="w-full justify-center rounded-none"
+                                href={href}
+                                value="Answer Now"
+                            />
+                        </div>
+                    ) : (
+                        <div className="">
+                            <Link
+                                className="w-full justify-center rounded-none cursor-not-allowed !bg-red-200 !text-red-900"
+                                value=" Please try next question"
+                                disabled={true}
+                            />
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
     );
 };
 

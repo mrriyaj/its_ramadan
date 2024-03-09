@@ -439,6 +439,7 @@ export default function Show({
                                                 </p>
                                                 <div className="font-bold text-sm">
                                                     <RemainingTime
+                                                        useType={"Time"}
                                                         qEndDate={
                                                             question.end_date
                                                         }
@@ -451,11 +452,18 @@ export default function Show({
                                         <>
                                             {(question.status === "active" && (
                                                 <div className="">
-                                                    <Link
+                                                    <RemainingTime
+                                                        useType={"Button"}
+                                                        href={`/questions/${question.id}`}
+                                                        qEndDate={
+                                                            question.end_date
+                                                        }
+                                                    />
+                                                    {/* <Link
                                                         className="w-full justify-center rounded-none"
                                                         href={`/questions/${question.id}`}
                                                         value="Answer Now"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             )) || (
                                                 <p className="text-center text-red-500 my-4">
