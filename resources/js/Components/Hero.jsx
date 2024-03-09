@@ -1,29 +1,85 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import image from "../../../public/image/Image.png";
+import React, { useState, useEffect } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 export default function Hero() {
+
+    const [countdown, setCountdown] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
+
+    const fadeAnimation = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 1000 }
+    });
+
+    useEffect(() => {
+        const targetDate = new Date("2024-03-11T12:00:00");
+        const timer = setInterval(() => {
+            const now = new Date();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference > 0) {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                setCountdown({
+                    days,
+                    hours,
+                    minutes,
+                    seconds
+                });
+            } else {
+                clearInterval(timer);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
     return (
         <div className="relative isolate overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 pt-4 pb-24 sm:pb-32 lg:flex lg:py-32 lg:px-8">
                 <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
                     <div className="mt-12 sm:mt-16 lg:mt-8">
-                        <a href="#" className="inline-flex space-x-6">
-                            <span className="rounded-full bg-second-500/10 px-3 py-1 text-sm font-semibold leading-6 text-second-400 ring-1 ring-inset ring-second-500/20">
-                                What's new
-                            </span>
-                            <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-main-300">
-                                <span>Just shipped v0.2(Beta)</span>
-                                <ChevronRightIcon
-                                    className="h-5 w-5 text-main-500"
-                                    aria-hidden="true"
-                                />
-                            </span>
-                        </a>
+                            <animated.div style={fadeAnimation} className="flex flex-col">
+                                <h1 className="text-6xl font-bold text-white mb-4">Ramadan <div className="bg-second-default">Countdown</div></h1>
+                                <p className="text-lg text-white mb-8">The holy month of Ramadan is coming soon. Let's prepare for it.</p>
+                                <div className="text-4xl font-bold text-second-default">
+                                    <div className="flex items-center justify-center gap-4">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span>{countdown.days}</span>
+                                        <span>Days</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span>{countdown.hours}</span>
+                                        <span>Hours</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span>{countdown.minutes}</span>
+                                        <span>Minutes</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span>{countdown.seconds}</span>
+                                        <span>Seconds</span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </animated.div>
                     </div>
-                    <h1 className="mt-10 text-4xl font-bold font-ramadhan-karim tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
+                    {/* <h1 className="mt-10 text-4xl font-bold font-ramadhan-karim tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
                         Ramadan <br />
                         <span className="text-second-500 font-ramadhan-karim">Kareem</span>
-                    </h1>
+                    </h1> */}
                     <p className="mt-6 text-lg leading-8 text-main-300">
                         Happy Ramadan!! in the holy month of Ramadan, May your
                         heart be filled with peace, harmony and joy.
@@ -48,9 +104,7 @@ export default function Hero() {
                         <img
                             src={image}
                             alt="Image of Ramadan Kareem"
-                            width={2432}
-                            height={1442}
-                            className="w-[32rem] rounded-md bg-cover bg-no-repeat bg-center "
+                            className="lg:w-[30rem] rounded-md bg-cover bg-no-repeat bg-center "
                         />
                     </div>
                 </div>
