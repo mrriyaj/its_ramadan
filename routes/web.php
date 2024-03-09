@@ -38,6 +38,7 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::get('/coming-soon', [ComingSoonController::class, 'index'])->name('coming_soon');
 
+// Define other routes first...
 
 
 // Route with "coming soon" middleware
@@ -64,7 +65,15 @@ Route::middleware(['coming_soon'])->group(function () {
     Route::get('/quran', function () {
         return Inertia::render('Quran/Index');
     });
+
+    Route::get('org/{slug}', [OrganizationController::class, 'slug'])->name('organization.slug');
+
+
+
+
 });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::patch('/onboarding', [OnboardingController::class, 'update'])->name('onboarding.update');
@@ -106,6 +115,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.user.index');
         Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.user.show');
 
+
         // Quiz Routes
         Route::get('/quizzes/create/{organizationId}', [QuizController::class, 'create'])->name('quizzes.user.create');
         Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.user.store');
@@ -119,6 +129,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/questions/create/{quizId}', [QuestionController::class, 'create'])->name('questions.user.create');
         Route::post('/questions', [QuestionController::class, 'store'])->name('questions.user.store');
         Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.user.show');
+
+        Route::get('/questions/edit/{question}', [QuestionController::class, 'edit'])->name('questions.user.edit');
+
+        Route::post('/questions/edit/{question}', [QuestionController::class, 'update'])->name('questions.user.update');
 
         // Quiz Registration Routes
         Route::post('/quiz-registrations', [QuizRegistrationsController::class, 'store'])->name('quiz-registrations.store');

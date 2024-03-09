@@ -29,7 +29,6 @@ export default function Show({ auth, question, quizRegistration, options }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data);
         post(route("quiz-answers.store"));
     };
 

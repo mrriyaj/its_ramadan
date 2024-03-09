@@ -51,7 +51,7 @@ class OrganizationController extends Controller
     {
         if (Gate::allows('create_organization')) {
             $validated = $request->validate([
-                'slug' => 'required|max:255|unique:organizations,slug', // 'slug' is a unique field in the 'organizations' table
+                'slug' => 'required|max:255|unique:organizations,slug|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
                 'owner' => 'required|exists:users,id',
                 'name' => 'required|max:255',
                 'logo' => 'nullable|image',
@@ -141,7 +141,7 @@ class OrganizationController extends Controller
     {
         if (Gate::allows('update_organization')) {
             $validated = $request->validate([
-                'slug' => 'required|max:255|unique:organizations,slug,' . $id, // 'slug' is a unique field in the 'organizations' table
+                'slug' => 'required|max:255|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:organizations,slug,' . $id, // 'slug' is a unique field in the 'organizations' table
                 'owner' => 'required|exists:users,id',
                 'name' => 'required|max:255',
                 'description' => 'required|max:1024',
