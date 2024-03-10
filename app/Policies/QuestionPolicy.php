@@ -36,4 +36,13 @@ class QuestionPolicy
     {
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }
+
+    public function forceDelete(User $user)
+    {
+        return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
+    }
+    public function delete(User $user)
+    {
+        return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
+    }
 }

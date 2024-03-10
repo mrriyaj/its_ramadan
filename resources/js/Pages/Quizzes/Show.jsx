@@ -416,12 +416,38 @@ export default function Show({
                                                     user.role === "admin" ||
                                                     user.role ===
                                                         "orgadmin") && (
-                                                    <div>
-                                                        <Link
-                                                            value="Edit"
-                                                            href={`/questions/edit/${question.id}`}
-                                                        />
-                                                    </div>
+                                                    <>
+                                                        <div className="flex gap-2">
+                                                            <div>
+                                                                <Link
+                                                                    value="Edit"
+                                                                    href={route(
+                                                                        "questions.user.edit",
+                                                                        {
+                                                                            question:
+                                                                                question.id,
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </div>
+
+                                                            <div>
+                                                                <Link
+                                                                    as="button"
+                                                                    value="Delete"
+                                                                    href={route(
+                                                                        "questions.user.destroy",
+                                                                        {
+                                                                            question:
+                                                                                question.id,
+                                                                        }
+                                                                    )}
+                                                                    method="delete"
+                                                                    className="!bg-red-500 !text-white hover:!bg-white hover:!text-red-500"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </>
                                                 ))}
                                         </div>
                                         <div className="flex">

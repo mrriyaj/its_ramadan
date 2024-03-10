@@ -309,6 +309,12 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        if (Gate::allows('delete_question')) {
+            $question->delete();
+
+            return redirect()->route('quizzes.user.show', $question->quiz_id)->with('success', 'Question deleted successfully');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
     }
 }
