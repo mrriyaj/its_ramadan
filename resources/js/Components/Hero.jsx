@@ -19,7 +19,7 @@ export default function Hero() {
     });
 
     useEffect(() => {
-        const targetDate = new Date("2024-03-11T12:00:00");
+        const targetDate = new Date("2024-03-12T12:00:00");
         const timer = setInterval(() => {
             const now = new Date();
             const timeDifference = targetDate - now;
