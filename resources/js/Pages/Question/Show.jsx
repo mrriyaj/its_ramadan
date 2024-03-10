@@ -88,6 +88,7 @@ export default function Show({ auth, question, quizRegistration, options }) {
                                             <RemainingTime
                                                 useType={"Time"}
                                                 qEndDate={question.end_date}
+                                                qStartDate={question.start_date}
                                             />
                                         </span>
                                     </div>

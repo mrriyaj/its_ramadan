@@ -469,6 +469,9 @@ export default function Show({
                                                         qEndDate={
                                                             question.end_date
                                                         }
+                                                        qStartDate={
+                                                            question.start_date
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -484,12 +487,10 @@ export default function Show({
                                                         qEndDate={
                                                             question.end_date
                                                         }
+                                                        qStartDate={
+                                                            question.start_date
+                                                        }
                                                     />
-                                                    {/* <Link
-                                                        className="w-full justify-center rounded-none"
-                                                        href={`/questions/${question.id}`}
-                                                        value="Answer Now"
-                                                    /> */}
                                                 </div>
                                             )) || (
                                                 <p className="text-center text-red-500 my-4">
