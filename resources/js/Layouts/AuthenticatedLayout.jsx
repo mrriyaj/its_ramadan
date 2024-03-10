@@ -38,6 +38,8 @@ export default function Authenticated({ auth, header, children }) {
                             >
                                 Dashboard
                             </Link>
+                            {(user.role === 'superadmin' || user.role === 'admin') && (
+                                <>
                             <Link
                                 href={route("organizations.index")}
                                 className="text-base font-medium text-white hover:text-second-500"
@@ -55,7 +57,9 @@ export default function Authenticated({ auth, header, children }) {
                                 className="text-base font-medium text-white hover:text-second-500"
                             >
                                 Users
-                            </Link>
+                                    </Link>
+                                </>
+                            )}
                         </Popover.Group>
                         <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                             <div className="hidden sm:flex sm:items-center sm:ms-6">
