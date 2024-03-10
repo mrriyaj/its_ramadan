@@ -7,6 +7,7 @@ import { Head, useForm } from "@inertiajs/react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState, useEffect } from "react";
+import Link from "@/Components/Link";
 
 const options = [
     { value: "option1", label: "Option 1" },
@@ -54,11 +55,15 @@ const questionsNo = [
 ];
 
 export default function Edit({ auth, quiz, question }) {
-    const [selectedOption, setSelectedOption] = useState(options.find((option) => option.value === question.correct_answer));
-    const [selectedStatus, setSelectedStatus] = useState(status.find((st) => st.value === question.status));
-    const [selectedQuestionsNo, setSelectedQuestionsNo] = useState(questionsNo.find((qNo) => qNo.value === question.question_number));
-
-    console.log(question);
+    const [selectedOption, setSelectedOption] = useState(
+        options.find((option) => option.value === question.correct_answer)
+    );
+    const [selectedStatus, setSelectedStatus] = useState(
+        status.find((st) => st.value === question.status)
+    );
+    const [selectedQuestionsNo, setSelectedQuestionsNo] = useState(
+        questionsNo.find((qNo) => qNo.value === question.question_number)
+    );
 
     const { data, setData, post, processing, errors, reset } = useForm({
         quiz_id: quiz.id,
@@ -107,19 +112,26 @@ export default function Edit({ auth, quiz, question }) {
             <Head title="Update Question" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="sm:flex-auto pb-2 max-w-7xl flex items-center justify-between my-4">
+                        <h1 className="text-xl font-semibold text-white">
+                            Update Question
+                        </h1>
+
+                        <Link
+                            className="text-white"
+                            href={/quizzes/ + quiz.id}
+                            value="Go Back"
+                        />
+                    </div>
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
-                                Update Question
-                            </h2>
-
                             <form
                                 onSubmit={submit}
                                 encType="multipart/form-data"
                                 className="space-y-8"
                             >
                                 <div className="space-y-8 divide-y divide-gray-200">
-                                    <div className="pt-8">
+                                    <div className="">
                                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                             <div className="sm:col-span-6">
                                                 <div>
@@ -207,9 +219,10 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${active
-                                                                                                ? "text-main-900 bg-main-100"
-                                                                                                : "text-gray-900 dark:text-gray-100"
+                                                                                            `${
+                                                                                                active
+                                                                                                    ? "text-main-900 bg-main-100"
+                                                                                                    : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -223,10 +236,11 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${selected
+                                                                                                    className={`${
+                                                                                                        selected
                                                                                                             ? "font-semibold"
                                                                                                             : "font-normal"
-                                                                                                        }
+                                                                                                    }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -236,10 +250,11 @@ export default function Edit({ auth, quiz, question }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${active
+                                                                                                        className={`${
+                                                                                                            active
                                                                                                                 ? "text-main-600"
                                                                                                                 : "text-main-600"
-                                                                                                            }
+                                                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon
@@ -664,9 +679,10 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${active
-                                                                                                ? "text-main-900 bg-main-100"
-                                                                                                : "text-gray-900 dark:text-gray-100"
+                                                                                            `${
+                                                                                                active
+                                                                                                    ? "text-main-900 bg-main-100"
+                                                                                                    : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -680,10 +696,11 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${selected
+                                                                                                    className={`${
+                                                                                                        selected
                                                                                                             ? "font-semibold"
                                                                                                             : "font-normal"
-                                                                                                        }
+                                                                                                    }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -693,10 +710,11 @@ export default function Edit({ auth, quiz, question }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${active
+                                                                                                        className={`${
+                                                                                                            active
                                                                                                                 ? "text-main-600"
                                                                                                                 : "text-main-600"
-                                                                                                            }
+                                                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon
@@ -923,9 +941,10 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         className={({
                                                                                             active,
                                                                                         }) =>
-                                                                                            `${active
-                                                                                                ? "text-main-900 bg-main-100"
-                                                                                                : "text-gray-900 dark:text-gray-100"
+                                                                                            `${
+                                                                                                active
+                                                                                                    ? "text-main-900 bg-main-100"
+                                                                                                    : "text-gray-900 dark:text-gray-100"
                                                                                             }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                                                         }
@@ -939,10 +958,11 @@ export default function Edit({ auth, quiz, question }) {
                                                                                         }) => (
                                                                                             <>
                                                                                                 <span
-                                                                                                    className={`${selected
+                                                                                                    className={`${
+                                                                                                        selected
                                                                                                             ? "font-semibold"
                                                                                                             : "font-normal"
-                                                                                                        }
+                                                                                                    }
                                 block truncate`}
                                                                                                 >
                                                                                                     {
@@ -952,10 +972,11 @@ export default function Edit({ auth, quiz, question }) {
 
                                                                                                 {selected ? (
                                                                                                     <span
-                                                                                                        className={`${active
+                                                                                                        className={`${
+                                                                                                            active
                                                                                                                 ? "text-main-600"
                                                                                                                 : "text-main-600"
-                                                                                                            }
+                                                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                                                     >
                                                                                                         <CheckIcon

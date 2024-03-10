@@ -6,10 +6,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { Listbox, Transition } from "@headlessui/react";
 import DangerButton from "@/Components/DangerButton";
 import { Fragment, useEffect, useState } from "react";
-import {
-    ChevronUpDownIcon,
-    CheckIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/24/outline";
 import TextInputWithPrefix from "@/Components/TextInputWithPrefix";
 
 const genders = [
@@ -56,16 +53,11 @@ const districts = [
     { value: "Vavuniya", label: "Vavuniya" },
 ];
 
-export default function OnboardForm({
-    mustVerifyEmail,
-    className = "",
-}) {
-
+export default function OnboardForm({ mustVerifyEmail, className = "" }) {
     const user = usePage().props.auth.user;
     const [selectedGender, setSelectedGender] = useState(genders[0]);
     const [selectedEduLevel, setSelectedEduLevel] = useState(eduLevels[0]);
     const [selectedDistrict, setSelectedDistricts] = useState(districts[0]);
-
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -101,7 +93,7 @@ export default function OnboardForm({
     };
 
     return (
-        <section className={className}>
+        <section className="p-6">
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                     Profile Information
@@ -113,7 +105,7 @@ export default function OnboardForm({
             </header>
 
             <form onSubmit={submit}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                         <InputLabel htmlFor="first_name" value="First Name" />
                         <TextInput
@@ -153,15 +145,23 @@ export default function OnboardForm({
 
                     <div>
                         <InputLabel htmlFor="gender" value="Gender" />
-                        <Listbox value={selectedGender} onChange={setSelectedGender}>
+                        <Listbox
+                            value={selectedGender}
+                            onChange={setSelectedGender}
+                        >
                             {({ open }) => (
                                 <>
                                     <div className="mt-1 relative">
                                         <span className="block w-full rounded-md shadow-sm">
-                                            <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
-                                                <span className="block truncate">{selectedGender.label}</span>
+                                            <Listbox.Button className="relative w-full rounded-md dark:text-white  bg-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedGender.label}
+                                                </span>
                                                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
                                                 </span>
                                             </Listbox.Button>
                                         </span>
@@ -180,27 +180,49 @@ export default function OnboardForm({
                                                 {genders.map((gender) => (
                                                     <Listbox.Option
                                                         key={gender.value}
-                                                        className={({ active }) =>
-                                                            `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                         }
                                                         value={gender}
                                                     >
-                                                        {({ selected, active }) => (
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
                                                             <>
                                                                 <span
-                                                                    className={`${selected ? 'font-semibold' : 'font-normal'}
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
                                 block truncate`}
                                                                 >
-                                                                    {gender.label}
+                                                                    {
+                                                                        gender.label
+                                                                    }
                                                                 </span>
 
                                                                 {selected ? (
                                                                     <span
-                                                                        className={`${active ? 'text-main-600' : 'text-main-600'}
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                     >
-                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
                                                                     </span>
                                                                 ) : null}
                                                             </>
@@ -285,15 +307,23 @@ export default function OnboardForm({
 
                     <div>
                         <InputLabel htmlFor="districts" value="Districts" />
-                        <Listbox value={selectedDistrict} onChange={setSelectedDistricts}>
+                        <Listbox
+                            value={selectedDistrict}
+                            onChange={setSelectedDistricts}
+                        >
                             {({ open }) => (
                                 <>
                                     <div className="mt-1 relative">
                                         <span className="block w-full rounded-md shadow-sm">
-                                            <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
-                                                <span className="block truncate">{selectedDistrict.label}</span>
+                                            <Listbox.Button className="relative w-full rounded-md dark:text-white  bg-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedDistrict.label}
+                                                </span>
                                                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
                                                 </span>
                                             </Listbox.Button>
                                         </span>
@@ -312,27 +342,49 @@ export default function OnboardForm({
                                                 {districts.map((district) => (
                                                     <Listbox.Option
                                                         key={district.value}
-                                                        className={({ active }) =>
-                                                            `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                         }
                                                         value={district}
                                                     >
-                                                        {({ selected, active }) => (
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
                                                             <>
                                                                 <span
-                                                                    className={`${selected ? 'font-semibold' : 'font-normal'}
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
                                 block truncate`}
                                                                 >
-                                                                    {district.label}
+                                                                    {
+                                                                        district.label
+                                                                    }
                                                                 </span>
 
                                                                 {selected ? (
                                                                     <span
-                                                                        className={`${active ? 'text-main-600' : 'text-main-600'}
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                     >
-                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
                                                                     </span>
                                                                 ) : null}
                                                             </>
@@ -388,15 +440,23 @@ export default function OnboardForm({
                             htmlFor="education_level"
                             value="Education Level"
                         />
-                        <Listbox value={selectedEduLevel} onChange={setSelectedEduLevel}>
+                        <Listbox
+                            value={selectedEduLevel}
+                            onChange={setSelectedEduLevel}
+                        >
                             {({ open }) => (
                                 <>
                                     <div className="mt-1 relative">
                                         <span className="block w-full rounded-md shadow-sm">
-                                            <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
-                                                <span className="block truncate">{selectedEduLevel.label}</span>
+                                            <Listbox.Button className="relative w-full rounded-md dark:text-white  bg-white dark:bg-gray-900 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
+                                                <span className="block truncate">
+                                                    {selectedEduLevel.label}
+                                                </span>
                                                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
                                                 </span>
                                             </Listbox.Button>
                                         </span>
@@ -415,27 +475,49 @@ export default function OnboardForm({
                                                 {eduLevels.map((eduLevel) => (
                                                     <Listbox.Option
                                                         key={eduLevel.value}
-                                                        className={({ active }) =>
-                                                            `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                                                        className={({
+                                                            active,
+                                                        }) =>
+                                                            `${
+                                                                active
+                                                                    ? "text-main-900 bg-main-100"
+                                                                    : "text-gray-900 dark:text-gray-100"
+                                                            }
                             cursor-default select-none relative py-2 pl-3 pr-9`
                                                         }
                                                         value={eduLevel}
                                                     >
-                                                        {({ selected, active }) => (
+                                                        {({
+                                                            selected,
+                                                            active,
+                                                        }) => (
                                                             <>
                                                                 <span
-                                                                    className={`${selected ? 'font-semibold' : 'font-normal'}
+                                                                    className={`${
+                                                                        selected
+                                                                            ? "font-semibold"
+                                                                            : "font-normal"
+                                                                    }
                                 block truncate`}
                                                                 >
-                                                                    {eduLevel.label}
+                                                                    {
+                                                                        eduLevel.label
+                                                                    }
                                                                 </span>
 
                                                                 {selected ? (
                                                                     <span
-                                                                        className={`${active ? 'text-main-600' : 'text-main-600'}
+                                                                        className={`${
+                                                                            active
+                                                                                ? "text-main-600"
+                                                                                : "text-main-600"
+                                                                        }
                                     absolute inset-y-0 right-0 flex items-center pr-4`}
                                                                     >
-                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                        <CheckIcon
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
                                                                     </span>
                                                                 ) : null}
                                                             </>

@@ -395,25 +395,60 @@ export default function Show({
                                     className="overflow-hidden rounded-lg bg-white shadow"
                                 >
                                     <div className="p-6 space-y-2">
-                                        <div className="items-center flex">
-                                            <div className="flex-shrink-0">
-                                                {/* <img
+                                        <div className="items-center flex justify-between">
+                                            {/* <img
                                                     className="w-20 h-20 rounded-md "
                                                     src={question.quiz_image}
                                                     alt=""
                                                 /> */}
 
-                                                <div>
-                                                    <p className="text-xs">
-                                                        Question No
-                                                    </p>
-                                                    <span className="text-2xl font-bold">
-                                                        {
-                                                            question.question_number
-                                                        }
-                                                    </span>
-                                                </div>
+                                            <div>
+                                                <p className="text-xs">
+                                                    Question No
+                                                </p>
+                                                <span className="text-2xl font-bold">
+                                                    {question.question_number}
+                                                </span>
                                             </div>
+
+                                            {questions.created_by === user.id ||
+                                                ((user.role === "superadmin" ||
+                                                    user.role === "admin" ||
+                                                    user.role ===
+                                                        "orgadmin") && (
+                                                    <>
+                                                        <div className="flex gap-2">
+                                                            <div>
+                                                                <Link
+                                                                    value="Edit"
+                                                                    href={route(
+                                                                        "questions.user.edit",
+                                                                        {
+                                                                            question:
+                                                                                question.id,
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </div>
+
+                                                            <div>
+                                                                <Link
+                                                                    as="button"
+                                                                    value="Delete"
+                                                                    href={route(
+                                                                        "questions.user.destroy",
+                                                                        {
+                                                                            question:
+                                                                                question.id,
+                                                                        }
+                                                                    )}
+                                                                    method="delete"
+                                                                    className="!bg-red-500 !text-white hover:!bg-white hover:!text-red-500"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                ))}
                                         </div>
                                         <div className="flex">
                                             <div>
@@ -424,28 +459,13 @@ export default function Show({
                                             </div>
                                         </div>
                                         <div className="flex justify-between">
-                                            {/* <div>
-                                                <p className="text-xs">
-                                                    Start Date
-                                                </p>
-                                                <p className="font-bold text-sm">
-                                                    {question.start_date}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p className="text-xs">
-                                                    End Date
-                                                </p>
-                                                <p className="font-bold text-sm">
-                                                    {question.end_date}
-                                                </p>
-                                            </div> */}
                                             <div>
                                                 <p className="text-xs">
                                                     Remaining Time
                                                 </p>
                                                 <div className="font-bold text-sm">
                                                     <RemainingTime
+                                                        useType={"Time"}
                                                         qEndDate={
                                                             question.end_date
                                                         }
@@ -458,11 +478,18 @@ export default function Show({
                                         <>
                                             {(question.status === "active" && (
                                                 <div className="">
-                                                    <Link
+                                                    <RemainingTime
+                                                        useType={"Button"}
+                                                        href={`/questions/${question.id}`}
+                                                        qEndDate={
+                                                            question.end_date
+                                                        }
+                                                    />
+                                                    {/* <Link
                                                         className="w-full justify-center rounded-none"
                                                         href={`/questions/${question.id}`}
                                                         value="Answer Now"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             )) || (
                                                 <p className="text-center text-red-500 my-4">
