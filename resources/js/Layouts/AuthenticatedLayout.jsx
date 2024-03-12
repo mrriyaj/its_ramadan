@@ -39,7 +39,7 @@ export default function Authenticated({ auth, header, children }) {
                                 Dashboard
                             </Link>
                             <Link
-                                // href={route("quizregistrations.index")}
+                                href={route("quiz-registrations.index")}
                                 className="text-base font-medium text-white hover:text-second-500"
                             >
                                 Quiz Registrations
@@ -53,12 +53,6 @@ export default function Authenticated({ auth, header, children }) {
                                 Organizations
                             </Link>
                             <Link
-                                href={route("quizzes.index")}
-                                className="text-base font-medium text-white hover:text-second-500"
-                            >
-                                Quizzes
-                            </Link>
-                            <Link
                                 href={route("users.index")}
                                 className="text-base font-medium text-white hover:text-second-500"
                             >
@@ -66,6 +60,12 @@ export default function Authenticated({ auth, header, children }) {
                                     </Link>
                                 </>
                             )}
+                            <Link
+                                href={route("quizzes.index")}
+                                className="text-base font-medium text-white hover:text-second-500"
+                            >
+                                Quizzes
+                            </Link>
                         </Popover.Group>
                         <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                             <div className="hidden sm:flex sm:items-center sm:ms-6">

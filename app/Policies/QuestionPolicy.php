@@ -32,16 +32,24 @@ class QuestionPolicy
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }
 
+    /**
+     * Determine whether the user can update the model.
+     */
     public function update(User $user)
     {
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }
 
-    public function forceDelete(User $user)
+    /**
+     * Determine whether the user can delete the model.
+     */
+
+    public function delete(User $user)
     {
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }
-    public function delete(User $user)
+
+    public function restore(User $user)
     {
         return $user->isSuperadmin() || $user->isAdmin() || $user->isOrgAdmin() || $user->isManager();
     }

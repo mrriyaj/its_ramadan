@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import { Head, Link } from "@inertiajs/react";
-import axios from "axios";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
-export default function Index({ auth, users: initialUsers }) {
-    const [users, setUsers] = useState(initialUsers);
+export default function Index({ auth, quizRegistrations}) {
 
-    const deleteUser = (userId) => {
-        axios.delete(route("users.destroy", { user: userId })).then(() => {
-            setUsers(users.filter((user) => user.id !== userId));
-        });
-    };
-
+    console.log(quizRegistrations)
     return (
         <Authenticated
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl leading-tight">
-                    Users
+                    Quiz Registrations
                 </h2>
             }
         >
-            <Head title="Users" />
+            <Head title="Quiz Registrations" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,22 +24,13 @@ export default function Index({ auth, users: initialUsers }) {
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">
-                                        First Name
+                                        Id
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        Last Name
+                                        Quiz Name
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        Email
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Gender
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Phone
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
-                                        Role
+                                        User Name
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         Action
@@ -54,51 +38,24 @@ export default function Index({ auth, users: initialUsers }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.map((user) => (
+                                {quizRegistrations.map((quizR) => (
                                     <tr
-                                        key={user.email}
+                                        key={quizR.id}
                                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                     >
                                         <th
                                             scope="row"
-                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                         >
-                                            {user.first_name}
+                                            {quizR.id}
                                         </th>
                                         <td className="px-6 py-4">
-                                            {user.last_name}
+                                            {quizR.quiz.title}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {user.email}
+                                            {quizR.user.first_name} {quizR.user.last_name}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {user.gender}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {user.phone}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {user.role}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <Link className="pr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                href={route(
-                                                    "users.show",
-                                                    {
-                                                        user: user.id,
-                                                    }
-                                                )}
-                                            >
-                                                Show
-                                            </Link>
-                                            <button
-                                                className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                onClick={() =>
-                                                    deleteUser(user.id)
-                                                }
-                                            >
-                                                Delete
-                                            </button>
                                         </td>
                                     </tr>
                                 ))}
