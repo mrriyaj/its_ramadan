@@ -1,14 +1,26 @@
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import App from "@/Layouts/AppLayout";
 import ContactForm from "@/Components/ContactForm";
 import HeaderSection from "@/Components/HeaderSection";
 import { FaEnvelope, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import Link from "@/Components/Link";
 import TextInput from "@/Components/TextInput";
-import PrimaryButton from "@/Components/Link";
+import PrimaryButton from "@/Components/PrimaryButton";
 import image from "../../../public/image/Contact-us.svg";
 
 export default function Contact({ auth }) {
+    const { data, setData, errors, post, processing, reset } = useForm({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route("contact_us.store"), { onSuccess: () => reset() });
+    };
+
     const contact = [
         {
             icon: <FaWhatsapp size={24} color="white" />,
@@ -43,35 +55,6 @@ export default function Contact({ auth }) {
                 Title="Contact Us"
                 Description="We'd love to hear from you."
             />
-            {/* <ContactForm /> */}
-            {/* <div className="min-h-screen relative mt-10">
-                <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">
-                    <div className="overflow-hidden rounded-lg bg-white shadow">
-                        <div className="p-6">
-                            <h1 className="text-2xl font-bold mb-4 text-red-500">
-                                Under Maintenance
-                            </h1>
-                            <p className="text-gray-600 mb-4">
-                                We apologize for the inconvenience, but this
-                                page is currently under maintenance. Please
-                                check back later.
-                            </p>
-                            <a
-                                href="https://wa.me/message/5YVNARKLXIVDF1"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                I'm Ready to Contribute
-                            </a>
-                            <a
-                                href="https://wa.me/message/5YVNARKLXIVDF1"
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
-                            >
-                                Volunteer
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             <div className="max-w-5xl mx-auto">
                 <div className="mt-20">
@@ -115,7 +98,10 @@ export default function Contact({ auth }) {
                                 <img src={image} />
                             </div>
                             <div className="md:w-1/2">
-                                <form>
+                                <form
+                                    onSubmit={submit}
+                                    encType="multipart/form-data"
+                                >
                                     <div className="flex flex-col mb-4">
                                         <label
                                             htmlFor="name"
@@ -127,6 +113,11 @@ export default function Contact({ auth }) {
                                             id="name"
                                             name="name"
                                             className="bg-gray-800 rounded-md py-2 px-4"
+                                            onChange={(e) =>
+                                                setData("name", e.target.value)
+                                            }
+                                            required
+                                            isFocused={true}
                                         />
                                     </div>
                                     <div className="flex flex-col mb-4">
@@ -140,8 +131,29 @@ export default function Contact({ auth }) {
                                             id="email"
                                             name="email"
                                             className="bg-gray-800 rounded-md py-2 px-4"
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
+                                            required
                                         />
                                     </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label
+                                            htmlFor="phone"
+                                            className="text-white text-lg mb-2"
+                                        >
+                                            Phone Number
+                                        </label>
+                                        <TextInput
+                                            id="phone"
+                                            name="phone"
+                                            className="bg-gray-800 rounded-md py-2 px-4"
+                                            onChange={(e) =>
+                                                setData("phone", e.target.value)
+                                            }
+                                        />
+                                    </div>
+
                                     <div className="flex flex-col mb-4">
                                         <label
                                             htmlFor="message"
@@ -153,9 +165,18 @@ export default function Contact({ auth }) {
                                             name="message"
                                             id="message"
                                             className="bg-gray-900 rounded-md py-2 px-4 dark:text-gray-200 h-32 resize-none"
-                                        ></textarea>
+                                            onChange={(e) =>
+                                                setData(
+                                                    "message",
+                                                    e.target.value
+                                                )
+                                            }
+                                            required
+                                        />
                                     </div>
-                                    <PrimaryButton value="Send Message"></PrimaryButton>
+                                    <PrimaryButton disabled={processing}>
+                                        Send Message
+                                    </PrimaryButton>
                                 </form>
                             </div>
                         </div>
