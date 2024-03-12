@@ -56,6 +56,12 @@ export default function Authenticated({ auth, header, children }) {
                             >
                                 Users
                             </Link>
+                            <Link
+                                href={route("admin.contact.index")}
+                                className="text-base font-medium text-white hover:text-second-500"
+                            >
+                                Messages
+                            </Link>
                         </Popover.Group>
                         <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                             <div className="hidden sm:flex sm:items-center sm:ms-6">
