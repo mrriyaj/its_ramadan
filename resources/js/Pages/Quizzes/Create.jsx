@@ -4,17 +4,16 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { Fragment, useState } from 'react'
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { Fragment, useState } from "react";
 
 const types = [
     { label: "Auto", value: "auto" },
     { label: "Manual", value: "manual" },
 ];
 
-export default function Create({auth, organization}) {
-
+export default function Create({ auth, organization }) {
     const [selected, setSelected] = useState(types[0]);
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -32,20 +31,25 @@ export default function Create({auth, organization}) {
     const submit = (e) => {
         e.preventDefault();
         post(route("quizzes.user.store"), { onSuccess: () => reset() });
-    }
+    };
 
     return (
         <App auth={auth}>
             <Head title="Create a new quiz" />
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
                         <div className="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Create a new quiz</h2>
+                            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
+                                Create a new quiz
+                            </h2>
                         </div>
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} encType="multipart/form-data" className="grid grid-cols-2 gap-4">
-
+                            <form
+                                onSubmit={submit}
+                                encType="multipart/form-data"
+                                className="grid sm:grid-cols-2 gap-4"
+                            >
                                 <div>
                                     <InputLabel
                                         htmlFor="organization_id"
@@ -152,12 +156,13 @@ export default function Create({auth, organization}) {
 
                                     {data.image && (
                                         <img
-                                            src={URL.createObjectURL(data.image)}
+                                            src={URL.createObjectURL(
+                                                data.image
+                                            )}
                                             alt="Quiz Image"
                                             className="mt-2 w-20 h-20 object-cover rounded-lg"
                                         />
                                     )}
-
                                 </div>
                                 <div>
                                     <InputLabel
@@ -218,15 +223,23 @@ export default function Create({auth, organization}) {
                                         value="Quiz Approval Type"
                                     />
 
-                                    <Listbox value={selected} onChange={setSelected}>
+                                    <Listbox
+                                        value={selected}
+                                        onChange={setSelected}
+                                    >
                                         {({ open }) => (
                                             <>
                                                 <div className="mt-1 relative">
                                                     <span className="block w-full rounded-md shadow-sm">
                                                         <Listbox.Button className="relative w-full rounded-md border border-gray-300 bg-white dark:bg-gray-700 pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500 sm:text-sm">
-                                                            <span className="block truncate">{selected.label}</span>
+                                                            <span className="block truncate">
+                                                                {selected.label}
+                                                            </span>
                                                             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                <ChevronUpDownIcon
+                                                                    className="h-5 w-5 text-gray-400"
+                                                                    aria-hidden="true"
+                                                                />
                                                             </span>
                                                         </Listbox.Button>
                                                     </span>
@@ -242,36 +255,64 @@ export default function Create({auth, organization}) {
                                                             static
                                                             className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
                                                         >
-                                                            {types.map((type) => (
-                                                                <Listbox.Option
-                                                                    key={type.value}
-                                                                    className={({ active }) =>
-                                                                        `${active ? 'text-main-900 bg-main-100' : 'text-gray-900 dark:text-gray-100'}
+                                                            {types.map(
+                                                                (type) => (
+                                                                    <Listbox.Option
+                                                                        key={
+                                                                            type.value
+                                                                        }
+                                                                        className={({
+                                                                            active,
+                                                                        }) =>
+                                                                            `${
+                                                                                active
+                                                                                    ? "text-main-900 bg-main-100"
+                                                                                    : "text-gray-900 dark:text-gray-100"
+                                                                            }
                             cursor-default select-none relative py-2 pl-3 pr-9`
-                                                                    }
-                                                                    value={type}
-                                                                >
-                                                                    {({ selected, active }) => (
-                                                                        <>
-                                                                            <span
-                                                                                className={`${selected ? 'font-semibold' : 'font-normal'}
-                                block truncate`}
-                                                                            >
-                                                                                {type.label}
-                                                                            </span>
-
-                                                                            {selected ? (
+                                                                        }
+                                                                        value={
+                                                                            type
+                                                                        }
+                                                                    >
+                                                                        {({
+                                                                            selected,
+                                                                            active,
+                                                                        }) => (
+                                                                            <>
                                                                                 <span
-                                                                                    className={`${active ? 'text-main-600' : 'text-main-600'}
-                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                                    className={`${
+                                                                                        selected
+                                                                                            ? "font-semibold"
+                                                                                            : "font-normal"
+                                                                                    }
+                                block truncate`}
                                                                                 >
-                                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                    {
+                                                                                        type.label
+                                                                                    }
                                                                                 </span>
-                                                                            ) : null}
-                                                                        </>
-                                                                    )}
-                                                                </Listbox.Option>
-                                                            ))}
+
+                                                                                {selected ? (
+                                                                                    <span
+                                                                                        className={`${
+                                                                                            active
+                                                                                                ? "text-main-600"
+                                                                                                : "text-main-600"
+                                                                                        }
+                                    absolute inset-y-0 right-0 flex items-center pr-4`}
+                                                                                    >
+                                                                                        <CheckIcon
+                                                                                            className="h-5 w-5"
+                                                                                            aria-hidden="true"
+                                                                                        />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox.Option>
+                                                                )
+                                                            )}
                                                         </Listbox.Options>
                                                     </Transition>
                                                 </div>
@@ -303,8 +344,6 @@ export default function Create({auth, organization}) {
                     </div>
                 </div>
             </div>
-
         </App>
-    )
-
+    );
 }

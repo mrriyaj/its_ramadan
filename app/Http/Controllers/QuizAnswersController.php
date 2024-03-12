@@ -46,7 +46,9 @@ class QuizAnswersController extends Controller
             ->first();
 
         if ($check_already_answered) {
-            return response()->json(['message' => 'You have already answered this question'], 200);
+
+            return redirect()->back()->with('error', 'You have already answered this question');
+
         }
 
         $quizAnswer = new QuizAnswers();
@@ -66,12 +68,15 @@ class QuizAnswersController extends Controller
         }
 
         if ($check_quizAnswer) {
-            return response()->json(['message' => 'Quiz answers already saved'], 200);
+
+            return redirect()->back()->with('error', 'Quiz answers already saved');
+
         } else {
             $quizAnswer->save();
+
         }
 
-        return response()->json(['message' => 'Quiz answers saved successfully'], 200);
+        return redirect()->back()->with('success', 'Quiz answers saved successfully');
     }
 
     /**

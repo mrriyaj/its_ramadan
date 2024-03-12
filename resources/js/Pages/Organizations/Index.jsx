@@ -132,7 +132,7 @@ export default function Index({ auth, organizations }) {
                                                     <Link
                                                         className="justify-center"
                                                         value="View"
-                                                        href={`/organizations/${organization.id}`}
+                                                        href={`/org/${organization.slug}`}
                                                     />
                                                     {organization.userFollowed ? (
                                                         <Link
@@ -144,7 +144,9 @@ export default function Index({ auth, organizations }) {
                                                             href={route(
                                                                 "follows.unfollow",
                                                                 {
-                                                                    id: organization.userFollowed.id,
+                                                                    id: organization
+                                                                        .userFollowed
+                                                                        .id,
                                                                 }
                                                             )}
                                                         />
@@ -158,8 +160,10 @@ export default function Index({ auth, organizations }) {
                                                             href={route(
                                                                 "follows.follow",
                                                                 {
-                                                                    organization_id: organization.id,
-                                                                    user_id: user.id,
+                                                                    organization_id:
+                                                                        organization.id,
+                                                                    user_id:
+                                                                        user.id,
                                                                 }
                                                             )}
                                                         />
