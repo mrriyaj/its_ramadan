@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import HeaderSection from "@/Components/HeaderSection";
 import RemainingTime from "@/Components/RemainingTime";
+import YoutubePlayer from "@/Components/YoutubePlayer";
 
 export default function Show({ auth, question, quizRegistration, options }) {
     const user = usePage().props.auth.user;
@@ -88,6 +89,7 @@ export default function Show({ auth, question, quizRegistration, options }) {
                                             <RemainingTime
                                                 useType={"Time"}
                                                 qEndDate={question.end_date}
+                                                qStartDate={question.start_date}
                                             />
                                         </span>
                                     </div>
@@ -102,6 +104,14 @@ export default function Show({ auth, question, quizRegistration, options }) {
                                     </span>
                                 </div>
                             </div>
+                            {question.quiz_video && (
+                                <div>
+                                    <p className="text-sm text-gray-900 my-3">
+                                        Video Question
+                                    </p>
+                                    <YoutubePlayer url={question.quiz_video} />
+                                </div>
+                            )}
 
                             <div className="py-12">
                                 <form onSubmit={submit}>

@@ -72,14 +72,14 @@ class Question extends Model
      * @param  string|null  $value
      * @return string|null
      */
-    public function getQuizVideoAttribute($value): ?string
-    {
-        if ($value) {
-            return url('storage/video/quiz/' . $value);
-        }
+    // public function getQuizVideoAttribute($value): ?string
+    // {
+    //     if ($value) {
+    //         return url('storage/video/quiz/' . $value);
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     /**
      * Get the image option1 attribute.
