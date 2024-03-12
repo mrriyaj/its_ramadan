@@ -51,7 +51,7 @@ class QuestionController extends Controller
                 'quiz_text' => 'required|max:1024',
                 'quiz_image' => 'nullable|image',
                 'quiz_audio' => 'nullable|file',
-                'quiz_video' => 'nullable|file',
+                'quiz_video' => 'nullable',
                 'answer_option1' => 'required|max:255',
                 'image_option1' => 'nullable|image',
                 'answer_option2' => 'required|max:255',
@@ -87,12 +87,12 @@ class QuestionController extends Controller
                 $questions->quiz_audio = $quiz_audio_name;
             }
 
-            if ($request->hasFile('quiz_video')) {
-                $quiz_video = $request->file('quiz_video');
-                $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
-                $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
-                $questions->quiz_video = $quiz_video_name;
-            }
+            // if ($request->hasFile('quiz_video')) {
+            //     $quiz_video = $request->file('quiz_video');
+            //     $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
+            //     $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
+            //     $questions->quiz_video = $quiz_video_name;
+            // }
 
             if ($request->hasFile('image_option1')) {
                 $image_option1 = $request->file('image_option1');
@@ -227,7 +227,7 @@ class QuestionController extends Controller
                 'quiz_text' => 'required|max:1024',
                 'quiz_image' => 'nullable|image',
                 'quiz_audio' => 'nullable|file',
-                'quiz_video' => 'nullable|file',
+                'quiz_video' => 'nullable',
                 'answer_option1' => 'required|max:255',
                 'image_option1' => 'nullable|image',
                 'answer_option2' => 'required|max:255',
@@ -262,12 +262,12 @@ class QuestionController extends Controller
                 $question->quiz_audio = $quiz_audio_name;
             }
 
-            if ($request->hasFile('quiz_video')) {
-                $quiz_video = $request->file('quiz_video');
-                $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
-                $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
-                $question->quiz_video = $quiz_video_name;
-            }
+            // if ($request->hasFile('quiz_video')) {
+            //     $quiz_video = $request->file('quiz_video');
+            //     $quiz_video_name = $request->question_number . '-question-' . time() . '.' . $quiz_video->getClientOriginalExtension();
+            //     $quiz_video->storeAs('public/video/quiz/', $quiz_video_name);
+            //     $question->quiz_video = $quiz_video_name;
+            // }
 
             if ($request->hasFile('image_option1')) {
                 $image_option1 = $request->file('image_option1');
