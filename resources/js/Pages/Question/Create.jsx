@@ -347,13 +347,27 @@ export default function Create({ auth, quiz }) {
                                                 </div>
                                             </div> */}
 
-                                            {/* <div className="sm:col-span-2">
+                                            <div className="sm:col-span-6">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_video"
-                                                        value="Question Video"
+                                                        value="Question Youtube Video URL"
                                                     />
-                                                    <input
+                                                    <TextInput
+                                                        id="quiz_video"
+                                                        type="text"
+                                                        name="quiz_video"
+                                                        className="mt-1 block w-full"
+                                                        autoComplete="quiz_video"
+                                                        value={data.quiz_video}
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "quiz_video",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                    {/* <input
                                                         id="quiz_video"
                                                         type="file"
                                                         name="quiz_video"
@@ -365,14 +379,14 @@ export default function Create({ auth, quiz }) {
                                                                     .files[0]
                                                             )
                                                         }
-                                                    />
+                                                    /> */}
                                                     <InputError
                                                         message={
                                                             errors.quiz_video
                                                         }
                                                     />
                                                 </div>
-                                            </div> */}
+                                            </div>
 
                                             <div className="sm:col-span-6">
                                                 <div>
