@@ -66,7 +66,7 @@ class ProviderController extends Controller
         } elseif (Auth::user()->role == 'manager') {
             return redirect(RouteServiceProvider::HOME);
         } else {
-            return redirect(RouteServiceProvider::HOME);
+            return redirect()->back()->with('success', 'You are logged in!');
         }
     }
 }

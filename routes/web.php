@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProfileImageController as AdminProfileImageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\QuizRegistrationsController as AdminQuizRegistrationsController;
 use App\Http\Controllers\ComingSoonController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\OrganizationController;
@@ -71,9 +72,6 @@ Route::middleware(['coming_soon'])->group(function () {
 
     Route::get('org/{slug}', [OrganizationController::class, 'slug'])->name('organization.slug');
 
-
-
-
 });
 
 
@@ -106,6 +104,13 @@ Route::middleware('auth')->group(function () {
 
             // Organization Routes
             Route::resource('/organizations', AdminOrganizationController::class);
+
+            // Quiz Registrations
+            Route::resource('/quiz-registrations', AdminQuizRegistrationsController::class);
+            
+            // Contact Us
+            Route::get('/contact', [ContactUsController::class, 'index'])->name('admin.contact.index');
+            Route::get('/contact/{id}', [ContactUsController::class, 'update'])->name('admin.contact.update');
         });
     });
 

@@ -13,7 +13,7 @@ class QuizPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin() || $user->isSuperadmin();
+        return $user->isAdmin() || $user->isSuperadmin() || $user->isOrgAdmin();
     }
 
     /**
