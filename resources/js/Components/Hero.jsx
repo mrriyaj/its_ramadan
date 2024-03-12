@@ -2,6 +2,7 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import image from "../../../public/image/Image.png";
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "@react-spring/web";
+import RamadanCountdown from "./RamadanCountdown";
 
 export default function Hero() {
     const [countdown, setCountdown] = useState({
@@ -64,10 +65,10 @@ export default function Hero() {
                                 Ramadan Countdown
                             </h1>
                             <p className="text-lg text-white mb-8">
-                                The holy month of Ramadan is coming soon. Let's
-                                prepare for it.
+                                The holy month of Ramadan. May this Ramadan be
+                                as bright as ever.
                             </p>
-                            <div className="text-4xl font-bold text-second-default m-1">
+                            {/* <div className="text-4xl font-bold text-second-default m-1">
                                 <div className="flex items-center  gap-5 bg-second-default p-4 sm:p-10 rounded-lg justify-between">
                                     <div className="flex flex-col items-center gap-1">
                                         <span className="text-3xl sm:text-6xl text-white">
@@ -102,9 +103,11 @@ export default function Hero() {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
+                            <RamadanCountdown />
                         </animated.div>
                     </div>
+
                     {/* <h1 className="mt-10 text-4xl font-bold font-ramadhan-karim tracking-tight text-white sm:text-[8rem] sm:leading-[6rem] ">
                         Ramadan <br />
                         <span className="text-second-500 font-ramadhan-karim">Kareem</span>
