@@ -107,6 +107,10 @@ Route::middleware('auth')->group(function () {
 
             // Quiz Registrations
             Route::resource('/quiz-registrations', AdminQuizRegistrationsController::class);
+            
+            // Contact Us
+            Route::get('/contact', [ContactUsController::class, 'index'])->name('admin.contact.index');
+            Route::get('/contact/{id}', [ContactUsController::class, 'update'])->name('admin.contact.update');
         });
     });
 
