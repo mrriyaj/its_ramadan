@@ -128,6 +128,13 @@ export default function Index({ auth, organizations: initialOrganizations }) {
                                                 onSort={handleSort}
                                             />
                                             <SortableTableHeader
+                                                column="slug"
+                                                title="slug"
+                                                sortColumn={sortColumn}
+                                                sortOrder={sortOrder}
+                                                onSort={handleSort}
+                                            />
+                                            <SortableTableHeader
                                                 column="isActive"
                                                 title="Active"
                                                 sortColumn={sortColumn}
