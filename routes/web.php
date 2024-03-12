@@ -106,6 +106,10 @@ Route::middleware('auth')->group(function () {
 
             // Organization Routes
             Route::resource('/organizations', AdminOrganizationController::class);
+
+            // Contact Us
+            Route::get('/contact', [ContactUsController::class, 'index'])->name('admin.contact.index');
+            Route::get('/contact/{id}', [ContactUsController::class, 'update'])->name('admin.contact.update');
         });
     });
 

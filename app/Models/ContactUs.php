@@ -10,5 +10,5 @@ class ContactUs extends Model
     use HasFactory;
 
     public $table = 'contact_us';
-    public $fillable = ['name', 'email', 'phone', 'message'];
+    public $fillable = ['name', 'email', 'phone', 'message', 'is_read'];
 }
