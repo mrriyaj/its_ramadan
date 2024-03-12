@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -65,6 +66,8 @@ Route::middleware(['coming_soon'])->group(function () {
     Route::get('/quran', function () {
         return Inertia::render('Quran/Index');
     });
+
+    Route::post('/contact', [ContactUsController::class, 'store'])->name('contact_us.store');
 
     Route::get('org/{slug}', [OrganizationController::class, 'slug'])->name('organization.slug');
 
