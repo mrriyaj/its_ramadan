@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Quiz;
+use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -13,11 +15,29 @@ class QuizController extends Controller
 {
     public function index()
     {
+
+        $user = auth()->user();
+        $user = User::find($user->id);
+
         if (Gate::allows('view_any_quiz')) {
-            $quizzes = Quiz::all();
-            return Inertia::render('Admin/Quizzes/Index', [
-                'quizzes' => $quizzes
-            ]);
+
+            if ($user->isAdmin() || $user->isSuperadmin()){
+                $quizzes = Quiz::all();
+                return Inertia::render('Admin/Quizzes/Index', [
+                    'quizzes' => $quizzes
+                ]);
+            }
+
+            if ($user->isOrgAdmin()) {
+
+                $organizations = Organization::where('owner', $user->id)->get();
+                $quizzes = Quiz::whereIn('organization_id', $organizations->pluck('id'))->get();
+
+                return Inertia::render('Admin/Quizzes/Index', [
+                    'quizzes' => $quizzes
+                ]);
+            }
+
         } else {
             abort(403, 'Unauthorized Action');
         }

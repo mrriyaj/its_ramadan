@@ -87,7 +87,7 @@ export default function App({ children, auth }) {
                                                 </span>
                                             </Dropdown.Trigger>
 
-                                            {user.role === "superadmin" || user.role === "admin" ? (
+                                            {user.role === "superadmin" || user.role === "admin" || user.role === "orgadmin" ? (
                                                 <Dropdown.Content>
                                                     <Dropdown.Link
                                                         href={route("dashboard")}

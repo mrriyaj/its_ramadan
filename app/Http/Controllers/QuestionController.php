@@ -206,12 +206,16 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $quiz = Quiz::where('id', $question->quiz_id)->first();
+        if (Gate::allows('update_question')) {
+            $quiz = Quiz::where('id', $question->quiz_id)->first();
 
-        return Inertia::render('Question/Edit', [
-            'question' => $question,
-            'quiz' => $quiz,
-        ]);
+            return Inertia::render('Question/Edit', [
+                'question' => $question,
+                'quiz' => $quiz,
+            ]);
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
 
     }
 
