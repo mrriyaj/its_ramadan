@@ -22,7 +22,7 @@ export default function Index({ auth, quizzes: initialQuizzes }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                     <div className='flex justify-end'>
-                        <Link className="pr-3 my-2 font-medium text-white-600 dark:text-white hover:underline"
+                        <Link className="pr-3 my-2 font-medium hover:underline"
                             href={route("quizzes.create")} >
                             Create Quiz
                         </Link>

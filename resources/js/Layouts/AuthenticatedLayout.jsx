@@ -38,6 +38,12 @@ export default function Authenticated({ auth, header, children }) {
                             >
                                 Dashboard
                             </Link>
+                            <Link
+                                // href={route("quizregistrations.index")}
+                                className="text-base font-medium text-white hover:text-second-500"
+                            >
+                                Quiz Registrations
+                            </Link>
                             {(user.role === 'superadmin' || user.role === 'admin') && (
                                 <>
                             <Link
@@ -178,8 +184,8 @@ export default function Authenticated({ auth, header, children }) {
             </Popover>
 
             {header && (
-                <header className="bg-main-dark shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header className="bg-main-900 shadow">
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">
                         {header}
                     </div>
                 </header>

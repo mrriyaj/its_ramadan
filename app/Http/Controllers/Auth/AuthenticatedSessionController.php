@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
         } elseif (Auth::user()->role == 'manager') {
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->back()->with('success', 'You are logged in!');
         }
 
     }
