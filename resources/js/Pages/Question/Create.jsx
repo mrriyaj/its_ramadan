@@ -7,6 +7,8 @@ import { Head, useForm } from "@inertiajs/react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState, useEffect } from "react";
+import ImageInput from "@/Components/ImageInput";
+import FileUpload from "@/Components/FileUpload";
 
 const options = [
     { value: "option1", label: "Option 1" },
@@ -293,7 +295,7 @@ export default function Create({ auth, quiz }) {
                                                 </div>
                                             </div>
 
-                                            {/* <div className="sm:col-span-2">
+                                            <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_image"
@@ -317,8 +319,17 @@ export default function Create({ auth, quiz }) {
                                                             errors.quiz_image
                                                         }
                                                     />
+                                                    {data.quiz_image && (
+                                                        <img
+                                                            src={URL.createObjectURL(
+                                                                data.quiz_image
+                                                            )}
+                                                            alt="Question Image"
+                                                            className="mt-2 w-36 h-36 object-cover rounded-lg"
+                                                        />
+                                                    )}
                                                 </div>
-                                            </div> */}
+                                            </div>
 
                                             {/* <div className="sm:col-span-2">
                                                 <div>
@@ -772,7 +783,7 @@ export default function Create({ auth, quiz }) {
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_points"
-                                                        value="Points"
+                                                        value="Points (Default Point 1)"
                                                     />
                                                     <TextInput
                                                         id="quiz_points"
@@ -780,7 +791,10 @@ export default function Create({ auth, quiz }) {
                                                         name="quiz_points"
                                                         autoComplete="quiz_points"
                                                         className="mt-1 block w-full"
-                                                        value={data.quiz_points}
+                                                        value={
+                                                            data.quiz_points ||
+                                                            1
+                                                        }
                                                         onChange={(e) =>
                                                             setData(
                                                                 "quiz_points",

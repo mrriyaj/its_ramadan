@@ -113,6 +113,19 @@ export default function Show({ auth, question, quizRegistration, options }) {
                                 </div>
                             )}
 
+                            {question.quiz_image && (
+                                <div>
+                                    <p className="text-sm text-gray-900 my-3">
+                                        Image Question
+                                    </p>
+                                    <img
+                                        className="rounded-md md:w-1/2 md:h-1/2 h-full w-full"
+                                        src={question.quiz_image}
+                                        alt="question image"
+                                    />
+                                </div>
+                            )}
+
                             <div className="py-12">
                                 <form onSubmit={submit}>
                                     <div className="mb-4">
