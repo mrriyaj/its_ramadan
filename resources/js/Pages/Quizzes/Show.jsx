@@ -11,6 +11,7 @@ export default function Show({
     questions,
     isRegistered,
     organization,
+    quizAnswers,
 }) {
     const user = usePage().props.auth.user;
 
@@ -361,6 +362,15 @@ export default function Show({
                                                         }
                                                         qStartDate={
                                                             question.start_date
+                                                        }
+                                                        isAnswered={
+                                                            quizAnswers.filter(
+                                                                (answer) =>
+                                                                    answer.question_id ===
+                                                                        question.id &&
+                                                                    answer.created_by ===
+                                                                        user.id
+                                                            ).length > 0
                                                         }
                                                     />
                                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\QuizAnswers;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Organization;
@@ -85,7 +86,10 @@ class QuizController extends Controller
             $questions = Question::where('quiz_id', $quiz->id)->get();
             $quizregistrations = QuizRegistrations::where('quiz_id', $quiz->id)->get();
             $organization = Organization::findOrFail($quiz->organization_id);
+            $quizAnswers = QuizAnswers::where('created_by', auth()->id())->get();
 
+
+            // dd($quizAnswers);
             $isRegistered = false;
             if ($quizregistrations->contains('user_id', auth()->id())) {
                 $isRegistered = true;
@@ -95,12 +99,15 @@ class QuizController extends Controller
                 return redirect()->back()->with('error', 'Quiz is not active');
             }
 
+
+
             return Inertia::render('Quizzes/Show', [
                 'quiz' => $quiz,
                 'rewards' => $rewards,
                 'questions' => $questions,
                 'isRegistered' => $isRegistered,
-                'organization' => $organization
+                'organization' => $organization,
+                'quizAnswers' => $quizAnswers
 
             ]);
         } else {
