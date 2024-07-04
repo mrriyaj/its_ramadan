@@ -11,6 +11,7 @@ export default function Show({
     questions,
     isRegistered,
     organization,
+    quizAnswers,
 }) {
     const user = usePage().props.auth.user;
 
@@ -149,9 +150,11 @@ export default function Show({
                     </div>
 
                     <div className="my-10">
-                        <h1 className="text-xl font-semibold text-white my-5">
-                            Rewards From Organization
-                        </h1>
+                        {rewards.length > 0 && (
+                            <h1 className="text-xl font-semibold text-white my-5">
+                                Rewards From Organization
+                            </h1>
+                        )}
                         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                             {rewards.map((reward) => (
                                 <div
@@ -219,9 +222,11 @@ export default function Show({
                         </div>
                     </div>
 
-                    <h1 className="text-xl font-semibold text-white my-5">
-                        Questions From Organization
-                    </h1>
+                    {questions.length > 0 && (
+                        <h1 className="text-xl font-semibold text-white my-5">
+                            Questions From Organization
+                        </h1>
+                    )}
                     <div className="mt-8">
                         {quiz.created_by === user.id && (
                             <div className="overflow-hidden rounded-lg bg-white shadow">
@@ -357,6 +362,15 @@ export default function Show({
                                                         }
                                                         qStartDate={
                                                             question.start_date
+                                                        }
+                                                        isAnswered={
+                                                            quizAnswers.filter(
+                                                                (answer) =>
+                                                                    answer.question_id ===
+                                                                        question.id &&
+                                                                    answer.created_by ===
+                                                                        user.id
+                                                            ).length > 0
                                                         }
                                                     />
                                                 </div>
