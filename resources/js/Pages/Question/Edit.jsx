@@ -307,7 +307,7 @@ export default function Edit({ auth, quiz, question }) {
                                                     />
                                                 </div>
                                             </div>
-                                            {/*
+
                                             <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
@@ -333,10 +333,19 @@ export default function Edit({ auth, quiz, question }) {
                                                             errors.quiz_image
                                                         }
                                                     />
+                                                    {/* {data.quiz_image && (
+                                                        <img
+                                                            src={URL.createObjectURL(
+                                                                data.quiz_image
+                                                            )}
+                                                            alt="Question Image"
+                                                            className="mt-2 w-20 h-20 object-cover rounded-lg"
+                                                        />
+                                                    )} */}
                                                 </div>
                                             </div>
 
-                                            <div className="sm:col-span-2">
+                                            {/* <div className="sm:col-span-2">
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_audio"
@@ -361,7 +370,7 @@ export default function Edit({ auth, quiz, question }) {
                                                         }
                                                     />
                                                 </div>
-                                            </div>*/}
+                                            </div> */}
 
                                             <div className="sm:col-span-6">
                                                 <div>
@@ -789,7 +798,7 @@ export default function Edit({ auth, quiz, question }) {
                                                 <div>
                                                     <InputLabel
                                                         htmlFor="quiz_points"
-                                                        value="Points"
+                                                        value="Points (Default Point 1)"
                                                     />
                                                     <TextInput
                                                         id="quiz_points"
@@ -797,7 +806,10 @@ export default function Edit({ auth, quiz, question }) {
                                                         name="quiz_points"
                                                         autoComplete="quiz_points"
                                                         className="mt-1 block w-full"
-                                                        value={data.quiz_points}
+                                                        value={
+                                                            data.quiz_points ||
+                                                            1
+                                                        }
                                                         onChange={(e) =>
                                                             setData(
                                                                 "quiz_points",

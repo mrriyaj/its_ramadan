@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import Link from "@/Components/Link";
 
-const RemainingTime = ({ qEndDate, qStartDate, useType, href }) => {
+const RemainingTime = ({ qEndDate, qStartDate, useType, href, isAnswered }) => {
     const [startDate, setStartDate] = useState(new Date(qStartDate));
     const [endDate, setEndDate] = useState(new Date(qEndDate));
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -80,11 +80,19 @@ const RemainingTime = ({ qEndDate, qStartDate, useType, href }) => {
                 <div>
                     {currentDate >= startDate && currentDate <= endDate ? (
                         <div>
-                            <Link
-                                className="w-full justify-center rounded-none"
-                                href={href}
-                                value="Answer Now"
-                            />
+                            {isAnswered ? (
+                                <Link
+                                    className="w-full justify-center rounded-none cursor-not-allowed !bg-red-200 !text-red-900"
+                                    value="Already Answered"
+                                    disabled={true}
+                                />
+                            ) : (
+                                <Link
+                                    className="w-full justify-center rounded-none"
+                                    href={href}
+                                    value="Answer Now"
+                                />
+                            )}
                         </div>
                     ) : (
                         <div className="">
@@ -92,31 +100,13 @@ const RemainingTime = ({ qEndDate, qStartDate, useType, href }) => {
                                 className="w-full justify-center rounded-none cursor-not-allowed !bg-red-200 !text-red-900"
                                 value={
                                     currentDate < startDate
-                                        ? "Please wait"
+                                        ? "Please wait "
                                         : "Time up"
                                 }
                                 disabled={true}
                             />
                         </div>
                     )}
-
-                    {/* {startDate.getTime() < endDate.getTime() ? (
-                        <div>
-                            <Link
-                                className="w-full justify-center rounded-none"
-                                href={href}
-                                value="Answer Now"
-                            />
-                        </div>
-                    ) : (
-                        <div className="">
-                            <Link
-                                className="w-full justify-center rounded-none cursor-not-allowed !bg-red-200 !text-red-900"
-                                value=" Please try next question"
-                                disabled={true}
-                            />
-                        </div>
-                    )} */}
                 </div>
             )}
         </>
